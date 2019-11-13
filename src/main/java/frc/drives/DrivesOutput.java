@@ -1,4 +1,4 @@
-package frc.subsystems.drives_commands;
+package frc.drives;
 
 public class DrivesOutput {
 

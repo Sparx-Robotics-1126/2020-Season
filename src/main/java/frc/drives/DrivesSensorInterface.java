@@ -1,5 +1,9 @@
-package frc.sensors;
+package frc.drives;
 
+/**
+ * All sensor data passed into drives will appear here
+ * Includes: Encoders, Limit Switches, Vision, Joysitck input, ext.
+ */
 public interface DrivesSensorInterface {
 
     //Sensors

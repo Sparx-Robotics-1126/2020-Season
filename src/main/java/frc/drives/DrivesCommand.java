@@ -1,6 +1,4 @@
-package frc.subsystems.drives_commands;
-
-import frc.sensors.DrivesSensorInterface;
+package frc.drives;
 
 public abstract class DrivesCommand {
 
@@ -9,10 +7,12 @@ public abstract class DrivesCommand {
      */
     protected DrivesSensorInterface sensors;
 
+    //Constructor
     public DrivesCommand(DrivesSensorInterface sensors){
         this.sensors = sensors;
     }
 
+    //Will be called by subsystem to execute this command
     public abstract DrivesOutput execute();
 
 }

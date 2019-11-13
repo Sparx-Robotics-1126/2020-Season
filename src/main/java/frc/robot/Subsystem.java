@@ -1,8 +1,8 @@
-package frc.subsystems;
+package frc.robot;
 
 public abstract class Subsystem implements Runnable {
 
-    //This is called continuously
+    //This is called continuously by Thread
     @Override
     public void run(){
         execute();
@@ -11,11 +11,11 @@ public abstract class Subsystem implements Runnable {
     /**
      * Called by run(). This is where most of subsystem code goes
      */
-    abstract void execute();
+    public abstract void execute();
 
     /**
      * Used during autonomous to see what a task ( such as drives a certain distance forward ) is completed.
      */
-    abstract boolean isDone();
+    public abstract boolean isDone();
 
 }

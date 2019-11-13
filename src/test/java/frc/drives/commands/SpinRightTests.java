@@ -50,5 +50,10 @@ public class SpinRightTests {
 		//Make sure isDone is false, as the sensor only reads 0 not 180
 		assertEquals("Turn not stopping!!", true, output.isDone());
 	}
+	
+	@Test
+	public void sillyTest() {
+		assertTrue("Better be equal", true);
+	}
 
 }

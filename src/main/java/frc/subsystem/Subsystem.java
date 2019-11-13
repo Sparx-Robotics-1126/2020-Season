@@ -1,4 +1,4 @@
-package frc.robot;
+package frc.subsystem;
 
 public abstract class Subsystem implements Runnable {
 
@@ -11,7 +11,7 @@ public abstract class Subsystem implements Runnable {
     /**
      * Called by run(). This is where most of subsystem code goes
      */
-    public abstract void execute();
+    abstract void execute();
 
     /**
      * Used during autonomous to see what a task ( such as drives a certain distance forward ) is completed.

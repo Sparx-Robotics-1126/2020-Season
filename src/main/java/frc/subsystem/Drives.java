@@ -1,7 +1,9 @@
-package frc.drives;
+package frc.subsystem;
 
+import frc.drives.DrivesCommand;
+import frc.drives.DrivesOutput;
+import frc.drives.DrivesSensorInterface;
 import frc.drives.commands.SpinRight;
-import frc.robot.Subsystem;
 
 /**
  * Used to control ALL drives behavior
@@ -20,6 +22,9 @@ public class Drives extends Subsystem{
      */
     private DrivesSensorInterface drivesSensors;
 
+    //PUT MOTOR INIT HERE
+    
+    
     //Main Constructor called in SubsystemManager.java
     public Drives(){
 //        drivesSensors = new DrivesSensors();
@@ -30,13 +35,15 @@ public class Drives extends Subsystem{
      * DON'T CALL THIS!!!!
      */
     @Override
-    public void execute() {
+    void execute() {
         if(drivesCommand != null) {
             DrivesOutput output = drivesCommand.execute();
             //Set left motor
             //set right motor
             //set isDone flag
-            //If isDone set state to null
+            if(output.isDone()) {
+            	drivesCommand = null;
+            }
         }
     }
 
@@ -51,6 +58,22 @@ public class Drives extends Subsystem{
     
     public void setJoysticks(double left, double right) {
     	//TODO: Finish
+    }
+    
+    public void moveForward(double distance) {
+    	
+    }
+    
+    public void moveBackward(double distance) {
+    	
+    }
+    
+    public void turnRight(double angle) {
+    	
+    }
+    
+    public void turnLeft(double angle) {
+    	
     }
     
     /**

@@ -1,6 +1,6 @@
 package frc.controllers;
 
-import frc.drives.Drives;
+import frc.subsystem.Drives;
 
 //Interface for all Controllers. Makes sure all Controllers have same methods to call
 public abstract class Controller {

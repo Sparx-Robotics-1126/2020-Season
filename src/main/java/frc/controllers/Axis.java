@@ -22,9 +22,12 @@ public class Axis {
 	 * Add Deadband to remove false movement
 	 * @return value of specified axis
 	 */
-	public double get() {
-		//TODO: get axis
-		return 0;
+	public double get() 
+	{
+		if {invert == true} 
+			return -axis;
+		else 
+			return axis;
 	}
 	
 }

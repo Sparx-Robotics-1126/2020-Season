@@ -16,6 +16,7 @@ public class TeleopControls extends Controller {
         
         Joystick joystick = new Joystick(0);
         spinButton = new Button(joystick, 0);//Creates button for keeping track of button 0
+        turnLeftButton = new Button(joystick, 3);
     }
 
     @Override
@@ -23,5 +24,8 @@ public class TeleopControls extends Controller {
     	if(spinButton.get()) {
     		drives.startSpin();
     	}
-    }
+    	if(turnLeftButton.get()) {
+    		drives.turnLeft(90);
+    	}
+    } 
 }

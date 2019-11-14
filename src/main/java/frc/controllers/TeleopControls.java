@@ -16,12 +16,16 @@ public class TeleopControls extends Controller {
         
         Joystick joystick = new Joystick(0);
         spinButton = new Button(joystick, 0);//Creates button for keeping track of button 0
+        backwardButton = new Button(joystick, 2);
     }
 
     @Override
     public void execute() {
     	if(spinButton.get()) {
     		drives.startSpin();
+    	}
+    	if(backwardButton.get()) {
+    		drives.moveBackward(5);
     	}
     }
 }

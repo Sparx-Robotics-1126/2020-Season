@@ -24,7 +24,7 @@ public class Axis {
 	 */
 	public double get() 
 	{
-		if {invert == true} 
+		if (invert == true) 
 			return -axis;
 		else 
 			return axis;

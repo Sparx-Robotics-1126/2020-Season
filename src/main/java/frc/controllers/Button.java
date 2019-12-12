@@ -30,8 +30,15 @@ public class Button {
 	 * @return value of specified button
 	 */
 	public boolean get() {
-		//TODO: Implement
-		return false;
+		if (buttonType.equals(ButtonType.RISING_EDGE)) {
+			joystick.getRawButtonReleased(button);
+			buttonType = ButtonType.FALLING_EDGE;
+			return true;
+		} else {
+			joystick.getRawButtonPressed(button);
+			buttonType = ButtonType.RISING_EDGE;
+			return false;
+		}
 	}
 
 }

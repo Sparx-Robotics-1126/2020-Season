@@ -77,7 +77,7 @@ public class Drives extends Subsystem{
     }
     
     /**
-     * Called by controller to start 180degree right spin
+     * Called by controller to start 180 degree right spin
      */
     public void startSpin() {
     	drivesCommand = new SpinRight(drivesSensors, 0.5, 180);

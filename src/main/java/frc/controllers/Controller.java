@@ -10,6 +10,5 @@ public abstract class Controller {
     public Controller(Drives drives){
         this.drives = drives;
     }
-
     public abstract void execute();
 }

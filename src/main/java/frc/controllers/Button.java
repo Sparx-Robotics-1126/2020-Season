@@ -25,13 +25,13 @@ public class Button {
 		this.buttonType = type;
 	}
 	
-	
 	/**
 	 * Includes falling/rising feature
 	 * @return value of specified button
 	 */
 	public boolean get() {
 		//TODO: Implement
+		
 		return false;
 	}
 

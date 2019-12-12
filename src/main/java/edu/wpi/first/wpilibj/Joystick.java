@@ -5,5 +5,4 @@ public class Joystick {
 	public Joystick(int i) {
 		
 	}
-
 }

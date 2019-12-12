@@ -21,7 +21,6 @@ public class TeleopControls extends Controller {
 
     @Override
     public void execute() {
-    	
     	if(spinButton.get()) {
     		drives.startSpin();
     	}

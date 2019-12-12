@@ -13,6 +13,7 @@ public class SpinLeft extends DrivesCommand {
 		super(sensors); //Superclass will store sensor for you!
 		this.SPEED = speed;
 		this.ANGLE = angle;
+		
 	}
 
 	/**

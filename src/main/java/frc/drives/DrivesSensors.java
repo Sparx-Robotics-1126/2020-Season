@@ -69,4 +69,14 @@ public class DrivesSensors implements DrivesSensorInterface {
 		return leftJoystick;
 	}
 
+	@Override
+	public void setRightJoystick(double value) {
+		rightJoystick = value;
+	}
+
+	@Override
+	public void setLeftJoystick(double value) {
+		leftJoystick = value;
+	}
+
 }

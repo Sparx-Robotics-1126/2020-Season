@@ -3,6 +3,7 @@ package frc.subsystem;
 import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
+import frc.drives.DrivesSensors;
 import frc.drives.commands.SpinRight;
 
 /**
@@ -27,7 +28,7 @@ public class Drives extends Subsystem{
     
     //Main Constructor called in SubsystemManager.java
     public Drives(){
-//        drivesSensors = new DrivesSensors();
+        drivesSensors = new DrivesSensors();
     }
 
     /**

@@ -39,7 +39,7 @@ public class Drives extends Subsystem{
     //Main Constructor called in SubsystemManager.java
     public Drives(){
 //        drivesSensors = new DrivesSensors();
-    	rightMotorMaster = new TalonSRX(IO.RIGHT_MOTOR_1);
+        rightMotorMaster = new TalonSRX(IO.RIGHT_MOTOR_1);
         TalonSRX rightMotorSlave = new TalonSRX(IO.RIGHT_MOTOR_2);
         configureMotor(rightMotorMaster, rightMotorSlave);
         
@@ -69,14 +69,14 @@ public class Drives extends Subsystem{
     void execute() {
         if(drivesCommand != null) {
             DrivesOutput output = drivesCommand.execute();
-            leftMotorMaster.set(ControlMode.PercentOutput, output.getLeftMotor());
-            rightMotorMaster.set(ControlMode.PercentOutput, output.getRightMotor());
             if(output.isDone()) {
             	leftMotorMaster.set(ControlMode.PercentOutput, 0);
             	rightMotorMaster.set(ControlMode.PercentOutput, 0);
             	drivesCommand = null;
             }
         }
+        leftMotorMaster.set(ControlMode.PercentOutput, 0.5);
+        rightMotorMaster.set(ControlMode.PercentOutput, -0.5);
     }
 
     /**

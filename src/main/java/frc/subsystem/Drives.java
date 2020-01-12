@@ -3,6 +3,7 @@ package frc.subsystem;
 import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
+import frc.drives.DrivesSensors;
 import frc.drives.commands.SpinRight;
 import frc.robot.IO;
 
@@ -38,7 +39,7 @@ public class Drives extends Subsystem{
     
     //Main Constructor called in SubsystemManager.java
     public Drives(){
-//        drivesSensors = new DrivesSensors();
+        drivesSensors = new DrivesSensors();
         rightMotorMaster = new TalonSRX(IO.RIGHT_MOTOR_1);
         TalonSRX rightMotorSlave = new TalonSRX(IO.RIGHT_MOTOR_2);
         configureMotor(rightMotorMaster, rightMotorSlave);

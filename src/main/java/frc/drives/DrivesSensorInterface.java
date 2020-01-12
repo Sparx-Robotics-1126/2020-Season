@@ -18,4 +18,6 @@ public interface DrivesSensorInterface {
     //OperatorInput
     double getRightJoyStick();
     double getLeftJoyStick();
+    void setRightJoystick(double value);
+    void setLeftJoystick(double value);
 }

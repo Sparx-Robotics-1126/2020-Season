@@ -5,24 +5,27 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Button {
 	
 	enum ButtonType{
-		RISING_EDGE,
-		FALLING_EDGE
+		RISING_EDGE, // Initial Click
+		FALLING_EDGE // After Pressed and Released
 	}
 	
 	private Joystick joystick;
 	private int button;
 	private ButtonType buttonType;
+	private boolean buttonPreviouslyPressed;
 	
 	public Button(Joystick joystick, int button) {
 		this.joystick = joystick;
 		this.button = button;
-//		this.buttonType = DEFAULT?
+		this.buttonType = ButtonType.RISING_EDGE;
+		buttonPreviouslyPressed = false;
 	}
 	
 	public Button(Joystick joystick, int button, ButtonType type) {
 		this.joystick = joystick;
 		this.button = button;
 		this.buttonType = type;
+		buttonPreviouslyPressed = false;
 	}
 	
 	/**
@@ -30,14 +33,21 @@ public class Button {
 	 * @return value of specified button
 	 */
 	public boolean get() {
-		if (buttonType.equals(ButtonType.RISING_EDGE)) {
-			joystick.getRawButtonReleased(button);
-			buttonType = ButtonType.FALLING_EDGE;
-			return true;
+		boolean isCurrentlyPressed = joystick.getRawButton(button);
+		boolean trigger = getTriggered(isCurrentlyPressed, buttonPreviouslyPressed);
+		buttonPreviouslyPressed = isCurrentlyPressed;
+		return trigger;
+	}
+	
+	/**
+	 * THIS IS FOR INTERNAL USE AND TESTING ONLY
+	 * DO NOT CALL!!!!
+	 */
+	protected boolean getTriggered(boolean isCurrentlyPressed, boolean buttonPreviouslyPressed) {
+		if (buttonType == ButtonType.RISING_EDGE) {
+			return isCurrentlyPressed && !buttonPreviouslyPressed;//Pressed now, wasn't pressed before
 		} else {
-			joystick.getRawButtonPressed(button);
-			buttonType = ButtonType.RISING_EDGE;
-			return false;
+			return !isCurrentlyPressed && buttonPreviouslyPressed;//Not pressed now, was pressed before
 		}
 	}
  

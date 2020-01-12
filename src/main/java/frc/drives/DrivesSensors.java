@@ -17,7 +17,7 @@ public class DrivesSensors implements DrivesSensorInterface {
 	public DrivesSensors() {
 		gyro = new AHRS(SerialPort.Port.kUSB);
 		rightEncoder = new Encoder(IO.RIGHT_ENCODER_A, IO.RIGHT_ENCODER_B, true);
-		leftEncoder.setDistancePerPulse(0.02110013);
+		rightEncoder.setDistancePerPulse(0.02110013);
 		leftEncoder = new Encoder(IO.LEFT_ENCODER_A, IO.LEFT_ENCODER_B);
 		leftEncoder.setDistancePerPulse(0.02110013);
 		rightJoystick = 0;
@@ -56,7 +56,7 @@ public class DrivesSensors implements DrivesSensorInterface {
 
 	@Override
 	public double getGyroAngle() {
-		return getGyroAngle();
+		return gyro.getAngle();
 	}
 
 	@Override

@@ -21,7 +21,10 @@ public class Storage extends Subsystem{
 			StorageOutput output = storageCommand.execute();
 			numOfBallsAquired = output.getNumOfBallsAquired();
 			//Set Motor Values
-			storageCommand = null;
+			if(output.isCommandFinished()) {
+				//TURN OFF MOTORS
+				storageCommand = null;
+			}
 		}
 	}
 

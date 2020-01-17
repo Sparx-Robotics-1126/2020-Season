@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Axis {
 	
 private Joystick joystick;
+	private final double DEADBAND = 0.01;
 	private int  axis;
 	private boolean invert;
 	
@@ -21,15 +22,13 @@ public Axis(Joystick joystick, int axis, boolean invert) {
 	 * Add Deadband to remove false movement
 	 * @return value of specified axis
 	 */
-	public double get()
-	{
-		
-		if (true  == this.invert)
-		{
-			return -this.joystick.getRawAxis(this.axis);
+	public double get(){
+		if(Math.abs(joystick.getRawAxis(axis)) < DEADBAND) {
+			return 0;
 		}
-		else
-		{
+		if (this.invert){
+			return -this.joystick.getRawAxis(this.axis);
+		}else{
 			return this.joystick.getRawAxis(this.axis);
 		}
 	}

@@ -25,11 +25,5 @@ public class TeleopControls extends Controller {
     	if(spinButton.get()) {
     		drives.startSpin();
         }
-        System.out.println(axis.get());
-        try{
-            Thread.sleep(100);
-        }catch (Exception e){
-            System.out.println("Failed sleeping");
-        }
     }
 }

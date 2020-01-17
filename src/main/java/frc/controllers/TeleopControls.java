@@ -1,7 +1,10 @@
 package frc.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.subsystem.Acquisitions;
 import frc.subsystem.Drives;
+import frc.subsystem.Shooter;
+import frc.subsystem.Storage;
 
 public class TeleopControls extends Controller {
 
@@ -12,8 +15,8 @@ public class TeleopControls extends Controller {
 	 * Constructor - created by SubsystemManager.java
 	 * @param drives - Drives Subsystem
 	 */
-    public TeleopControls(Drives drives){
-        super(drives); //Superclass stores for you!!
+    public TeleopControls(Acquisitions acq, Drives drives, Shooter shooter, Storage storage){
+        super(acq, drives, shooter, storage); //Superclass stores for you!!
         
         Joystick joystick = new Joystick(0);
         spinButton = new Button(joystick, 1);//Creates button for keeping track of button 0
@@ -22,12 +25,12 @@ public class TeleopControls extends Controller {
 
     @Override
     public void execute() {
-		    if(spinButton.get()) {
-    		    drives.startSpin();
-    	  }
-    	  if(buttonLeft.get()) {
-			    drives.turnLeft(90);
-    	  }
+    	if(spinButton.get()) {
+    		drives.startSpin();
+    	}
+    	if(buttonLeft.get()) {
+			drives.turnLeft(90);
+    	}
     } 
 
 }

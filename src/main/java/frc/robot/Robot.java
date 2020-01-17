@@ -4,7 +4,14 @@ import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.RobotBase;
 import frc.controllers.Controller;
 import frc.controllers.TeleopControls;
+import frc.drives.DrivesSensorInterface;
+import frc.drives.DrivesSensors;
+import frc.shooter.ShooterSensorsInterfeace;
+import frc.storage.StorageSensorInterface;
+import frc.subsystem.Acquisitions;
 import frc.subsystem.Drives;
+import frc.subsystem.Shooter;
+import frc.subsystem.Storage;
 
 /**
  * Controls when subsystems are engadged as well as gives control to correct controller (auto/teleop/test)
@@ -22,7 +29,10 @@ public class Robot extends RobotBase{
     private TeleopControls teleopControls;
     
     //Robot Subsystems
+    private Acquisitions acq;
     private Drives drives;
+    private Shooter shooter;
+    private Storage storage;
 
     //Acting Controller (Auto/Teleop/Test)
     private Controller currentController;
@@ -32,9 +42,25 @@ public class Robot extends RobotBase{
 
     private void robotInit(){
         state = RobotState.STANDBY; //When robot turns on, we don't want anything running in the background
-        drives = new Drives(); // Creates drives instance
-        teleopControls = new TeleopControls(drives); //Creates controller instance, passes in drives subsystem
-        new Thread(drives).start(); //Starts drive process on its own thread, Calls "run" method continuously
+        
+        //Sensors
+        DrivesSensorInterface drivesSensors = new DrivesSensors();
+        ShooterSensorsInterfeace shooterSensors = null;
+        
+        //Subsystems
+        acq = new Acquisitions();
+        drives = new Drives(drivesSensors); // Creates drives instance
+        shooter = new Shooter(drivesSensors, shooterSensors);
+        storage = new Storage();
+        
+        //Controls
+        teleopControls = new TeleopControls(acq, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
+        
+        //Starting Subsystems
+        new Thread(acq).start();
+        new Thread(drives).start();
+        new Thread(shooter).start();
+        new Thread(storage).start();
     }
 
     private void disabledStarted(){
@@ -89,7 +115,7 @@ public class Robot extends RobotBase{
                     HAL.observeUserProgramTeleop();
                 }
             }else if(state != RobotState.STANDBY){
-                System.out.println("**********DISABLED STARTED************");
+                System.out.println("**********ROBOT DISABLED************");
                 disabledStarted();
                 HAL.observeUserProgramDisabled();
             }

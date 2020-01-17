@@ -16,7 +16,6 @@ public class TeleopControls extends Controller {
         super(drives); //Superclass stores for you!!
         
         Joystick joystick = new Joystick(0);
-        axis = new Axis(joystick,0,false);
         spinButton = new Button(joystick, 0);//Creates button for keeping track of button 0
     }
 

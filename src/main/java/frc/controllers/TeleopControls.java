@@ -22,11 +22,12 @@ public class TeleopControls extends Controller {
 
     @Override
     public void execute() {
-		if(spinButton.get()) {
-    		drives.startSpin();
-    	}
-    	if(buttonLeft.get()) {
-			drives.turnLeft(90);
-    	}
+		    if(spinButton.get()) {
+    		    drives.startSpin();
+    	  }
+    	  if(buttonLeft.get()) {
+			    drives.turnLeft(90);
+    	  }
     } 
+
 }

@@ -13,6 +13,7 @@ public class TeleopControls extends Controller {
 	
 	private Button spinButton;
 	private Button moveForwardButton;
+	private Button backwardButton;
 	private Button moveRight;
 	private Button buttonLeft;
 
@@ -29,6 +30,7 @@ public class TeleopControls extends Controller {
         axis2 = new Axis(joystick, 0, false);
         
         moveForwardButton = new Button(joystick, 1);
+        backwardButton = new Button(joystick, 2);
         spinButton = new Button(joystick, 1);//Creates button for keeping track of button 0
         moveRight = new Button(joystick, 4);
         buttonLeft = new Button(joystick, 3);
@@ -40,6 +42,9 @@ public class TeleopControls extends Controller {
     	
     	if(spinButton.get()) {
     		drives.startSpin();
+    	}
+    	if(backwardButton.get()) {
+    		drives.moveBackward(5);
     	}
     	if(moveForwardButton.get()) {
     		drives.moveForward(5); //in feet

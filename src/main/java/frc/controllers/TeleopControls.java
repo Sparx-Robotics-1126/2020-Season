@@ -8,6 +8,9 @@ import frc.subsystem.Storage;
 
 public class TeleopControls extends Controller {
 
+	private Axis axis1;
+    private Axis axis2;
+	
 	private Button spinButton;
 	private Button moveForwardButton;
 	private Button moveRight;
@@ -21,6 +24,9 @@ public class TeleopControls extends Controller {
         super(acq, drives, shooter, storage); //Superclass stores for you!!
         
         Joystick joystick = new Joystick(0);
+
+        axis1 = new Axis(joystick, 0, false);
+        axis2 = new Axis(joystick, 0, false);
         
         moveForwardButton = new Button(joystick, 1);
         spinButton = new Button(joystick, 1);//Creates button for keeping track of button 0
@@ -30,6 +36,8 @@ public class TeleopControls extends Controller {
 
     @Override
     public void execute() {
+    	drives.setJoysticks(axis1.get(), axis2.get());
+    	
     	if(spinButton.get()) {
     		drives.startSpin();
     	}

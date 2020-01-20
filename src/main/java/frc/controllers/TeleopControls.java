@@ -21,6 +21,7 @@ public class TeleopControls extends Controller {
         
         Joystick joystick = new Joystick(0);
         
+        spinButton = new Button(joystick, 1);//Creates button for keeping track of button 0
         moveRight = new Button(joystick, 4);
         spinButton = new Button(joystick, 1);//Creates button for keeping track of button 1
         buttonLeft = new Button(joystick, 3);
@@ -29,7 +30,6 @@ public class TeleopControls extends Controller {
 
     @Override
     public void execute() {
-    	
     	if(spinButton.get()) {
     		drives.startSpin();
     	}

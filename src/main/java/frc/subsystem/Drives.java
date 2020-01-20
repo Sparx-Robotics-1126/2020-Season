@@ -102,7 +102,7 @@ public class Drives extends Subsystem{
     }
     
     public void turnRight(double angle) {
-    	
+    	System.out.println("hi");
     }
     
     public void turnLeft(double angle) {

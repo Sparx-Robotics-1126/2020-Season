@@ -38,8 +38,8 @@ public class Drives extends Subsystem{
     
     
     //Main Constructor called in SubsystemManager.java
-    public Drives(){
-        drivesSensors = new DrivesSensors();
+    public Drives(DrivesSensorInterface driveSensors){
+        drivesSensors = driveSensors;
         rightMotorMaster = new TalonSRX(IO.RIGHT_MOTOR_1);
         TalonSRX rightMotorSlave = new TalonSRX(IO.RIGHT_MOTOR_2);
         configureMotor(rightMotorMaster, rightMotorSlave);
@@ -102,15 +102,14 @@ public class Drives extends Subsystem{
     }
     
     public void turnRight(double angle) {
-    	
+    	System.out.println("hi");
     }
     
     public void turnLeft(double angle) {
-    	
     }
     
     /**
-     * Called by controller to start 180degree right spin
+     * Called by controller to start 180 degree right spin
      */
     public void startSpin() {
     	drivesCommand = new SpinRight(drivesSensors, 0.5, 180);

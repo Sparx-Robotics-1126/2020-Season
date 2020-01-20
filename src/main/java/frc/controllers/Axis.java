@@ -1,7 +1,6 @@
 package frc.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
-//import edu.wpi.first.wpilibj.Joystick.AxisType;
 
 /**
 * Getter for Joystick Axis

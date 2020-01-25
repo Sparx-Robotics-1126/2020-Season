@@ -53,7 +53,7 @@ public class TeleopControls extends Controller {
     		drives.turnRight(90);
     	}
     	if(buttonLeft.get()) {
-			drives.turnLeft(90);
+			drives.turnLeft(360);
     	}
     } 
 

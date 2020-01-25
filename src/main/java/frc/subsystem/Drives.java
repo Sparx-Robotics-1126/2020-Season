@@ -4,11 +4,14 @@ import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
+import frc.drives.commands.SpinLeft;
 import frc.drives.commands.SpinRight;
 import frc.robot.IO;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * Used to control ALL drives behavior
@@ -47,6 +50,7 @@ public class Drives extends Subsystem{
         leftMotorMaster = new TalonSRX(IO.LEFT_MOTOR_1);
         TalonSRX leftMotorSlave = new TalonSRX(IO.LEFT_MOTOR_2);
         configureMotor(leftMotorMaster, leftMotorSlave);
+        new Compressor().setClosedLoopControl(true);
     }
     
     /**
@@ -106,6 +110,9 @@ public class Drives extends Subsystem{
     }
     
     public void turnLeft(double angle) {
+        drivesCommand = new SpinLeft(drivesSensors, 1, angle);
+        System.out.println("turned");
+        System.out.println(drivesSensors.getGyroAngle());
     }
     
     /**

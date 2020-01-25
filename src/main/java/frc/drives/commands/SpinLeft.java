@@ -6,7 +6,7 @@ import frc.drives.DrivesSensorInterface;
 
 public class SpinLeft extends DrivesCommand {
 	
-	private double minSpeed = 0.2;
+	private double minSpeed = 0.25;
 	private final double SPEED;
 	private final double ANGLE;
 	private double finalAngle = 0;
@@ -28,8 +28,7 @@ public class SpinLeft extends DrivesCommand {
 	public DrivesOutput execute() {
 		distanceToStop = Math.abs(finalAngle - sensors.getGyroAngle());
 		if(sensors.getGyroAngle() <= finalAngle) {
-			System.out.println(finalAngle + " final angle");
-			System.out.println(sensors.getGyroAngle() + " gyro angle"); //Stop motors, let drives know we are finished
+			 //Stop motors, let drives know we are finished
 			return new DrivesOutput(0, 0, true); //LeftMotor: 0, RightMotor: 0, isDone: true
 
 		 }else if(distanceToStop <= stopAngle){ // slows down robot based on distance before stopping

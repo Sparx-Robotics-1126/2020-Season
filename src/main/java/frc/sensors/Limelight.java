@@ -23,7 +23,7 @@ public class Limelight {
 		double x = tx.getDouble(0.0);
 		double y = ty.getDouble(0.0);
 		return x + y;
-		//System.out.println("Offset from target (x, y): " + Double.valueOf(x) + ", " + Double.valueOf(y)); //for testing
+		//System.out.println("Offset from target: " + Double.valueOf(x) + ", " + Double.valueOf(y)); //for testing
 	}
 	
 	public void enable(boolean enable) {

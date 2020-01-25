@@ -16,7 +16,7 @@ public class TeleopControls extends Controller {
 	private Button backwardButton;
 	private Button moveRight;
 	private Button buttonLeft;
-
+	
 	/**
 	 * Constructor - created by SubsystemManager.java
 	 * @param drives - Drives Subsystem
@@ -33,7 +33,8 @@ public class TeleopControls extends Controller {
         backwardButton = new Button(joystick, 2);
         spinButton = new Button(joystick, 1);//Creates button for keeping track of button 0
         moveRight = new Button(joystick, 4);
-        buttonLeft = new Button(joystick, 3);
+		buttonLeft = new Button(joystick, 3);
+		
     }
 
     @Override
@@ -54,7 +55,6 @@ public class TeleopControls extends Controller {
     	}
     	if(buttonLeft.get()) {
 			drives.turnLeft(90);
-    	}
+		}
     } 
-
 }

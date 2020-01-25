@@ -6,6 +6,7 @@ import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
 import frc.drives.commands.SpinRight;
 import frc.robot.IO;
+import frc.drives.commands.TurnRight;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -102,7 +103,10 @@ public class Drives extends Subsystem{
     }
     
     public void turnRight(double angle) {
-    	System.out.println("hi");
+        System.out.println("marco");
+        drivesCommand = new TurnRight(drivesSensors, 1, angle);
+        System.out.println("pollo");
+        System.out.println(drivesSensors.getGyroAngle());
     }
     
     public void turnLeft(double angle) {

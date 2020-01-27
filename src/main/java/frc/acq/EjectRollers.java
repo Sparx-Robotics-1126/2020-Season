@@ -4,7 +4,7 @@ public class EjectRollers extends AcqCommand{
 
 	@Override
 	public double execute() {
-		return -3;
+		return -1;
 	}
 
 }

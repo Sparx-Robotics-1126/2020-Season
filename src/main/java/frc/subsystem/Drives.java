@@ -113,11 +113,4 @@ public class Drives extends Subsystem{
     public void turnLeft(double angle) {
     }
     
-    /**
-     * Called by controller to start 180 degree right spin
-     */
-    public void startSpin() {
-    	drivesCommand = new SpinRight(drivesSensors, 0.5, 180);
-    }
-    
 }

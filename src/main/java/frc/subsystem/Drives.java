@@ -4,7 +4,6 @@ import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
-import frc.drives.commands.SpinRight;
 import frc.robot.IO;
 import frc.drives.commands.TurnRight;
 
@@ -103,20 +102,11 @@ public class Drives extends Subsystem{
     }
     
     public void turnRight(double angle) {
-        System.out.println("marco");
         drivesCommand = new TurnRight(drivesSensors, 1, angle);
-        System.out.println("pollo");
-        System.out.println(drivesSensors.getGyroAngle());
     }
     
     public void turnLeft(double angle) {
-    }
     
-    /**
-     * Called by controller to start 180 degree right spin
-     */
-    public void startSpin() {
-    	drivesCommand = new SpinRight(drivesSensors, 0.5, 180);
     }
     
 }

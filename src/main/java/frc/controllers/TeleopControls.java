@@ -31,7 +31,6 @@ public class TeleopControls extends Controller {
         
         moveForwardButton = new Button(joystick, 1);
         backwardButton = new Button(joystick, 2);
-        spinButton = new Button(joystick, 1);//Creates button for keeping track of button 0
         moveRight = new Button(joystick, 4);
 		buttonLeft = new Button(joystick, 3);
 		
@@ -40,10 +39,6 @@ public class TeleopControls extends Controller {
     @Override
     public void execute() {
     	drives.setJoysticks(axis1.get(), axis2.get());
-    	
-    	if(spinButton.get()) {
-    		drives.startSpin();
-    	}
     	if(backwardButton.get()) {
     		drives.moveBackward(5);
     	}

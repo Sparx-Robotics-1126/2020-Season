@@ -4,6 +4,7 @@ import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
+import frc.drives.commands.DriverControlled;
 import frc.drives.commands.SpinRight;
 import frc.robot.IO;
 import frc.drives.commands.TurnRight;
@@ -48,6 +49,8 @@ public class Drives extends Subsystem{
         leftMotorMaster = new TalonSRX(IO.LEFT_MOTOR_1);
         TalonSRX leftMotorSlave = new TalonSRX(IO.LEFT_MOTOR_2);
         configureMotor(leftMotorMaster, leftMotorSlave);
+
+        drivesCommand = new DriverControlled(driveSensors);
     }
     
     /**
@@ -91,7 +94,9 @@ public class Drives extends Subsystem{
     }
     
     public void setJoysticks(double left, double right) {
-    	//TODO: Finish
+        drivesSensors.setLeftJoystick(left);
+        drivesSensors.setRightJoystick(right);
+
     }
     
     public void moveForward(double distance) {
@@ -110,13 +115,6 @@ public class Drives extends Subsystem{
     }
     
     public void turnLeft(double angle) {
-    }
-    
-    /**
-     * Called by controller to start 180 degree right spin
-     */
-    public void startSpin() {
-    	drivesCommand = new SpinRight(drivesSensors, 0.5, 180);
     }
     
 }

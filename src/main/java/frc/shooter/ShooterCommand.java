@@ -13,6 +13,7 @@ public abstract class ShooterCommand {
         this.sensors = sensors;
     }
 
+
     //Will be called by subsystem to execute this command
     public abstract ShooterOutput execute();
 }

@@ -55,13 +55,13 @@ public class TeleopControls extends Controller {
 			t.setTurret(0);
     	}
     	if(buttonLeft.get()) {
-			t.selfAim();
 		}
+		t.selfAim();
 		try {
 			Thread.sleep(100);
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
-		t.printTx();
+		// t.printTx();
     } 
 }

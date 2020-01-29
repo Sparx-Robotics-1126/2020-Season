@@ -1,7 +1,6 @@
 package frc.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
-import frc.shooter.Turret;
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Drives;
 import frc.subsystem.Shooter;
@@ -17,7 +16,6 @@ public class TeleopControls extends Controller {
 	private Button moveRight;
 	private Button buttonLeft;
 	
-	private Turret t;
 
 	/**
 	 * Constructor - created by SubsystemManager.java
@@ -35,33 +33,23 @@ public class TeleopControls extends Controller {
         backwardButton = new Button(joystick, 2);
         moveRight = new Button(joystick, 4);
 		buttonLeft = new Button(joystick, 3);
-		
-		t = new Turret();
     }
 
     @Override
     public void execute() {
     	drives.setJoysticks(axis1.get(), axis2.get());
-    	// t.setTurret(0);
     	if(backwardButton.get()) {
-			// drives.moveBackward(5);
-			t.setTurret(.1);
-    	}
+			drives.moveBackward(5);
+		}
     	if(moveForwardButton.get()) {
-			// drives.moveForward(5); //in feet
-			t.setTurret(-.1);
-    	}
+			drives.moveForward(5); //in feet
+		}
     	if(moveRight.get()) {
-			t.setTurret(0);
-    	}
+		
+		}
     	if(buttonLeft.get()) {
+		
 		}
-		t.selfAim();
-		try {
-			Thread.sleep(100);
-		} catch (Exception e) {
-			//TODO: handle exception
-		}
-		// t.printTx();
+		
     } 
 }

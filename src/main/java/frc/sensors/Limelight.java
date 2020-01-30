@@ -1,18 +1,20 @@
 package frc.sensors;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
 	
 	private NetworkTable table;
+	NetworkTableEntry tx;
 	
 	public Limelight() {
 		table = NetworkTableInstance.getDefault().getTable("limelight");
+		tx = table.getEntry("tx");
 	}
 	
-	NetworkTableEntry tx = table.getEntry("tx");
-	NetworkTableEntry ty = table.getEntry("ty");
+	
 	
 	
 	public double getDistanceFromTarget() {
@@ -20,10 +22,8 @@ public class Limelight {
 	}
 	
 	public double getAngleFromTarget() {
-		double x = tx.getDouble(0.0);
-		double y = ty.getDouble(0.0);
-		return x + y;
-		//System.out.println("Offset from target: " + Double.valueOf(x) + ", " + Double.valueOf(y)); //for testing
+		double x = tx.getDouble(0);
+		return x;
 	}
 	
 	public void enable(boolean enable) {

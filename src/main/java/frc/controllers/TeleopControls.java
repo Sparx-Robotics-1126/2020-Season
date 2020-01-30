@@ -11,7 +11,6 @@ public class TeleopControls extends Controller {
 	private Axis axis1;
     private Axis axis2;
 	
-	private Button spinButton;
 	private Button moveForwardButton;
 	private Button backwardButton;
 	private Button moveRight;
@@ -26,8 +25,8 @@ public class TeleopControls extends Controller {
         
         Joystick joystick = new Joystick(0);
 
-        axis1 = new Axis(joystick, 0, false);
-        axis2 = new Axis(joystick, 0, false);
+        axis1 = new Axis(joystick, 5, true);
+        axis2 = new Axis(joystick, 1, true);
         
         moveForwardButton = new Button(joystick, 1);
         backwardButton = new Button(joystick, 2);

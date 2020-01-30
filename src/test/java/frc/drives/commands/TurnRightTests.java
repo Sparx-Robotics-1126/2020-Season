@@ -41,6 +41,7 @@ public class TurnRightTests {
 		sensors.setGyroAngle(180);
 		
 		TurnRight turnCommand = new TurnRight(sensors, 0.5, 180);
+		sensors.setGyroAngle(360);
 		DrivesOutput output = turnCommand.execute();
 		
 		//Make sure left motor is moving forward at requested speed
@@ -50,12 +51,15 @@ public class TurnRightTests {
 		//Make sure isDone is false, as the sensor only reads 0 not 180
 		assertEquals("Turn not stopping!!", true, output.isDone());
 	}
+		
+	
 	@Test
 	public void TurnRight_ShouldStopWhenCurrentAngleIsGreaterThanDesiredAngle() {
 		//Set fake sensor data
-		sensors.setGyroAngle(181);
+		sensors.setGyroAngle(180);
 		
 		TurnRight turnCommand = new TurnRight(sensors, 0.5, 180);
+		sensors.setGyroAngle(361);
 		DrivesOutput output = turnCommand.execute();
 		
 		//Make sure left motor is moving forward at requested speed

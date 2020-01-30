@@ -23,6 +23,10 @@ public class Limelight {
 		return x;
 	}
 	
+	public boolean getLock() {
+		return false;
+	}
+	
 	public void enable(boolean enable) {
 		
 	}

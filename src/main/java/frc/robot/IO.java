@@ -16,4 +16,6 @@ public final class IO {
 	public static final int LEFT_MOTOR_1		= 1;
 	public static final int LEFT_MOTOR_2		= 2; 
 	
+	public static final int SHOOTER_TURRET_MOTOR= 8;
+	
 }

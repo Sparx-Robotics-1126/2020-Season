@@ -37,7 +37,6 @@ public class TeleopControls extends Controller {
     @Override
     public void execute() {
     	drives.setJoysticks(axis1.get(), axis2.get());
-    	
     	if(backwardButton.get()) {
     		drives.moveBackward(5);
     	}

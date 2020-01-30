@@ -21,7 +21,7 @@ public class LimelightTurret extends ShooterCommand {
         if(Math.abs(tx) > deadband) {
               speed = tx*p; 
         }
-        return new ShooterOutput(0,speed);
+        return new ShooterOutput(speed);
     }
 
 }

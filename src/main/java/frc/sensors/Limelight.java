@@ -14,9 +14,6 @@ public class Limelight {
 		tx = table.getEntry("tx");
 	}
 	
-	
-	
-	
 	public double getDistanceFromTarget() {
 		return 0;
 	}

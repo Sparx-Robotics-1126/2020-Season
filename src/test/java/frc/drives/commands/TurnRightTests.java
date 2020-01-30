@@ -40,7 +40,7 @@ public class TurnRightTests {
 		//Set fake sensor data
 		sensors.setGyroAngle(180);
 		
-		TurnRight turnCommand = new TurnRight(sensors, 0.5, -180);
+		TurnRight turnCommand = new TurnRight(sensors, 0.5, 180);
 		DrivesOutput output = turnCommand.execute();
 		
 		//Make sure left motor is moving forward at requested speed
@@ -55,7 +55,7 @@ public class TurnRightTests {
 		//Set fake sensor data
 		sensors.setGyroAngle(181);
 		
-		TurnRight turnCommand = new TurnRight(sensors, 0.5, -180);
+		TurnRight turnCommand = new TurnRight(sensors, 0.5, 180);
 		DrivesOutput output = turnCommand.execute();
 		
 		//Make sure left motor is moving forward at requested speed

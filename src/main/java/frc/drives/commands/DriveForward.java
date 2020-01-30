@@ -5,8 +5,7 @@ import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 
 public class DriveForward extends DrivesCommand {
-
-	//the speed of the drive motor (1.0 MAXIMUM ; 0.0 stop)
+	//stored speed for wheels
 	private double speed;
 	//how far the robo should travel before stopping
 	private double distance;
@@ -21,16 +20,20 @@ public class DriveForward extends DrivesCommand {
 	// current distance of Mr Robo
 	private double speedReductionRatio;
 
+	
 		public DriveForward(DrivesSensorInterface sensors, double speed, double distance) {
 			super(sensors);
-			this.speed = speed;
+			this.speed = speed; 
 			this.distance = distance;
 			this.startMoving = false;
-			this.speedReductionRatio = 0.1;
+			this.speedReductionRatio = 0.9;
 		}
 		
 		
 		public DrivesOutput execute() {
+			double leftSpeed = speed;
+			double rightSpeed = speed;
+			
 			// sets the start values before the robot starts moving
 			if(this.startMoving == false) {
 				this.startRightPosition = sensors.getRightEncoderDistance();
@@ -49,15 +52,14 @@ public class DriveForward extends DrivesCommand {
 				}
 				else {
 					if (sensors.getGyroAngle() > startAngle) {
-						
+					leftSpeed = leftSpeed * speedReductionRatio; 
 					}
 					else if (sensors.getGyroAngle() < startAngle) {
-						
+						rightSpeed = rightSpeed * speedReductionRatio;
 					}
 				}
 			}
 			
-			
-			return new DrivesOutput(speed, speed);
+			return new DrivesOutput(leftSpeed, rightSpeed);
 	}
 }

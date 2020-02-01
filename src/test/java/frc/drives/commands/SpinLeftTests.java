@@ -24,7 +24,7 @@ public class SpinLeftTests {
 		//Set fake sensor data
 		sensors.setGyroAngle(0);
 		
-		SpinLeft spinCommand = new SpinLeft(sensors, 0.5, 180);
+		SpinLeft spinCommand = new SpinLeft(sensors, 0.5, -180);
 		DrivesOutput output = spinCommand.execute();
 		
 		//Make sure left motor is moving forward at requested speed
@@ -40,7 +40,7 @@ public class SpinLeftTests {
 		//Set fake sensor data
 		sensors.setGyroAngle(180);
 		
-		SpinLeft spinCommand = new SpinLeft(sensors, 0.5, 180);
+		SpinLeft spinCommand = new SpinLeft(sensors, 0.5, -180);
 		DrivesOutput output = spinCommand.execute();
 		
 		//Make sure left motor is moving forward at requested speed

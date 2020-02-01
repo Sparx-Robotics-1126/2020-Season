@@ -15,6 +15,7 @@ public class DriveForwardTest {
 	@Before
 	public void setup() {
 		sensors = new DrivesTestSensors();
+		
 	}
 	
 	@Test
@@ -32,10 +33,9 @@ public class DriveForwardTest {
 	public void leftMotorWillStopWhenDistanceReachedTest() {
 		
 		DriveForward forwardC = new DriveForward(sensors, 0.5, 10);
-		DrivesOutput output = forwardC.execute();
 		sensors.setLeftEncoderDistance(10);
 		sensors.setRightEncoderDistance(9.5);
-		output = forwardC.execute();
+		DrivesOutput output = forwardC.execute();
 		
 		//left motor should stop when left motor reaches distance
 		assertEquals("left motor should stop when left motor reaches distance", 0, output.getLeftMotor(), 0.001);
@@ -47,14 +47,39 @@ public class DriveForwardTest {
 	public void RightMotorWillStopWhenDistanceReachedTest() {
 		
 		DriveForward forwardC = new DriveForward(sensors, 0.5, 10);
-		DrivesOutput output = forwardC.execute();
 		sensors.setRightEncoderDistance(10);
 		sensors.setLeftEncoderDistance(9.5);
-		output = forwardC.execute();
+		DrivesOutput output = forwardC.execute();
 		
 		//left motor should stop when left motor reaches distance
 		assertEquals("Right motor should stop when Right motor reaches distance", 0, output.getRightMotor(), 0.001);
 		//right motor should stop when left motor reaches distance
 		assertEquals("Left motor should stop when Right motor reaches distance", 0, output.getLeftMotor(), 0.001);
+	}
+	@Test
+	//gyro angle is greater than 0, then left motor should receive less power
+	public void LeftMotorWillReceiveLessPowerWhenGyroAngleIsGreaterThan0() {
+		sensors.setGyroAngle(0);
+		DriveForward forwardC = new DriveForward(sensors, 0.5, 10);
+		sensors.setGyroAngle(1);
+		DrivesOutput output = forwardC.execute();
+		
+		//left motor power should be 0.45 if the gyro angle is greater than 0
+		assertEquals("left motor power should be 0.45", 0.45, output.getLeftMotor(), 0.001);
+		//right motor power should be .5 if the gyro angle is greater than 0
+		assertEquals("right motor power should be 0.5", 0.5, output.getRightMotor(), 0.001);
+	}
+	@Test
+	//gyro angle is greater Less 0, then Right motor should receive less power
+	public void RightMotorWillReceiveLessPowerWhenGyroAngleIsLessThan0() {
+		sensors.setGyroAngle(0);
+		DriveForward forwardC = new DriveForward(sensors, 0.5, 10);
+		sensors.setGyroAngle(-1);
+		DrivesOutput output = forwardC.execute();
+		
+		//Right motor power should be 0.45 if the gyro angle is Less than 0
+		assertEquals("Right motor power should be 0.45", 0.45, output.getRightMotor(), 0.001);
+		//Left motor power should be .5 if the gyro angle is Less than 0
+		assertEquals("Left motor power should be 0.5", 0.5, output.getLeftMotor(), 0.001);
 	}
 }

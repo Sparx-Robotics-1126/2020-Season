@@ -13,7 +13,7 @@ public class Limelight {
 	public Limelight() {
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 		tx = table.getEntry("tx");
-		tv = table.getEntry("tv");
+		tv = table.getEntry("tv"); //tells whether or not a target is present; 1 for a target, 0 for none.
 	}
 	
 	public double getDistanceFromTarget() {
@@ -26,8 +26,8 @@ public class Limelight {
 	}
 	
 	public boolean getLock() {
-		double lock = tv.getDouble(0);
-		if (lock >= 1) {
+		double lock = tv.getDouble(0); //checks if a target is present
+		if (lock >= 1) { 
 			return true;
 		}
 		return false;

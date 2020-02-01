@@ -1,6 +1,7 @@
 package frc.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.sensors.Limelight;
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Drives;
 import frc.subsystem.Shooter;
@@ -10,7 +11,7 @@ public class TeleopControls extends Controller {
 
 	private Button spinButton;
 	private Button buttonLeft;
-	
+	Limelight l = new Limelight();
 	/**
 	 * Constructor - created by SubsystemManager.java
 	 * @param drives - Drives Subsystem
@@ -30,7 +31,13 @@ public class TeleopControls extends Controller {
     	}
     	if(buttonLeft.get()) {
 			drives.turnLeft(90);
-    	}
+		}
+		try {
+			Thread.sleep(100);
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+		System.out.println(l.getDistanceFromTarget());
     } 
 
 }

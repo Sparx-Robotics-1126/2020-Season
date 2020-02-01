@@ -8,6 +8,11 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
 	
+	
+	final double a1 = 14.5;
+	final double h1 = 59.5;
+	final double h2 = 98.25; // 83.25  89.5
+
 	private NetworkTable table;
 	NetworkTableEntry ty;
 	
@@ -17,13 +22,9 @@ public class Limelight {
 	}
 
 	public double getDistanceFromTarget() {
-		
-		final double a1 = 15;
-		final double a2 = ty.getDouble(0);
-		final double h1 = 36;
-		final double h2 = 98.25;
-		
-		return (h2-h1) / Math.tan(a1+a2);
+		double a2 = ty.getDouble(0);
+		System.out.println("A2: "+a2);
+		return (h2-h1+15) / Math.tan(Math.toRadians(a1+a2));
 	}
 	
 	public double getAngleFromTarget() {

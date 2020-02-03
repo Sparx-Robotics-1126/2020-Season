@@ -1,43 +1,44 @@
 package frc.shooter;
 
 import frc.sensors.Limelight;
-import frc.shooter.MathHelpers;
-import frc.drives.DrivesSensors;
+import frc.robot.IO;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class ShooterSensors implements ShooterSensorsInterfeace 
 {
-	Limelight lightSensor; //Used for accessing member methods of the limelight.
-	DrivesSensors driveSensor; //Used for accessing member methods of the drive sensors.
-	double cameraToRobotAngle;
-	public ShooterSensors(double cameraToRobotAngle, Limelight light, DrivesSensors drive)
+	Limelight limeSensor;
+	Encoder turretEncoder;
+	Encoder flywheelEncoder;
+	
+	public ShooterSensors()
 	{
-		this.lightSensor = light;
-		this.driveSensor = drive;
-		this.cameraToRobotAngle = cameraToRobotAngle;
+		limeSensor = new Limelight();
+		turretEncoder = new Encoder(IO.TURRET_ENCODER_A, IO.TURRET_ENCODER_B);
+		flywheelEncoder = new Encoder(IO.FLYWHEEL_ENCODER_A, IO.FLYWHEEL_ENCODER_B);
 	}
 	public double getDistanceToTarget() 
 	{
-		return this.lightSensor.getDistanceFromTarget();
+		return limeSensor.getDistanceFromTarget();
 	}
 	
 	public double getAngleToTarget() 
 	{
-		return this.lightSensor.getAngleFromTarget();
+		return limeSensor.getAngleFromTarget();
 	}
 	
 	public double getShooterAngleToRobot()
 	{
-		return MathHelpers.getShootOffset(this.cameraToRobotAngle, getShooterSpeed(), this.driveSensor.getAverageEncoderSpeed());
+		return turretEncoder.getDistance();
 	}
 	
 	public double getShooterSpeed() 
 	{
-		return MathHelpers.getShootingSpeed(getDistanceToTarget());
+		return flywheelEncoder.getRate();
 	}
 	
 	public boolean getTargetLock() 
 	{
-		return this.lightSensor.getLock();
+		return limeSensor.getLock();
 	}
 	
 }

@@ -26,9 +26,11 @@ public class Limelight {
 	}
 	
 	public boolean getLock() {
-		return tv.getBoolean(false); //checks if a target is present
+		if (tv.getDouble(0) > 0) {
+			return true;
+		}
+		return false;
 	}
-	
 	public void enable(boolean enable) {
 		
 	}

@@ -5,7 +5,9 @@ public abstract class Subsystem implements Runnable {
     //This is called continuously by Thread
     @Override
     public void run(){
-        execute();
+    	while (true){
+    		execute();
+    	}
     }
 
     /**

@@ -4,12 +4,12 @@ import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 
-public class SpinRight extends DrivesCommand {
+public class SpinLeft extends DrivesCommand {
 	
 	private final double SPEED;
 	private final double ANGLE;
 	
-	public SpinRight(DrivesSensorInterface sensors, double speed, double angle) {
+	public SpinLeft(DrivesSensorInterface sensors, double speed, double angle) {
 		super(sensors); //Superclass will store sensor for you!
 		this.SPEED = speed;
 		this.ANGLE = angle;
@@ -25,7 +25,7 @@ public class SpinRight extends DrivesCommand {
 			return new DrivesOutput(0, 0, true); //LeftMotor: 0, RightMotor: 0, isDone: true
 		}else {
 			//If we still need to spin
-			return new DrivesOutput(SPEED, -SPEED);//LeftMotor: SPEED, RightMotor: -SPEED, isDone: false
+			return new DrivesOutput(-SPEED, SPEED);//LeftMotor: -SPEED, RightMotor: SPEED, isDone: false
 			//Can also use new DrivesOutput(SPEED, -SPEED, false)
 		}
 	}

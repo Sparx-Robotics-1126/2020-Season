@@ -26,8 +26,10 @@ public class Shooter extends Subsystem{
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
 			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
- 			//Set Motor Values
+			 //Set Motor Values
+			 
 		}
+	
 	}
 
 	@Override

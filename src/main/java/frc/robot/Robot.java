@@ -6,6 +6,7 @@ import frc.controllers.Controller;
 import frc.controllers.TeleopControls;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
+import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
 import frc.storage.StorageSensorInterface;
 import frc.subsystem.Acquisitions;
@@ -45,7 +46,7 @@ public class Robot extends RobotBase{
         
         //Sensors
         DrivesSensorInterface drivesSensors = new DrivesSensors();
-        ShooterSensorsInterfeace shooterSensors = null;
+        ShooterSensorsInterfeace shooterSensors = new ShooterSensors();
         
         //Subsystems
         acq = new Acquisitions();

@@ -14,7 +14,9 @@ public class ShooterSensors implements ShooterSensorsInterfeace
 	{
 		limeSensor = new Limelight();
 		turretEncoder = new Encoder(IO.TURRET_ENCODER_A, IO.TURRET_ENCODER_B);
+		turretEncoder.setDistancePerPulse(0.314789);
 		flywheelEncoder = new Encoder(IO.FLYWHEEL_ENCODER_A, IO.FLYWHEEL_ENCODER_B);
+		flywheelEncoder.setDistancePerPulse(1f/256f);
 	}
 	public double getDistanceToTarget() 
 	{

@@ -1,6 +1,5 @@
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
-import frc.sensors.Limelight;
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
 import frc.shooter.ShooterSensorsInterfeace;
@@ -13,7 +12,6 @@ public class ScanForTarget extends ShooterCommand {
 
     public ScanForTarget(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors){
         super(sensors , driveSensors);
-        l = new Limelight();
     }
 
     @Override 

@@ -24,6 +24,6 @@ public class ScanForTarget extends ShooterCommand {
         if(angle<-maxAngleOnEitherSide+howCloseToEdge) {
         	movingRight = true;
         }
-        return (movingRight)? ShooterOutput(.2): ShooterOutput(-.2);
+        return (movingRight)? new ShooterOutput(.2): new ShooterOutput(-.2);
     }
 }

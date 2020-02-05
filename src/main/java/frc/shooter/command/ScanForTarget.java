@@ -7,9 +7,9 @@ import frc.shooter.ShooterSensorsInterfeace;
 
 public class ScanForTarget extends ShooterCommand {
 
-    Limelight l;
-    final int maxAngleOnEitherSide = 160;
-    final int howCloseToEdge = 3;
+	private boolean movingRight = true;
+    final private int maxAngleOnEitherSide = 160;
+    final private int howCloseToEdge = 3;
 
     public ScanForTarget(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors){
         super(sensors , driveSensors);
@@ -19,20 +19,13 @@ public class ScanForTarget extends ShooterCommand {
     @Override 
     public ShooterOutput execute() {
         double angle = sensors.getShooterAngleToRobot();
-
-        //On right side
-        if(angle > 0){
-            if(angle<maxAngleOnEitherSide-howCloseToEdge){
-                return new ShooterOutput(.2);
-            }
-            return new ShooterOutput(-.2);
-        }else{
-            if(angle>-maxAngleOnEitherSide+howCloseToEdge){
-                return new ShooterOutput(-.2);
-            }
-            return new ShooterOutput(.2);
+        
+        if(angle>maxAngleOnEitherSide-howCloseToEdge) {
+        	movingRight = false;
         }
-        System.out.println("ScanForTarget.java, logic error");
-        return new ShooterOutput(0);
+        if(angle<-maxAngleOnEitherSide+howCloseToEdge) {
+        	movingRight = true;
+        }
+        return (movingRight)? ShooterOutput(.2): ShooterOutput(-.2);
     }
 }

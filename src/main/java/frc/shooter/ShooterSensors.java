@@ -9,7 +9,7 @@ public class ShooterSensors implements ShooterSensorsInterfeace
 	Limelight limeSensor;
 	Encoder turretEncoder;
 	Encoder flywheelEncoder;
-	
+
 	public ShooterSensors()
 	{
 		limeSensor = new Limelight();
@@ -18,29 +18,30 @@ public class ShooterSensors implements ShooterSensorsInterfeace
 		flywheelEncoder = new Encoder(IO.FLYWHEEL_ENCODER_A, IO.FLYWHEEL_ENCODER_B);
 		flywheelEncoder.setDistancePerPulse(1f/256f);
 	}
+	
 	public double getDistanceToTarget() 
 	{
 		return limeSensor.getDistanceFromTarget();
 	}
-	
+
 	public double getAngleToTarget() 
 	{
 		return limeSensor.getAngleFromTarget();
 	}
-	
+
 	public double getShooterAngleToRobot()
 	{
 		return turretEncoder.getDistance();
 	}
-	
+
 	public double getShooterSpeed() 
 	{
 		return flywheelEncoder.getRate();
 	}
-	
+
 	public boolean getTargetLock() 
 	{
 		return limeSensor.getLock();
 	}
-	
+
 }

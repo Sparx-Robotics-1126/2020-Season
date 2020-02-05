@@ -46,12 +46,11 @@ public class Robot extends RobotBase{
         
         //Sensors
         DrivesSensorInterface drivesSensors = new DrivesSensors();
-        ShooterSensorsInterfeace shooterSensors = new ShooterSensors();
         
         //Subsystems
         acq = new Acquisitions();
         drives = new Drives(drivesSensors); // Creates drives instance
-        shooter = new Shooter(drivesSensors, shooterSensors);
+        shooter = new Shooter(drivesSensors);
         storage = new Storage();
         
         //Controls

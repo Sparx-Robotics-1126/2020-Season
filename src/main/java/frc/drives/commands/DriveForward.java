@@ -18,6 +18,11 @@ public class DriveForward extends DrivesCommand {
 	// current distance of Mr Robo
 	private double speedReductionRatio;
 
+	private double leftSpeed = 0;
+	private double rightSpeed = 0; 
+	private double p = 0.00075;
+	private double ajustmentSpeed = sensors.getGyroAngle() * p;
+
 		/**
 		 * 
 		 * @param sensors
@@ -28,19 +33,19 @@ public class DriveForward extends DrivesCommand {
 			super(sensors);
 			this.speed = speed; 
 			this.distance = distance;
-			this.speedReductionRatio = 0.9;
+			this.speedReductionRatio = 0.975;
 			this.startRightPosition = sensors.getRightEncoderDistance();
 			this.startLeftPosition = sensors.getLeftEncoderDistance();
 			this.startAngle = sensors.getGyroAngle();
+			leftSpeed = speed;
+			rightSpeed = speed;
+			
 			
 		}
 		/**
 		 * 
 		 */
 		public DrivesOutput execute() {
-			
-			double leftSpeed = speed;
-			double rightSpeed = speed; 
 			double currentLeftDistance  = sensors.getLeftEncoderDistance() - this.startLeftPosition;
 			double currentRightDistance  = sensors.getRightEncoderDistance() - this.startRightPosition;
 			
@@ -53,14 +58,22 @@ public class DriveForward extends DrivesCommand {
 			else {
 				if (sensors.getGyroAngle() > startAngle) {
 						
-						leftSpeed = leftSpeed * speedReductionRatio; 
+						leftSpeed = leftSpeed - ajustmentSpeed; 
+						System.out.println("adjusting right");
+						rightSpeed = speed;
 					}
 					else if (sensors.getGyroAngle() < startAngle) {
 						
-						rightSpeed = rightSpeed * speedReductionRatio;
+						rightSpeed = rightSpeed - ajustmentSpeed;
+						System.out.println("adjusting left");
+						leftSpeed = speed;
+					}
+					else {
+						rightSpeed = speed;
+						leftSpeed = speed;
 					}
 				}
-			
-				return new DrivesOutput(leftSpeed, rightSpeed);
+				
+				return new DrivesOutput(leftSpeed, rightSpeed);				
 			}
 	}

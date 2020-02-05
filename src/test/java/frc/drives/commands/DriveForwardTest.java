@@ -65,7 +65,7 @@ public class DriveForwardTest {
 		DrivesOutput output = forwardC.execute();
 		
 		//left motor power should be 0.45 if the gyro angle is greater than 0
-		assertEquals("left motor power should be 0.45", 0.45, output.getLeftMotor(), 0.001);
+		assertEquals("LeftMoor power should be 0.5", 0.5, output.getLeftMotor(), 0.001);
 		//right motor power should be .5 if the gyro angle is greater than 0
 		assertEquals("right motor power should be 0.5", 0.5, output.getRightMotor(), 0.001);
 	}
@@ -78,7 +78,7 @@ public class DriveForwardTest {
 		DrivesOutput output = forwardC.execute();
 		
 		//Right motor power should be 0.45 if the gyro angle is Less than 0
-		assertEquals("Right motor power should be 0.45", 0.45, output.getRightMotor(), 0.001);
+		assertEquals("Right motor power should be 0.5", 0.5, output.getRightMotor(), 0.001);
 		//Left motor power should be .5 if the gyro angle is Less than 0
 		assertEquals("Left motor power should be 0.5", 0.5, output.getLeftMotor(), 0.001);
 	}

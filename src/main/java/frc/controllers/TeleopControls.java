@@ -42,7 +42,7 @@ public class TeleopControls extends Controller {
     		drives.moveBackward(5);
     	}
     	if(moveForwardButton.get()) {
-    		drives.moveForward(5); //in feet
+    		drives.moveForward(60); //in inches
     	}
     	if(moveRight.get()) {
     		drives.turnRight(90);

@@ -4,12 +4,15 @@ import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
+import frc.drives.commands.DriveForward;
 import frc.drives.commands.DriverControlled;
 import frc.robot.IO;
 import frc.drives.commands.TurnRight;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * Used to control ALL drives behavior
@@ -62,7 +65,9 @@ public class Drives extends Subsystem{
 		master.enableVoltageCompensation(true);
     	for(TalonSRX slave: slaves) {
     		slave.set(ControlMode.Follower, masterId);
-    	}
+        }
+        //Compressor compressor = new Compressor();
+       // compressor.setClosedLoopControl(true);
     }
 
     /**
@@ -99,7 +104,7 @@ public class Drives extends Subsystem{
     }
     
     public void moveForward(double distance) {
-    	
+        drivesCommand = new DriveForward(drivesSensors,1,distance);
     }
     
     public void moveBackward(double distance) {

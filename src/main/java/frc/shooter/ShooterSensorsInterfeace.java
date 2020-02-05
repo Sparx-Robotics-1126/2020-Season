@@ -6,5 +6,6 @@ public interface ShooterSensorsInterfeace {
 	public abstract double getAngleToTarget();
 	public abstract double getShooterAngleToRobot();
 	public abstract double getShooterSpeed();
+	public abstract boolean getTargetLock();
 	
 }

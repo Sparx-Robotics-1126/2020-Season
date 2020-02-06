@@ -26,8 +26,4 @@ public class Acquisitions extends Subsystem{
 		return acqCommand == null;
 	}
 	
-	private void PowerCellsInRobot() {
-		return;
-	}
-
 }

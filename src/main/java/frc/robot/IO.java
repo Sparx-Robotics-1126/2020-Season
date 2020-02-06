@@ -22,5 +22,4 @@ public final class IO {
 	public static final int FLYWHEEL_ENCODER_B = 11;
 	
 	public static final int ACQMOTOR = 0;
-	
 }

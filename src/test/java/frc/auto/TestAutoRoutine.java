@@ -9,6 +9,7 @@ public class TestAutoRoutine {
 	@Test
 	public void creatingRoutine_ShouldSetAllValues() {
 		TestRoutine testRoutine = new TestRoutine();
+		
 		assertEquals("Test Routine", testRoutine.getAutoName());
 		assertEquals(AutoFeature.STOP, testRoutine.getAutoSequence()[0].getFeature());
 		assertEquals(AutoFeature.STOP, testRoutine.getAutoSequence()[1].getFeature());

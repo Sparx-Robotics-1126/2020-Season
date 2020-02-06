@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.auto.AutoFeature;
 import frc.auto.AutoRoutine;
 import frc.auto.AutoTask;
+import frc.auto.routine.DoNothing;
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Drives;
 import frc.subsystem.Shooter;
@@ -14,16 +15,17 @@ public class AutoControl extends Controller{
 
 	private SendableChooser<AutoRoutine> autoSelector;
 	private AutoRoutine[] possibleAutos = {
+			new DoNothing()
 			//Add new Auto Routines here
 	};
 	private AutoTask[] currentAuto;
 	private int autoStep = 0;
-	
+
 	public AutoControl(Acquisitions acq, Drives drives, Shooter shooter, Storage storage) {
 		super(acq, drives, shooter, storage);
 		createDashboard();
 	}
-	
+
 	private void createDashboard() {
 		autoSelector = new SendableChooser<AutoRoutine>();
 		for(AutoRoutine autos: possibleAutos) {
@@ -31,11 +33,16 @@ public class AutoControl extends Controller{
 		}
 		SmartDashboard.putData(autoSelector);
 	}
-	
+
 	private AutoTask[] getSelectedAuto() {
 		AutoRoutine auto = autoSelector.getSelected();
 		System.out.println("Auto Selected: " + auto.getAutoName());
 		return auto.getAutoSequence();
+	}
+	
+	public void resetAuto() {
+		currentAuto = null;
+		autoStep = 0;
 	}
 
 	@Override
@@ -46,8 +53,14 @@ public class AutoControl extends Controller{
 		}
 		AutoFeature currentTask = currentAuto[autoStep].getFeature();
 		switch(currentTask) {
-			//Commands go here
+		//Commands go here
+		case STOP:
+			autoStep--;//This offsets the autostep increment at the bottom causing the step to remain stuck here
+			break;
+		default:
+			System.out.println("Unimplemented Feature: " + currentTask);
 		}
+		autoStep++;
 	}
 
 }

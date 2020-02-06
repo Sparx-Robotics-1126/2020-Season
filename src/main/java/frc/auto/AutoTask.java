@@ -28,4 +28,9 @@ public class AutoTask {
 		return feature;
 	}
 	
+	@Override
+	public String toString() {
+		return feature.toString() + " | " + value1 + " : " + value2;
+	}
+	
 }

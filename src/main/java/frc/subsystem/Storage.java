@@ -1,39 +1,5 @@
 package frc.subsystem;
 
-import frc.storage.StorageCommand;
-import frc.storage.StorageOutput;
-import frc.storage.StorageSensorInterface;
-
-public class Storage extends Subsystem{
-
-	private StorageCommand storageCommand;
-	private StorageSensorInterface sensors;
-	
-	private short numOfBallsAquired;
-	
-	public Storage() {
-		this.sensors = null;
-	}
-	
-	@Override
-	void execute() {
-		if(storageCommand != null) {
-			StorageOutput output = storageCommand.execute();
-			numOfBallsAquired = output.getNumOfBallsAquired();
-			//Set Motor Values
-			if(output.isCommandFinished()) {
-				//TURN OFF MOTORS
-				storageCommand = null;
-			}
-		}
-	}
-
-	@Override
-	public boolean isDone() {
-		return storageCommand == null;
-	}
-	package frc.subsystem;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -91,12 +57,6 @@ public class Storage extends Subsystem{
 	public boolean isDone() {
 		return storageCommand == null;
 	}
-	
-	public short getNumberOfBallsAquired() {
-		return numOfBallsAquired;
-	}
-
-}
 
 	public short getNumberOfBallsAquired() {
 		return numOfBallsAquired;

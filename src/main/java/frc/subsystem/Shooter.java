@@ -3,6 +3,7 @@ package frc.subsystem;
 import frc.drives.DrivesSensorInterface;
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
+import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
 
 public class Shooter extends Subsystem{
@@ -14,9 +15,9 @@ public class Shooter extends Subsystem{
 	private ShooterSensorsInterfeace shooterSensors;
 	private boolean readyToShoot;
 	
-	public Shooter(DrivesSensorInterface driveSensors, ShooterSensorsInterfeace shooterSensors) {
+	public Shooter(DrivesSensorInterface driveSensors) {
 		this.driveSensors = driveSensors;
-		this.shooterSensors = shooterSensors;
+		this.shooterSensors = new ShooterSensors();;
 		shooterCommand = null;
 	}
 	
@@ -26,8 +27,10 @@ public class Shooter extends Subsystem{
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
 			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
- 			//Set Motor Values
+			 //Set Motor Values
+			 
 		}
+	
 	}
 
 	@Override

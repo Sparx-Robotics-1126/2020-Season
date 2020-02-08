@@ -20,5 +20,9 @@ public final class IO {
 	public static final int TURRET_ENCODER_B = 2;
 	public static final int FLYWHEEL_ENCODER_A = 10;
 	public static final int FLYWHEEL_ENCODER_B = 11;
+
+	public static final int STORAGE_MOTOR_1 = 31;
+	public static final int STORAGE_MOTOR_2 = 32;
+
 	
 }

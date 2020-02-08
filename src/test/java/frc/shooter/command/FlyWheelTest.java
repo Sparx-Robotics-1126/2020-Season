@@ -13,7 +13,7 @@ public class FlyWheelTest {
 	public void TestFlyWheelReturns45() {
 		ShooterCommand command = new TestFlywheel(null, null);
 		ShooterOutput output = command.execute();
-		assertEquals(0.4, output.getOutputValue(), 0.01);
+		assertEquals(0.4, output.getOutputValue(), 0.0001);
 		
 	}
 }

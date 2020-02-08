@@ -21,8 +21,8 @@ public class Storage extends Subsystem{
 	
 	public Storage() {
 		sensors = null;
-		motorMaster = new TalonSRX(IO.RIGHT_MOTOR_1);
-		TalonSRX motorSlave = new TalonSRX(IO.LEFT_MOTOR_1);
+		motorMaster = new TalonSRX(IO.STORAGE_MOTOR_1);
+		TalonSRX motorSlave = new TalonSRX(IO.STORAGE_MOTOR_2);
 		motorSlave.setInverted(true);
 		configureMotor(motorMaster, motorSlave);
 		

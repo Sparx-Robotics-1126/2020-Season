@@ -48,7 +48,7 @@ public class DriveForwardTest {
 		
 		DriveForward forwardC = new DriveForward(sensors, 0.5, 10);
 		sensors.setRightEncoderDistance(10);
-		sensors.setLeftEncoderDistance(9.5);
+		sensors.setLeftEncoderDistance(9.5); 
 		DrivesOutput output = forwardC.execute();
 		
 		//left motor should stop when left motor reaches distance

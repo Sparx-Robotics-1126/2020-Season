@@ -25,4 +25,5 @@ public final class IO {
 	public static final int STORAGE_MOTOR_2 = 32;
 
 	
+	public static final int ACQMOTOR = 0;
 }

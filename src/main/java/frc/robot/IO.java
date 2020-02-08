@@ -16,6 +16,9 @@ public final class IO {
 	public static final int LEFT_MOTOR_1		= 1;
 	public static final int LEFT_MOTOR_2		= 2; 
 	
+	public static final int LEFT_FLYWHEEL_1     =42;
+	public static final int RIGHT_FLYWHEEL_1     =69;
+	
 	public static final int TURRET_ENCODER_A = 1;
 	public static final int TURRET_ENCODER_B = 2;
 	public static final int FLYWHEEL_ENCODER_A = 10;

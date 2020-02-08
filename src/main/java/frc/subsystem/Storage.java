@@ -19,8 +19,8 @@ public class Storage extends Subsystem{
 	
 	private static final double STORAGE_MAX_VOLTAGE = 12.0;
 	
-	public Storage(StorageSensorInterface storageSensors) {
-		sensors = storageSensors;
+	public Storage() {
+		sensors = null;
 		motorMaster = new TalonSRX(IO.RIGHT_MOTOR_1);
 		TalonSRX motorSlave = new TalonSRX(IO.LEFT_MOTOR_1);
 		motorSlave.setInverted(true);

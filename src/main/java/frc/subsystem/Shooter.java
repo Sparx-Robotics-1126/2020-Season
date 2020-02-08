@@ -6,6 +6,7 @@ import frc.drives.DrivesSensorInterface;
 import frc.robot.IO;
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
+import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
 
 public class Shooter extends Subsystem{
@@ -19,9 +20,9 @@ public class Shooter extends Subsystem{
 	private TalonSRX FlywheelMotorAlpha;
 	private TalonSRX FlywheelMotorBeta;
 	
-	public Shooter(DrivesSensorInterface driveSensors, ShooterSensorsInterfeace shooterSensors) {
+	public Shooter(DrivesSensorInterface driveSensors) {
 		this.driveSensors = driveSensors;
-		this.shooterSensors = shooterSensors;
+		this.shooterSensors = new ShooterSensors();;
 		shooterCommand = null;
 		FlywheelMotorAlpha = new TalonSRX(IO.LEFT_FLYWHEEL_1);
 		FlywheelMotorBeta = new TalonSRX(IO.RIGHT_FLYWHEEL_1);

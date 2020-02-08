@@ -19,6 +19,5 @@ public abstract class Controller {
     	this.shooter = shooter;
     	this.storage = storage;
     }
-
     public abstract void execute();
 }

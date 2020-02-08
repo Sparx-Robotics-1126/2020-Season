@@ -8,8 +8,8 @@ public class MathHelpersTest {
 	
 	@Test
 	public void TestShooterOffset () {
-		double output = MathHelpers.getShootOffset(45, 200, 12);
-		assertEquals(15, output, 0.01);
+		double output = MathHelpers.getShootOffset(120, 200, 20);
+		assertEquals(4.715, output, 0.01);
 		
 	}
 }

@@ -2,40 +2,32 @@ package frc.shooter;
 
 public class ShooterOutput {
 
-	private double shooterSpeed;
-	private double shooterAngle;
+	private double outputValue;
 	private boolean readyToShoot;
 	
 	/**
 	 * Used to tell shooter motors what to do.
 	 * This constructor can only be used when system is not ready to shoot
-	 * @param shooterSpeed
-	 * @param shooterAngle
+	 * @param outputValue
 	 */
-	public ShooterOutput(double shooterSpeed, double shooterAngle) {
-		this.shooterSpeed = shooterSpeed;
-		this.shooterAngle = shooterAngle;
+	public ShooterOutput(double outputValue) {
+		this.outputValue = outputValue;
 		this.readyToShoot = false;
 	}
 	
 	/**
 	 * Used to tell shooter motors what to do.
 	 * This constructor may only be used when system is ready to shoot
-	 * @param shooterSpeed
-	 * @param shooterAngle
+	 * @param outputValue
 	 * @param readyToShoot
 	 */
-	public ShooterOutput(double shooterSpeed, double shooterAngle, boolean readyToShoot) {
-		this.shooterSpeed = shooterSpeed;
-		this.shooterAngle = shooterAngle;
+	public ShooterOutput(double outputValue, boolean readyToShoot) {
+		this.outputValue = outputValue;
 		this.readyToShoot = readyToShoot;
 	}
 	
-	public double getShooterSpeed() {
-		return shooterSpeed;
-	}
-	public double getShooterAngle() {
-		return shooterAngle;
+	public double getOutputValue() {
+		return outputValue;
 	}
 	public boolean isReadyToShoot() {
 		return readyToShoot;

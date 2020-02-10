@@ -44,13 +44,14 @@ public class Storage extends Subsystem{
 			StorageOutput output = storageCommand.execute();
 			numOfBallsAquired = output.getNumOfBallsAquired();
 			//Set Motor Values
-			motorMaster.set(ControlMode.PercentOutput, output.getOutput());
+			motorMaster.set(ControlMode.PercentOutput, -output.getOutput());
 			if(output.isCommandFinished()) {
 				//TURN OFF MOTORS
 				motorMaster.set(ControlMode.PercentOutput, 0);
 				storageCommand = null;
 			}
 		}
+		motorMaster.set(ControlMode.PercentOutput, -0.5);
 	}
 
 	@Override

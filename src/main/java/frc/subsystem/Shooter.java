@@ -2,6 +2,8 @@ package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.drives.DrivesSensorInterface;
 import frc.robot.IO;
 import frc.shooter.ShooterCommand;
@@ -37,6 +39,19 @@ public class Shooter extends Subsystem{
  			FlywheelMotorAlpha.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
  			FlywheelMotorBeta.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
 		} 
+		FlywheelMotorAlpha.set(ControlMode.PercentOutput, -0.64);
+		FlywheelMotorBeta.set(ControlMode.PercentOutput, 0.64);
+		System.out.println(shooterSensors.getShooterAngleToRobot() + " angle");
+		System.out.println(shooterSensors.getShooterSpeed() + " speed");
+		try {
+			Thread.sleep(100);
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
+		//System.out.println(shooterSensors.getShooterAngleToRobot() + " angle");
+		SmartDashboard.putNumber("shooter angle", shooterSensors.getShooterAngleToRobot());
+		
+	
 	}
 
 	@Override

@@ -51,7 +51,6 @@ public class Storage extends Subsystem{
 				storageCommand = null;
 			}
 		}
-		motorMaster.set(ControlMode.PercentOutput, -0.5);
 	}
 
 	@Override

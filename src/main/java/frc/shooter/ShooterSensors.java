@@ -3,7 +3,6 @@ package frc.shooter;
 import frc.sensors.Limelight;
 import frc.robot.IO;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterSensors implements ShooterSensorsInterfeace 
 {

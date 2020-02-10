@@ -1,6 +1,9 @@
 package frc.subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.drives.DrivesSensorInterface;
+import frc.robot.IO;
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
 import frc.shooter.ShooterSensors;
@@ -14,11 +17,15 @@ public class Shooter extends Subsystem{
 	private DrivesSensorInterface driveSensors;
 	private ShooterSensorsInterfeace shooterSensors;
 	private boolean readyToShoot;
+	private TalonSRX FlywheelMotorAlpha;
+	private TalonSRX FlywheelMotorBeta;
 	
 	public Shooter(DrivesSensorInterface driveSensors) {
 		this.driveSensors = driveSensors;
 		this.shooterSensors = new ShooterSensors();;
 		shooterCommand = null;
+		FlywheelMotorAlpha = new TalonSRX(IO.LEFT_FLYWHEEL_1);
+		FlywheelMotorBeta = new TalonSRX(IO.RIGHT_FLYWHEEL_1);
 	}
 	
 	@Override
@@ -27,10 +34,9 @@ public class Shooter extends Subsystem{
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
 			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
-			 //Set Motor Values
-			 
-		}
-	
+ 			FlywheelMotorAlpha.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
+ 			FlywheelMotorBeta.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
+		} 
 	}
 
 	@Override

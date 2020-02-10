@@ -37,7 +37,7 @@ public class Shooter extends Subsystem{
  			FlywheelMotorAlpha.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
  			FlywheelMotorBeta.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
 		} 
-	}
+	} 
 
 	@Override
 	public boolean isDone() {

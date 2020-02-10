@@ -41,18 +41,7 @@ public class Shooter extends Subsystem{
 		} 
 		FlywheelMotorAlpha.set(ControlMode.PercentOutput, -0.64);
 		FlywheelMotorBeta.set(ControlMode.PercentOutput, 0.64);
-		System.out.println(shooterSensors.getShooterAngleToRobot() + " angle");
-		System.out.println(shooterSensors.getShooterSpeed() + " speed");
-		try {
-			Thread.sleep(100);
-		} catch (Exception e) {
-			//TODO: handle exception
-		}
-		//System.out.println(shooterSensors.getShooterAngleToRobot() + " angle");
-		SmartDashboard.putNumber("shooter angle", shooterSensors.getShooterAngleToRobot());
-		
-	
-	}
+	} 
 
 	@Override
 	public boolean isDone() {

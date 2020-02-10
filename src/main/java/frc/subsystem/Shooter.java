@@ -8,6 +8,7 @@ import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
 import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
+import frc.shooter.command.TestFlywheel;
 
 public class Shooter extends Subsystem{
 
@@ -22,7 +23,7 @@ public class Shooter extends Subsystem{
 	
 	public Shooter(DrivesSensorInterface driveSensors) {
 		this.driveSensors = driveSensors;
-		this.shooterSensors = new ShooterSensors();;
+		this.shooterSensors = new ShooterSensors();
 		shooterCommand = null;
 		FlywheelMotorAlpha = new TalonSRX(IO.LEFT_FLYWHEEL_1);
 		FlywheelMotorBeta = new TalonSRX(IO.RIGHT_FLYWHEEL_1);
@@ -33,8 +34,8 @@ public class Shooter extends Subsystem{
 		if(shooterCommand != null) {
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
-			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
- 			FlywheelMotorAlpha.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
+			readyToShoot = shooterOutput.isReadyToShoot();// && turretOutput.isReadyToShoot();
+ 			FlywheelMotorAlpha.set(ControlMode.PercentOutput, -shooterOutput.getOutputValue());
  			FlywheelMotorBeta.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
 		} 
 	} 

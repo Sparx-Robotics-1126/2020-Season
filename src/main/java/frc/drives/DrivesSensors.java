@@ -54,9 +54,10 @@ public class DrivesSensors implements DrivesSensorInterface {
 		return (getRightEncoderSpeed() + getLeftEncoderSpeed())/2;
 	}
 
-	@Override
-	public double getGyroAngle() {
-		return gyro.getAngle();
+	 @Override
+	 public double getGyroAngle() {
+	 	//return gyro.getAngle();
+		return 0;
 	}
 
 	@Override

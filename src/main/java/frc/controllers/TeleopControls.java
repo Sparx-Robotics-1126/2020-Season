@@ -25,8 +25,8 @@ public class TeleopControls extends Controller {
         
         Joystick joystick = new Joystick(0);
 
-        axis1 = new Axis(joystick, 5, true);
-        axis2 = new Axis(joystick, 1, true);
+        axis1 = new Axis(joystick, 1, true);
+        axis2 = new Axis(joystick, 5, true);
         
         moveForwardButton = new Button(joystick, 1);
         backwardButton = new Button(joystick, 2);
@@ -42,7 +42,7 @@ public class TeleopControls extends Controller {
     		drives.moveBackward(5);
     	}
     	if(moveForwardButton.get()) {
-    		drives.moveForward(60); //in inches
+    		drives.moveForward(5); //in feet
     	}
     	if(moveRight.get()) {
     		drives.turnRight(90);
@@ -50,5 +50,5 @@ public class TeleopControls extends Controller {
     	if(buttonLeft.get()) {
 			drives.turnLeft(90);
 		}
-    } 
+    }
 }

@@ -16,7 +16,7 @@ public class Acquisitions extends Subsystem{
 	void execute() {
 		if(acqCommand != null) {
 			double output = acqCommand.execute();
-			motor.set(ControlMode.PercentOutput, output);
+			motor.set(ControlMode.PercentOutput, -output);
 			acqCommand = null;
 		}
 	}

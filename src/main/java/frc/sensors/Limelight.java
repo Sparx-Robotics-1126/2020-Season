@@ -3,13 +3,14 @@ package frc.sensors;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight {
 	
 	
-	final double CAMERA_ANGLE = 14.5;
-	final double ROBOT_HEIGHT = 59.5;
-	final double TARGET_HEIGHT = 98.25; // 83.25  89.5
+	double CAMERA_ANGLE = 14.5;
+	final double ROBOT_HEIGHT = 37.5;
+	final double TARGET_HEIGHT = 90; // 83.25  89.5
 
 	private NetworkTable table;
 	NetworkTableEntry tx;
@@ -17,6 +18,7 @@ public class Limelight {
 	NetworkTableEntry ty;
 	
 	public Limelight() {
+		SmartDashboard.putNumber("Camera Angle", CAMERA_ANGLE);
 		table = NetworkTableInstance.getDefault().getTable("limelight");
 		tx = table.getEntry("tx");
 		tv = table.getEntry("tv"); //tells whether or not a target is present; 1 for a target, 0 for none.
@@ -24,8 +26,11 @@ public class Limelight {
 	}
 	
 	public double getDistanceFromTarget() {
+		CAMERA_ANGLE = SmartDashboard.getNumber("Camera Angle", 0);
 		double a2 = ty.getDouble(0);
-		return (TARGET_HEIGHT-ROBOT_HEIGHT) / Math.tan(Math.toRadians(CAMERA_ANGLE+a2));
+		double distance = (TARGET_HEIGHT-ROBOT_HEIGHT) / Math.tan(Math.toRadians(CAMERA_ANGLE+a2));
+		SmartDashboard.putNumber("Distance", distance);
+		return distance;
 	}
 	
 	public double getAngleFromTarget() {

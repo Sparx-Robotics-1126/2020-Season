@@ -2,10 +2,12 @@ package frc.robot;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.RobotBase;
+import frc.controllers.AutoControl;
 import frc.controllers.Controller;
 import frc.controllers.TeleopControls;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
+import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
 import frc.storage.StorageSensorInterface;
 import frc.subsystem.Acquisitions;
@@ -27,6 +29,7 @@ public class Robot extends RobotBase{
 
     //Controllers
     private TeleopControls teleopControls;
+    private AutoControl autoControls;
     
     //Robot Subsystems
     private Acquisitions acq;
@@ -45,16 +48,16 @@ public class Robot extends RobotBase{
         
         //Sensors
         DrivesSensorInterface drivesSensors = new DrivesSensors();
-        ShooterSensorsInterfeace shooterSensors = null;
         
         //Subsystems
         acq = new Acquisitions();
         drives = new Drives(drivesSensors); // Creates drives instance
-        shooter = new Shooter(drivesSensors, shooterSensors);
+        shooter = new Shooter(drivesSensors);
         storage = new Storage();
         
         //Controls
         teleopControls = new TeleopControls(acq, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
+        autoControls = new AutoControl(acq, drives, shooter, storage);
         
         //Starting Subsystems
         new Thread(acq).start();
@@ -65,6 +68,7 @@ public class Robot extends RobotBase{
 
     private void disabledStarted(){
         state = RobotState.STANDBY;
+        autoControls.resetAuto();
     }
 
     /**
@@ -72,7 +76,7 @@ public class Robot extends RobotBase{
      */
     private void autoStarted(){
         state = RobotState.AUTO;
-        //currentController = autoController;
+        currentController = autoControls;
     }
 
     /**

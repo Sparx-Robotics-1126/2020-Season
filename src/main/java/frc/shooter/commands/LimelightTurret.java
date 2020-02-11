@@ -6,9 +6,9 @@ import frc.shooter.ShooterOutput;
 import frc.shooter.ShooterSensorsInterfeace;
 
 public class LimelightTurret extends ShooterCommand {    
-	double deadband = 2;
-    double tx;
-    final double p = .02;
+	private final double DEADBAND = 1;
+	private final double MAX_ANGLE = 100;
+    final double p = .05;
 
     public LimelightTurret(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors){
         super(sensors, driveSensors);
@@ -16,10 +16,21 @@ public class LimelightTurret extends ShooterCommand {
 
     @Override
     public ShooterOutput execute(){
-        tx = sensors.getAngleToTarget();
+        double tx = sensors.getAngleToTarget();
         double speed = 0; 
-        if(Math.abs(tx) > deadband) {
+        if(Math.abs(tx) > DEADBAND) {
               speed = tx*p; 
+        }
+        
+        double shooterAngle = sensors.getShooterAngleToRobot();
+        if(speed>0) {
+        	if(shooterAngle > MAX_ANGLE) {
+        		speed = 0;
+        	}
+        }else{
+        	if(shooterAngle < -MAX_ANGLE) {
+        		speed = 0;
+        	}
         }
         return new ShooterOutput(speed);
     }

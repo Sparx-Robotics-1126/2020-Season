@@ -1,6 +1,7 @@
 package frc.controllers;
 
 import edu.wpi.first.wpilibj.Joystick;
+import frc.sensors.Limelight;
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Drives;
 import frc.subsystem.Shooter;
@@ -15,7 +16,7 @@ public class TeleopControls extends Controller {
 	private Button backwardButton;
 	private Button moveRight;
 	private Button buttonLeft;
-
+	
 	/**
 	 * Constructor - created by SubsystemManager.java
 	 * @param drives - Drives Subsystem
@@ -25,8 +26,8 @@ public class TeleopControls extends Controller {
         
         Joystick joystick = new Joystick(0);
 
-        axis1 = new Axis(joystick, 5, true);
-        axis2 = new Axis(joystick, 1, true);
+        axis1 = new Axis(joystick, 1, true);
+        axis2 = new Axis(joystick, 5, true);
         
         moveForwardButton = new Button(joystick, 1);
         backwardButton = new Button(joystick, 2);

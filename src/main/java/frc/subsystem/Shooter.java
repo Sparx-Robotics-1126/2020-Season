@@ -8,8 +8,6 @@ import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
 import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
-import frc.shooter.command.ScanForTarget;
-import frc.shooter.command.TestFlywheel;
 
 public class Shooter extends Subsystem{
 

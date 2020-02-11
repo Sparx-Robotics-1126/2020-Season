@@ -1,9 +1,13 @@
-package frc.shooter;
+package frc.shooter.command;
 
 import frc.drives.DrivesSensorInterface;
+import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
+import frc.shooter.ShooterSensorsInterfeace;
 
 public class CenterTurretCommand extends ShooterCommand {
+	
+	private final double pK = 0.05;
 	
 	public CenterTurretCommand(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors) {
 		super(sensors, driveSensors);
@@ -12,11 +16,9 @@ public class CenterTurretCommand extends ShooterCommand {
 
 	@Override
 	public ShooterOutput execute() {
-		if (sensors.getShooterAngleToRobot() > 0) {
-			return new ShooterOutput(0.0, 0.0, false);
-		} else if (sensors.getShooterAngleToRobot() < 0) {
-			return new ShooterOutput(0.0, 0.0, false);
-			
-		} else return null;
+		if (Math.abs(sensors.getShooterAngleToRobot()) > 1) {
+			return new ShooterOutput(-sensors.getShooterAngleToRobot() * pK, false);
+		}
+		return new ShooterOutput(0, false);
 	}
 }

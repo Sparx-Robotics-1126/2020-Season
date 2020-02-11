@@ -19,7 +19,7 @@ public class ScannerTarget extends ShooterCommand {
 		if (sensors.getTargetLock() == true) {
 			return target.execute();
 		}
+		
 		return scan.execute();
 	}
-
 }

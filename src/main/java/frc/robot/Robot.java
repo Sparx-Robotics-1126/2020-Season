@@ -11,6 +11,7 @@ import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
 import frc.storage.StorageSensorInterface;
 import frc.subsystem.Acquisitions;
+import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
 import frc.subsystem.Shooter;
 import frc.subsystem.Storage;
@@ -33,6 +34,7 @@ public class Robot extends RobotBase{
     
     //Robot Subsystems
     private Acquisitions acq;
+    private Climbing climbing;
     private Drives drives;
     private Shooter shooter;
     private Storage storage;
@@ -51,6 +53,7 @@ public class Robot extends RobotBase{
         
         //Subsystems
         acq = new Acquisitions();
+        climbing = new Climbing();
         drives = new Drives(drivesSensors); // Creates drives instance
         shooter = new Shooter(drivesSensors);
         storage = new Storage();
@@ -60,7 +63,8 @@ public class Robot extends RobotBase{
         autoControls = new AutoControl(acq, drives, shooter, storage);
         
         //Starting Subsystems
-        // new Threa/d(acq).start();
+        // new Thread(acq).start();
+        // new Thread(climbing).start();
         // new Thread(drives).start();
         new Thread(shooter).start();
         // new Thread(storage).start();

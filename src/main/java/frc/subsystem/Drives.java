@@ -126,11 +126,7 @@ public class Drives extends Subsystem{
     }
     
     public void turnLeft(double angle) {
-
         drivesCommand = new SpinLeft(drivesSensors, 1, angle);
-        System.out.println("turned");
-        System.out.println(drivesSensors.getGyroAngle());
-
     }
     
 }

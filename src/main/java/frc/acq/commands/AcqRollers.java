@@ -5,7 +5,7 @@ import frc.acq.AcqCommand;
 public class AcqRollers extends AcqCommand{
 
 	@Override
-	public int execute() {
+	public double execute() {
 			return 0;
 	}
 }

@@ -10,5 +10,10 @@ public interface ClimbingSensorsInterface {
 	/**
 	 * @return the distance the leadscrew has traveled in inches.
 	 */
-	public abstract double leadScrewDistance();
+	public abstract double getLeadScrewDistance();
+	
+	/**
+	 * @return the distance the winch has wound in inches.
+	 */
+	public abstract double getWinchDistance();
 }

@@ -50,12 +50,12 @@ public class Drives extends Subsystem{
     //Main Constructor called in SubsystemManager.java
     public Drives(DrivesSensorInterface driveSensors){
         drivesSensors = driveSensors;
-        rightMotorMaster = new CANSparkMax(IO.RIGHT_MOTOR_1,MotorType.kBrushless);
-        CANSparkMax rightMotorSlave = new CANSparkMax(IO.RIGHT_MOTOR_2,MotorType.kBrushless);
+        rightMotorMaster = new CANSparkMax(IO.DRIVES_RIGHT_MOTOR_1,MotorType.kBrushless);
+        CANSparkMax rightMotorSlave = new CANSparkMax(IO.DRIVES_RIGHT_MOTOR_2,MotorType.kBrushless);
         configureMotor(rightMotorMaster, rightMotorSlave);
         
-        leftMotorMaster = new CANSparkMax(IO.LEFT_MOTOR_1,MotorType.kBrushless);
-        CANSparkMax leftMotorSlave = new CANSparkMax(IO.LEFT_MOTOR_2,MotorType.kBrushless);
+        leftMotorMaster = new CANSparkMax(IO.DRIVES_LEFT_MOTOR_1,MotorType.kBrushless);
+        CANSparkMax leftMotorSlave = new CANSparkMax(IO.DRIVES_LEFT_MOTOR_2,MotorType.kBrushless);
         configureMotor(leftMotorMaster, leftMotorSlave);
 
         new Compressor().setClosedLoopControl(true);

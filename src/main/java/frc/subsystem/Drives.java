@@ -4,11 +4,15 @@ import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
-import frc.drives.commands.SpinRight;
+import frc.drives.commands.DriverControlled;
 import frc.robot.IO;
+import frc.drives.commands.TurnRight;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 
 /**
  * Used to control ALL drives behavior
@@ -33,33 +37,37 @@ public class Drives extends Subsystem{
     private DrivesSensorInterface drivesSensors;
 
     //PUT MOTOR INIT HERE
-    private TalonSRX rightMotorMaster;  
-    private TalonSRX leftMotorMaster;
+    private CANSparkMax rightMotorMaster;  
+    private CANSparkMax leftMotorMaster;
     
     
     //Main Constructor called in SubsystemManager.java
     public Drives(DrivesSensorInterface driveSensors){
         drivesSensors = driveSensors;
-        rightMotorMaster = new TalonSRX(IO.RIGHT_MOTOR_1);
-        TalonSRX rightMotorSlave = new TalonSRX(IO.RIGHT_MOTOR_2);
+        rightMotorMaster = new CANSparkMax(IO.RIGHT_MOTOR_1,MotorType.kBrushless);
+        CANSparkMax rightMotorSlave = new CANSparkMax(IO.RIGHT_MOTOR_2,MotorType.kBrushless);
         configureMotor(rightMotorMaster, rightMotorSlave);
         
-        leftMotorMaster = new TalonSRX(IO.LEFT_MOTOR_1);
-        TalonSRX leftMotorSlave = new TalonSRX(IO.LEFT_MOTOR_2);
+        leftMotorMaster = new CANSparkMax(IO.LEFT_MOTOR_1,MotorType.kBrushless);
+        CANSparkMax leftMotorSlave = new CANSparkMax(IO.LEFT_MOTOR_2,MotorType.kBrushless);
         configureMotor(leftMotorMaster, leftMotorSlave);
+
+        drivesCommand = new DriverControlled(driveSensors);
     }
     
     /**
      * Configures motors to follow one controller
      */
-    private static void configureMotor(TalonSRX master, TalonSRX... slaves) {
-    	int masterId = master.getDeviceID();
-    	master.set(ControlMode.PercentOutput, 0);
-    	master.configVoltageCompSaturation(DRIVES_MAX_VOLTAGE);
-		master.enableVoltageCompensation(true);
-    	for(TalonSRX slave: slaves) {
-    		slave.set(ControlMode.Follower, masterId);
-    	}
+    private static void configureMotor(CANSparkMax master, CANSparkMax...  slaves) {
+        master.restoreFactoryDefaults();
+        master.set(0);
+        master.enableVoltageCompensation(12);
+    
+        for(CANSparkMax slave: slaves) {
+            slave.restoreFactoryDefaults();
+            slave.follow( master);
+            
+        }
     }
 
     /**
@@ -70,11 +78,11 @@ public class Drives extends Subsystem{
     void execute() {
         if(drivesCommand != null) {
             DrivesOutput output = drivesCommand.execute();
-            leftMotorMaster.set(ControlMode.PercentOutput, output.getLeftMotor());
-            rightMotorMaster.set(ControlMode.PercentOutput, -output.getRightMotor());
+            leftMotorMaster.set(-output.getLeftMotor());
+            rightMotorMaster.set(output.getRightMotor());
             if(output.isDone()) {
-            	leftMotorMaster.set(ControlMode.PercentOutput, 0);
-            	rightMotorMaster.set(ControlMode.PercentOutput, 0);
+            	leftMotorMaster.set(0);
+            	rightMotorMaster.set(0);
             	drivesCommand = null;
             }
         }
@@ -90,7 +98,9 @@ public class Drives extends Subsystem{
     }
     
     public void setJoysticks(double left, double right) {
-    	//TODO: Finish
+        drivesSensors.setLeftJoystick(left);
+        drivesSensors.setRightJoystick(right);
+
     }
     
     public void moveForward(double distance) {
@@ -102,17 +112,11 @@ public class Drives extends Subsystem{
     }
     
     public void turnRight(double angle) {
-    	
+        drivesCommand = new TurnRight(drivesSensors, 1, angle);
     }
     
     public void turnLeft(double angle) {
-    }
-    
-    /**
-     * Called by controller to start 180degree right spin
-     */
-    public void startSpin() {
-    	drivesCommand = new SpinRight(drivesSensors, 0.5, 180);
+
     }
     
 }

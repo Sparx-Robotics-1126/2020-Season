@@ -4,7 +4,11 @@ import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
+
+import frc.drives.commands.SpinLeft;
+
 import frc.drives.commands.DriverControlled;
+
 import frc.robot.IO;
 import frc.drives.commands.TurnRight;
 
@@ -13,6 +17,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+
+import edu.wpi.first.wpilibj.Compressor;
 
 /**
  * Used to control ALL drives behavior
@@ -52,7 +58,11 @@ public class Drives extends Subsystem{
         CANSparkMax leftMotorSlave = new CANSparkMax(IO.LEFT_MOTOR_2,MotorType.kBrushless);
         configureMotor(leftMotorMaster, leftMotorSlave);
 
+        new Compressor().setClosedLoopControl(true);
+
+
         drivesCommand = new DriverControlled(driveSensors);
+
     }
     
     /**
@@ -116,7 +126,7 @@ public class Drives extends Subsystem{
     }
     
     public void turnLeft(double angle) {
-
+        drivesCommand = new SpinLeft(drivesSensors, 1, angle);
     }
     
 }

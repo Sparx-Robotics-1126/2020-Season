@@ -16,8 +16,10 @@ public class ScannerTarget extends ShooterCommand {
 
 	@Override
 	public ShooterOutput execute() {
-		// TODO Auto-generated method stub
-		return null;
+		if (sensors.getTargetLock() == true) {
+			return target.execute();
+		}
+		return scan.execute();
 	}
 
 }

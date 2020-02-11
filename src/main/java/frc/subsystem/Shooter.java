@@ -2,10 +2,6 @@ package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-<<<<<<< HEAD
-
-=======
->>>>>>> a5f37992569d7354abbadc42ae30277489f18eac
 import frc.drives.DrivesSensorInterface;
 import frc.robot.IO;
 import frc.shooter.ShooterCommand;

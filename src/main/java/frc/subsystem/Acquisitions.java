@@ -10,7 +10,7 @@ public class Acquisitions extends Subsystem{
 
 	private AcqCommand acqCommand;
 	
-	TalonSRX motor = new TalonSRX(IO.ACQMOTOR);
+	TalonSRX motor = new TalonSRX(IO.ACQ_MOTOR);
 	
 	@Override
 	void execute() {

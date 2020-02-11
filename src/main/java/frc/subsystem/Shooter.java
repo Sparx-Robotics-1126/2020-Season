@@ -28,9 +28,9 @@ public class Shooter extends Subsystem{
 		this.shooterSensors = new ShooterSensors();
 		shooterCommand = null;
 		turretCommand = null;
-		flywheelMotorAlpha = new TalonSRX(IO.LEFT_FLYWHEEL_1);
-		flywheelMotorBeta = new TalonSRX(IO.RIGHT_FLYWHEEL_1);
-		turretMotor = new TalonSRX(IO.TURRET_MOTOR);
+		flywheelMotorAlpha = new TalonSRX(IO.SHOOTER_FLYWHEEL_1);
+		flywheelMotorBeta = new TalonSRX(IO.SHOOTER_FLYWHEEL_2);
+		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
 	}
 	
 	@Override

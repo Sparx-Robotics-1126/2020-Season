@@ -10,13 +10,13 @@ public class Acquisitions extends Subsystem{
 
 	private AcqCommand acqCommand;
 	
-	TalonSRX motor = new TalonSRX(IO.ACQMOTOR);
+	TalonSRX motor = new TalonSRX(IO.ACQ_MOTOR);
 	
 	@Override
 	void execute() {
 		if(acqCommand != null) {
 			double output = acqCommand.execute();
-			motor.set(ControlMode.PercentOutput, output);
+			motor.set(ControlMode.PercentOutput, -output);
 			acqCommand = null;
 		}
 	}

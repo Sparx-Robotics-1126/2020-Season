@@ -1,7 +1,5 @@
 package frc.climbing;
 
-import com.revrobotics.CANDigitalInput.LimitSwitch;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.IO;

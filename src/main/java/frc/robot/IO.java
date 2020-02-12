@@ -33,8 +33,8 @@ public final class IO {
 	public static final int FLYWHEEL_ENCODER_A 		= 13;
 	public static final int FLYWHEEL_ENCODER_B 		= 12;
 
-	public static final int LEADSCREW_ENCODER_A 	= -99;
-	public static final int LEADSCREW_ENCODER_B 	= -99;
+	public static final int LEADSCREW_ENCODER_A 	= 14;
+	public static final int LEADSCREW_ENCODER_B 	= 15;
 
 	public static final int WINCH_ENCODER_A 	= -99;
 	public static final int WINCH_ENCODER_B 	= -99;

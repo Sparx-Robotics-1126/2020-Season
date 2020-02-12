@@ -15,17 +15,18 @@ public class Storage extends Subsystem{
 	
 	private short numOfBallsAquired;
 	
-	private TalonSRX motorMaster;
+	private TalonSRX motor1;
+	private TalonSRX motor2;
 	
 	private static final double STORAGE_MAX_VOLTAGE = 12.0;
 	
 	public Storage() {
 		sensors = null;
-		motorMaster = new TalonSRX(IO.STORAGE_MOTOR_1);
-		TalonSRX motorSlave = new TalonSRX(IO.STORAGE_MOTOR_2);
-		motorSlave.setInverted(true);
-		configureMotor(motorMaster, motorSlave);
-		
+		motor1 = new TalonSRX(IO.STORAGE_MOTOR_1);
+		motor2 = new TalonSRX(IO.STORAGE_MOTOR_2);
+		motor2.setInverted(true);
+		configureMotor(motor1, motor2);
+		motor1 = motor2;
 		
 		this.sensors = null;
 		
@@ -44,10 +45,10 @@ public class Storage extends Subsystem{
 			StorageOutput output = storageCommand.execute();
 			numOfBallsAquired = output.getNumOfBallsAquired();
 			//Set Motor Values
-			motorMaster.set(ControlMode.PercentOutput, -output.getOutput());
+			motor1.set(ControlMode.PercentOutput, -output.getOutput());
 			if(output.isCommandFinished()) {
 				//TURN OFF MOTORS
-				motorMaster.set(ControlMode.PercentOutput, 0);
+				motor1.set(ControlMode.PercentOutput, 0);
 				storageCommand = null;
 			}
 		}

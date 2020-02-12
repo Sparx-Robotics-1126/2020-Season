@@ -23,3 +23,4 @@ public class ScannerTarget extends ShooterCommand {
 		return scan.execute();
 	}
 }
+

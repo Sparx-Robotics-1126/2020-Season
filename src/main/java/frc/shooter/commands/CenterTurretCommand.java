@@ -22,3 +22,4 @@ public class CenterTurretCommand extends ShooterCommand {
 		return new ShooterOutput(0, false);
 	}
 }
+

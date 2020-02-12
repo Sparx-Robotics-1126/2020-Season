@@ -28,3 +28,4 @@ public class ScanForTarget extends ShooterCommand {
         return (movingRight)? new ShooterOutput(.2): new ShooterOutput(-.2);
     }
 }
+

@@ -22,6 +22,7 @@ public class LimelightTurret extends ShooterCommand {
               speed = tx*p; 
         }
         
+        
         double shooterAngle = sensors.getShooterAngleToRobot();
         if(speed>0) {
         	if(shooterAngle > MAX_ANGLE) {

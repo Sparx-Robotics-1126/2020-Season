@@ -7,7 +7,8 @@ public abstract class ShooterCommand {
      * Class containing getters for all sensors needed for this subsystem
      */
     protected ShooterSensorsInterfeace sensors;
-
+    
+    
     //Constructor
     public ShooterCommand(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors){
         this.sensors = sensors;

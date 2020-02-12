@@ -3,6 +3,7 @@ package frc.sensors;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight {
 	
@@ -28,7 +29,11 @@ public class Limelight {
 	}
 	
 	public void enable(boolean enable) {
-		
+		if(enable) {
+			SmartDashboard.putNumber("ledMode", 3);
+		} else {
+			SmartDashboard.putNumber("ledMode", 1);
+		}
 	}
 	
 }

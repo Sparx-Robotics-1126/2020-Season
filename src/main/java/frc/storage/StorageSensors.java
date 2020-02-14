@@ -5,24 +5,24 @@ import frc.robot.IO;
 
 public class StorageSensors implements StorageSensorInterface {
 
-    private DigitalInput irRoller = new DigitalInput(IO.STORAGE_IR_ROLLER);
-    private DigitalInput irStorageTop = new DigitalInput(IO.STORAGE_IR_TOP);
-    private DigitalInput irStorageBottom = new DigitalInput(IO.STORAGE_IR_BOTTOM);
+    private DigitalInput intake = new DigitalInput(IO.STORAGE_INTAKE);
+    private DigitalInput index = new DigitalInput(IO.STORAGE_INDEX);
+    private DigitalInput shoot = new DigitalInput(IO.STORAGE_SHOOTING);
 	
 
 	@Override
 	public boolean getIntakeSensor() {
-        return irRoller.get();
+        return !intake.get();
 	}
 
 	@Override
 	public boolean getIndexSensor() {
-		return irStorageBottom.get();
+		return !index.get();
 	}
 
 	@Override
 	public boolean getShootSensor() {
-		return irStorageTop.get();
+		return !shoot.get();
 	}
 
 }

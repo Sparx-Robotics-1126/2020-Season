@@ -49,7 +49,7 @@ public class Storage extends Subsystem{
 			if(output.isCommandFinished()) {
 				//TURN OFF MOTORS
 				motorMaster.set(ControlMode.PercentOutput, 0);
-				storageCommand = new PrepareForShooting(sensors, numOfBallsAquired);
+				storageCommand = null;
 			}
 		}
 	}

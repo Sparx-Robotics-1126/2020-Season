@@ -7,6 +7,7 @@ import frc.robot.IO;
 import frc.storage.StorageCommand;
 import frc.storage.StorageOutput;
 import frc.storage.StorageSensorInterface;
+import frc.storage.command.PrepareForShooting;
 
 public class Storage extends Subsystem{
 

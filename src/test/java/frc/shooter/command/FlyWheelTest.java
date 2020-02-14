@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
+import frc.shooter.commands.TestFlywheel;
 
 public class FlyWheelTest {
 	

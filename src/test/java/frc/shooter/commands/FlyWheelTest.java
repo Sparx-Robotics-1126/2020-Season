@@ -1,4 +1,4 @@
-package frc.shooter.command;
+package frc.shooter.commands;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
-import frc.shooter.commands.TestFlywheel;
 
 public class FlyWheelTest {
 	
@@ -15,6 +14,5 @@ public class FlyWheelTest {
 		ShooterCommand command = new TestFlywheel(null, null);
 		ShooterOutput output = command.execute();
 		assertEquals(0.4, output.getOutputValue(), 0.0001);
-		
 	}
 }

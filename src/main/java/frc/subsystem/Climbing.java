@@ -15,7 +15,7 @@ public class Climbing extends Subsystem{
 	private ClimbingCommand winchingCommand;
 	
 	
-	public Climbing(TalonSRX winch, TalonSRX Scissorlift) {
+	public Climbing() {
 		winch  = new TalonSRX(IO.CLIMBING_WINCH_MOTOR);
 		scissorlift = new TalonSRX(IO.CLIMBING_SCISSORLIFT_MOTOR);
 		extendingCommand = null;

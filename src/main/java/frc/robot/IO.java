@@ -32,4 +32,8 @@ public final class IO {
 	public static final int TURRET_ENCODER_B 		= 11;
 	public static final int FLYWHEEL_ENCODER_A 		= 13;
 	public static final int FLYWHEEL_ENCODER_B 		= 12;
+
+	public static final int STORAGE_INTAKE			= 15;
+	public static final int STORAGE_INDEX			= 16;
+	public static final int STORAGE_SHOOTING		= 17;
 }

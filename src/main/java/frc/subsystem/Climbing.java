@@ -47,5 +47,4 @@ public class Climbing extends Subsystem{
 		return extendingCommand == null && winchingCommand == null;
 	}
 	
->>>>>>> refs/remotes/origin/master
 }

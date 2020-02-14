@@ -15,7 +15,7 @@ public class DrivesSensors implements DrivesSensorInterface {
 	private double leftJoystick;
 	
 	public DrivesSensors() {
-		gyro = new AHRS(SerialPort.Port.kUSB);
+		//gyro = new AHRS(SerialPort.Port.kUSB);
 		rightEncoder = new Encoder(IO.RIGHT_ENCODER_A, IO.RIGHT_ENCODER_B, true);
 		rightEncoder.setDistancePerPulse(0.02110013);
 		leftEncoder = new Encoder(IO.LEFT_ENCODER_A, IO.LEFT_ENCODER_B);

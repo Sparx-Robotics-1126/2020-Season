@@ -12,17 +12,18 @@ public class Limelight {
 	final double ROBOT_HEIGHT = 37.5;
 	final double TARGET_HEIGHT = 90; // 83.25  89.5
 
-	private NetworkTable table;
 	NetworkTableEntry tx;
 	NetworkTableEntry tv;
 	NetworkTableEntry ty;
+	NetworkTableEntry ledMode;
 	
 	public Limelight() {
 		// SmartDashboard.putNumber("Camera Angle", CAMERA_ANGLE);
-		table = NetworkTableInstance.getDefault().getTable("limelight");
+		NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 		tx = table.getEntry("tx");
 		tv = table.getEntry("tv"); //tells whether or not a target is present; 1 for a target, 0 for none.
 		ty = table.getEntry("ty");
+		ledMode = table.getEntry("ledMode");
 	}
 	
 	public double getDistanceFromTarget() {
@@ -44,11 +45,8 @@ public class Limelight {
 	}
 	
 	public void enable(boolean enable) {
-		if(enable) {
-			SmartDashboard.putNumber("ledMode", 3);
-		} else {
-			SmartDashboard.putNumber("ledMode", 1);
-		}
+		int ledModeNum = enable ? 3 : 1;
+		ledMode.setNumber(ledModeNum);
 	}
 	
 }

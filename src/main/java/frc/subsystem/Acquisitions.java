@@ -4,6 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import frc.acq.AcqCommand;
+import frc.acq.commands.AcqRollers;
+import frc.acq.commands.EjectRollers;
+import frc.acq.commands.IntakeRollers;
 import frc.robot.IO;
 
 public class Acquisitions extends Subsystem{
@@ -19,6 +22,15 @@ public class Acquisitions extends Subsystem{
 			motor.set(ControlMode.PercentOutput, -output);
 			acqCommand = null;
 		}
+	}
+	public void stopRollers() {
+		acqCommand = new AcqRollers();
+	}
+	public void ejectRollers() {
+		acqCommand = new EjectRollers();
+	}
+	public void startIntake () {
+		acqCommand = new IntakeRollers();
 	}
 
 	@Override

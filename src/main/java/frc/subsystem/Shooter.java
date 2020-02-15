@@ -25,7 +25,6 @@ public class Shooter extends Subsystem{
 	private ShooterSensorsInterfeace shooterSensors;
 	private boolean readyToShoot;
 	private TalonSRX flywheelMotorAlpha;
-	private TalonSRX flywheelMotorBeta;
 	private TalonSRX turretMotor;
 
 	private double feed = 	0;
@@ -36,18 +35,19 @@ public class Shooter extends Subsystem{
 
 	public Shooter(DrivesSensorInterface driveSensors) {
 		this.driveSensors = driveSensors;
-		this.shooterSensors = new ShooterSensors();
 		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
 		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);
 		flywheelMotorAlpha = new TalonSRX(IO.SHOOTER_FLYWHEEL_2);
-		flywheelMotorBeta = new TalonSRX(IO.SHOOTER_FLYWHEEL_1);
+		this.shooterSensors = new ShooterSensors(flywheelMotorAlpha);
+
+		TalonSRX flywheelMotorBeta = new TalonSRX(IO.SHOOTER_FLYWHEEL_1);
+		flywheelMotorBeta.set(ControlMode.Follower,flywheelMotorAlpha.getDeviceID());
+		flywheelMotorBeta.setInverted(true);
 		
 		SmartDashboard.putNumber("Feed",2);
 		SmartDashboard.putNumber("kP",0);
 		SmartDashboard.putNumber("kI",0);
 		SmartDashboard.putNumber("kD",0);
-		
-
 
 		flywheelMotorAlpha.configFactoryDefault();
 		flywheelMotorAlpha.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,30);
@@ -63,8 +63,6 @@ public class Shooter extends Subsystem{
 		flywheelMotorAlpha.config_kI(0,kI,30);
 		flywheelMotorAlpha.config_kD(0,kD,30);
 
-		flywheelMotorBeta.set(ControlMode.Follower,flywheelMotorAlpha.getDeviceID());
-		flywheelMotorBeta.setInverted(true);
 		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
 	}
 	

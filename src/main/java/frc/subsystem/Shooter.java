@@ -42,7 +42,7 @@ public class Shooter extends Subsystem{
 		flywheelMotorAlpha = new TalonSRX(IO.SHOOTER_FLYWHEEL_2);
 		flywheelMotorBeta = new TalonSRX(IO.SHOOTER_FLYWHEEL_1);
 		
-		SmartDashboard.putNumber("Feed",0);
+		SmartDashboard.putNumber("Feed",2);
 		SmartDashboard.putNumber("kP",0);
 		SmartDashboard.putNumber("kI",0);
 		SmartDashboard.putNumber("kD",0);
@@ -71,8 +71,8 @@ public class Shooter extends Subsystem{
 	@Override
 	void execute() {
 		if(shooterCommand != null ) {
-			feed = SmartDashboard.getNumber("Feed",0);
-			kP = SmartDashboard.getNumber("kP",0);
+			feed = SmartDashboard.getNumber("Feed",.108);
+			kP = SmartDashboard.getNumber("kP",.1);
 			kI = SmartDashboard.getNumber("kI",0);
 			kD = SmartDashboard.getNumber("kD",0);
 
@@ -84,13 +84,16 @@ public class Shooter extends Subsystem{
 
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			// ShooterOutput turretOutput = turretCommand.execute();
-			// readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
+			// readyToShoot = shooterOutput.isReadyToShoot(); //&& turretOutput.isReadyToShoot();
 			SmartDashboard.putNumber("Actual Speed",flywheelMotorAlpha.getSelectedSensorVelocity()*10/(1024.0));
- 			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/100.0)*shooterOutput.getOutputValue());
+ 			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/10.0)*shooterOutput.getOutputValue());
 			 // flywheelMotorBeta.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
 			// turretMotor.set(ControlMode.PercentOutput, turretOutput.getOutputValue());
 		} 
 		SmartDashboard.putNumber("Encoder",flywheelMotorAlpha.getSelectedSensorPosition());
+		double actualSpeed = SmartDashboard.getNumber("Actual Speed", 0);
+		double wantedSpeed = SmartDashboard.getNumber("Wanted speed", 0);
+		SmartDashboard.putBoolean("Ready to shoot", Math.abs(actualSpeed-wantedSpeed)<1);
 	} 
 
 

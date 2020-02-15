@@ -28,14 +28,12 @@ public class Shooter extends Subsystem{
 	private TalonSRX turretMotor;
 
 	private final double FEED = .108;
-	private final double KP = 	.1;
+	private final double KP = 	.2;
 	private final double KI  = 	0;
 	private final double KD = 	0;
 
 	public Shooter(DrivesSensorInterface driveSensors) {		
 		this.driveSensors = driveSensors;
-		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
-		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);
 		flywheelMotorAlpha = new TalonSRX(IO.SHOOTER_FLYWHEEL_2);
 		
 		TalonSRX flywheelMotorBeta = new TalonSRX(IO.SHOOTER_FLYWHEEL_1);
@@ -58,26 +56,19 @@ public class Shooter extends Subsystem{
 
 		this.shooterSensors = new ShooterSensors(flywheelMotorAlpha);
 
-		try {
-			Thread.sleep(100);
-		} catch (Exception e) {
-		}
-
 		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
+		
+		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
+		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);
 	}
 	
 	@Override
 	void execute() {
 		if(shooterCommand != null ) {
-			try {
-				Thread.sleep(100);	
-			} catch (Exception e) {
-				//TODO: handle exception
-			}
-			System.out.println("Got here");
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
-			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
+			readyToShoot = shooterOutput.isReadyToShoot(); //&& turretOutput.isReadyToShoot();
+			SmartDashboard.putBoolean("Ready to shoot",readyToShoot);
 			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/10.0)*shooterOutput.getOutputValue());
 			turretMotor.set(ControlMode.PercentOutput, turretOutput.getOutputValue());
 		} 

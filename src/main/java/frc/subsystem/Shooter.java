@@ -27,27 +27,20 @@ public class Shooter extends Subsystem{
 	private TalonSRX flywheelMotorAlpha;
 	private TalonSRX turretMotor;
 
-	private double feed = 	0;
-	private double kP = 	0;
-	private double kI  = 	0;
-	private double kD = 	0;
+	private final double FEED = .108;
+	private final double KP = 	.1;
+	private final double KI  = 	0;
+	private final double KD = 	0;
 
-
-	public Shooter(DrivesSensorInterface driveSensors) {
+	public Shooter(DrivesSensorInterface driveSensors) {		
 		this.driveSensors = driveSensors;
 		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
 		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);
 		flywheelMotorAlpha = new TalonSRX(IO.SHOOTER_FLYWHEEL_2);
-		this.shooterSensors = new ShooterSensors(flywheelMotorAlpha);
-
+		
 		TalonSRX flywheelMotorBeta = new TalonSRX(IO.SHOOTER_FLYWHEEL_1);
 		flywheelMotorBeta.set(ControlMode.Follower,flywheelMotorAlpha.getDeviceID());
 		flywheelMotorBeta.setInverted(true);
-		
-		SmartDashboard.putNumber("Feed",2);
-		SmartDashboard.putNumber("kP",0);
-		SmartDashboard.putNumber("kI",0);
-		SmartDashboard.putNumber("kD",0);
 
 		flywheelMotorAlpha.configFactoryDefault();
 		flywheelMotorAlpha.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,30);
@@ -58,10 +51,17 @@ public class Shooter extends Subsystem{
 		flywheelMotorAlpha.configPeakOutputForward(1);
 		flywheelMotorAlpha.configPeakOutputReverse(0);
 		
-		flywheelMotorAlpha.config_kF(0,feed,30);
-		flywheelMotorAlpha.config_kP(0,kP,30);
-		flywheelMotorAlpha.config_kI(0,kI,30);
-		flywheelMotorAlpha.config_kD(0,kD,30);
+		flywheelMotorAlpha.config_kF(0,FEED,30);
+		flywheelMotorAlpha.config_kP(0,KP,30);
+		flywheelMotorAlpha.config_kI(0,KI,30);
+		flywheelMotorAlpha.config_kD(0,KD,30);
+
+		this.shooterSensors = new ShooterSensors(flywheelMotorAlpha);
+
+		try {
+			Thread.sleep(100);
+		} catch (Exception e) {
+		}
 
 		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
 	}
@@ -69,29 +69,18 @@ public class Shooter extends Subsystem{
 	@Override
 	void execute() {
 		if(shooterCommand != null ) {
-			feed = SmartDashboard.getNumber("Feed",.108);
-			kP = SmartDashboard.getNumber("kP",.1);
-			kI = SmartDashboard.getNumber("kI",0);
-			kD = SmartDashboard.getNumber("kD",0);
-
-			flywheelMotorAlpha.config_kF(0,feed,30);
-			flywheelMotorAlpha.config_kP(0,kP,30);
-			flywheelMotorAlpha.config_kI(0,kI,30);
-			flywheelMotorAlpha.config_kD(0,kD,30);	
-			
-
+			try {
+				Thread.sleep(100);	
+			} catch (Exception e) {
+				//TODO: handle exception
+			}
+			System.out.println("Got here");
 			ShooterOutput shooterOutput = shooterCommand.execute();
-			// ShooterOutput turretOutput = turretCommand.execute();
-			// readyToShoot = shooterOutput.isReadyToShoot(); //&& turretOutput.isReadyToShoot();
-			SmartDashboard.putNumber("Actual Speed",flywheelMotorAlpha.getSelectedSensorVelocity()*10/(1024.0));
- 			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/10.0)*shooterOutput.getOutputValue());
-			 // flywheelMotorBeta.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
-			// turretMotor.set(ControlMode.PercentOutput, turretOutput.getOutputValue());
+			ShooterOutput turretOutput = turretCommand.execute();
+			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
+			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/10.0)*shooterOutput.getOutputValue());
+			turretMotor.set(ControlMode.PercentOutput, turretOutput.getOutputValue());
 		} 
-		SmartDashboard.putNumber("Encoder",flywheelMotorAlpha.getSelectedSensorPosition());
-		double actualSpeed = SmartDashboard.getNumber("Actual Speed", 0);
-		double wantedSpeed = SmartDashboard.getNumber("Wanted speed", 0);
-		SmartDashboard.putBoolean("Ready to shoot", Math.abs(actualSpeed-wantedSpeed)<1);
 	} 
 
 

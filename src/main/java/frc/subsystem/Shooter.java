@@ -8,11 +8,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.drives.DrivesSensorInterface;
 import frc.robot.IO;
+import frc.sensors.Limelight;
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
 import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
 import frc.shooter.command.CenterTurretCommand;
+import frc.shooter.command.ScanForTarget;
+import frc.shooter.command.ScannerTarget;
 import frc.shooter.command.ShooterSpeed;
 import frc.shooter.commands.LimelightTurret;
 
@@ -59,7 +62,7 @@ public class Shooter extends Subsystem{
 		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
 		
 		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
-		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);
+		turretCommand = new ScannerTarget(shooterSensors, driveSensors,new ScanForTarget(shooterSensors, driveSensors),new LimelightTurret(shooterSensors,driveSensors));
 	}
 	
 	@Override

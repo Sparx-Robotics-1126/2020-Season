@@ -3,12 +3,14 @@ package frc.shooter.command;
 import frc.shooter.ShooterSensorsInterfeace;
 
 public class ShooterTestSensor implements ShooterSensorsInterfeace{
-
+	
 	public double shooterSpeed;
+	public double distanceFromTarget;
+	
 	@Override
 	public double getDistanceToTarget() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.distanceFromTarget;
 	}
 
 	@Override

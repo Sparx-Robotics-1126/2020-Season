@@ -14,7 +14,7 @@ public class TestFlywheel extends ShooterCommand{
 	
 	@Override
 	public ShooterOutput execute(){
-		return new ShooterOutput(0.4);
+		return new ShooterOutput(20);
 		
 	}
 }

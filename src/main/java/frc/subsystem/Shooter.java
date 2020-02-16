@@ -11,9 +11,9 @@ import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
 import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
-import frc.shooter.command.ScanForTarget;
-import frc.shooter.command.ScannerTarget;
-import frc.shooter.command.ShooterSpeed;
+import frc.shooter.commands.ScanForTarget;
+import frc.shooter.commands.ScannerTarget;
+import frc.shooter.commands.ShooterSpeed;
 import frc.shooter.commands.LimelightTurret;
 
 public class Shooter extends Subsystem{

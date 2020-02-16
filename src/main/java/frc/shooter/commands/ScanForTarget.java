@@ -1,4 +1,4 @@
-package frc.shooter.command;
+package frc.shooter.commands;
 
 import frc.drives.DrivesSensorInterface;
 import frc.shooter.ShooterCommand;
@@ -28,3 +28,4 @@ public class ScanForTarget extends ShooterCommand {
         return (movingRight)? new ShooterOutput(.2): new ShooterOutput(-.2);
     }
 }
+

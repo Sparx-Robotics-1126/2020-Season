@@ -13,7 +13,7 @@ public class ShootBallTest {
 		//creating new object using constructor from StorageTestSensor called "testSensor"
 		StorageTestSensor testSensor = new StorageTestSensor();
 		//setting testSensor's TestShootSensor value to false and make it so that whenever testSensor object is called, it will refer to the TestShootSensor value in the testSensor object
-		testSensor.TestShootSensor = false; 
+		testSensor.testShootSensor = false; 
 		//creating new object using ShootBall's constructor called shootObject and setting it's sensor value to that of testSensor, which in turn refers to TestShootSensor, which is false, which sets shootObject's sensor value to false
 		ShootBall shootObject = new ShootBall(testSensor, (short) 2, 0.5);
 		// using the object shootObject to execute a function in it called "execute". when the object shootObject creates an object, it will be called outPut.
@@ -33,7 +33,7 @@ public class ShootBallTest {
 		//creating new object using constructor from StorageTestSensor called "testSensor2"
 		StorageTestSensor testSensor2 = new StorageTestSensor();
 		//setting testSensor2's TestShooterSensor value to true and make it so that whenever testSensor2 object is called, it will refer to the TestShootSensor value in the testSensor2 object
-		testSensor2.TestShootSensor = true;
+		testSensor2.testShootSensor = true;
 		// creating new object using ShootBall's constructor called shotObject2 and setting it's sensor value to that of testSensor2, which in turn refers to TestShootSensor, which is true, which sets shootObject2's sensor value to true
 		ShootBall shootObject2 = new ShootBall(testSensor2, (short) 2, 0.5);
 		//using the object shootObject2 to execute a function in it called "execute". when the object shootObject2 creates and object, it will be called outPut2.
@@ -53,13 +53,13 @@ public class ShootBallTest {
 		//creating new object using constructor from StorageTestSensor called "testSensor3"
 		StorageTestSensor testSensor3 = new StorageTestSensor();
 		//setting testSensor3's TestShooterSensor value to true and make it so that whenever testSensor3 object is called, it will refer to the TestShootSensor value in the testSensor3 object
-		testSensor3.TestShootSensor = true;
+		testSensor3.testShootSensor = true;
 		// creating new object using ShootBall's constructor called shotObject3 and setting it's sensor value to that of testSensor3, which in turn refers to TestShootSensor, which is true, which sets shootObject3's sensor value to true
 		ShootBall shootObject3 = new ShootBall(testSensor3, (short) 2, 0.5);
 		//using the object shootObject3 to execute a function in it called "execute". when the object shootObject3 creates and object, it will be called outPut3.
 		StorageOutput outPut3 = shootObject3.execute();
 		//setting testSensor3's TestShooterSensor value to false to make sure that the section of code that we want to access can be accessed on the second execute.
-		testSensor3.TestShootSensor = false;
+		testSensor3.testShootSensor = false;
 		//calls for shootObject3 to execute again to complete the test
 		outPut3 = shootObject3.execute();
 		
@@ -75,13 +75,13 @@ public class ShootBallTest {
 		//creating new object using constructor from StorageTestSensor called "testSensor4"
 		StorageTestSensor testSensor4 = new StorageTestSensor();
 		//setting testSensor4's TestShootSensor value to false and make it so that whenever testSensor4 object is called, it will refer to the TestShootSensor value in the testSensor4 object
-		testSensor4.TestShootSensor = false; 
+		testSensor4.testShootSensor = false; 
 		//creating new object using ShootBall's constructor called shootObject4 and setting it's sensor value to that of testSensor4, which in turn refers to TestShootSensor, which is false, which sets shootObject4's sensor value to false
 		ShootBall shootObject4 = new ShootBall(testSensor4, (short) 2, 0.5);
 		// using the object shootObject4 to execute a function in it called "execute". when the object shootObject4 creates an object, it will be called outPut4.
 		StorageOutput outPut4 = shootObject4.execute();
 		//setting testSensor4's TestShooterSensor value to true to make sure that the section of code that we want to access can be accessed on the second execute.
-		testSensor4.TestShootSensor = true;
+		testSensor4.testShootSensor = true;
 		//calls for shootObject4 to execute again to complete the test
 		outPut4 = shootObject4.execute();
 		

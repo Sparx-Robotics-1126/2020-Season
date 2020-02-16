@@ -3,26 +3,26 @@ package frc.storage;
 public class StorageTestSensor implements StorageSensorInterface {
 
 	
-	public boolean TestIntakeSensor;
-	public boolean TestIndexSensor;
-	public boolean TestShootSensor;
+	public boolean testIntakeSensor;
+	public boolean testIndexSensor;
+	public boolean testShootSensor;
 	
 	
 	@Override
 	public boolean getIntakeSensor() {
 		// TODO Auto-generated method stub
-		return TestIntakeSensor;
+		return testIntakeSensor;
 	}
 
 	@Override
 	public boolean getIndexSensor() {
 		// TODO Auto-generated method stub
-		return TestIndexSensor;
+		return testIndexSensor;
 	}
 
 	@Override
 	public boolean getShootSensor() {
 		// TODO Auto-generated method stub
-		return TestShootSensor;
+		return testShootSensor;
 	}
 }

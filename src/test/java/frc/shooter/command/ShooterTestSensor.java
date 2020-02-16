@@ -5,10 +5,11 @@ import frc.shooter.ShooterSensorsInterfeace;
 public class ShooterTestSensor implements ShooterSensorsInterfeace{
 
 	public double shooterSpeed;
+	public double distanceToTarget; 
+
 	@Override
 	public double getDistanceToTarget() {
-		// TODO Auto-generated method stub
-		return 0;
+		return distanceToTarget;
 	}
 
 	@Override

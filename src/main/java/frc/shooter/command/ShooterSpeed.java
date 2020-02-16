@@ -12,19 +12,12 @@ public class ShooterSpeed extends ShooterCommand {
 
 	public ShooterSpeed(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors) {
 		super(sensors, driveSensors);
-		SmartDashboard.putNumber("Wanted speed", 0);
-		SmartDashboard.putNumber("kP",Double.MIN_VALUE);
 	}
 	
 	public ShooterOutput execute() { 
-		SmartDashboard.getNumber("kP", .01);
 
 		double distance = sensors.getDistanceToTarget();
 		double wantedSpeed = MathHelpers.getShootingSpeed(distance); //Calc wanted speed from are distance 
-		// double wantedSpeed = SmartDashboard.getNumber("Wanted speed", 0);
-
-		SmartDashboard.putNumber("Distance",distance);
-		SmartDashboard.putNumber("Wanted speed", wantedSpeed);
 
 		double actualSpeed = sensors.getShooterSpeed();
 		//returns output from pid loop, and true/false if we are close enough to wanted speed

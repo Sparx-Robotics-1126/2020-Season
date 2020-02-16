@@ -1,13 +1,19 @@
 package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.drives.DrivesSensorInterface;
 import frc.robot.IO;
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
 import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
+import frc.shooter.command.ScanForTarget;
+import frc.shooter.command.ScannerTarget;
+import frc.shooter.command.ShooterSpeed;
 import frc.shooter.commands.LimelightTurret;
 
 public class Shooter extends Subsystem{
@@ -19,33 +25,56 @@ public class Shooter extends Subsystem{
 	private ShooterSensorsInterfeace shooterSensors;
 	private boolean readyToShoot;
 	private TalonSRX flywheelMotorAlpha;
-	private TalonSRX flywheelMotorBeta;
 	private TalonSRX turretMotor;
 
-	
-	public Shooter(DrivesSensorInterface driveSensors) {
+	private final double KF = .108;
+	private final double KP = 	.2;
+	private final double KI  = 	0;
+	private final double KD = 	0;
+
+	public Shooter(DrivesSensorInterface driveSensors) {		
 		this.driveSensors = driveSensors;
-		this.shooterSensors = new ShooterSensors();
+		flywheelMotorAlpha = new TalonSRX(IO.SHOOTER_FLYWHEEL_1);
+		
+		TalonSRX flywheelMotorBeta = new TalonSRX(IO.SHOOTER_FLYWHEEL_2);
+		flywheelMotorBeta.set(ControlMode.Follower,flywheelMotorAlpha.getDeviceID());
+		flywheelMotorBeta.setInverted(true);
+
+		flywheelMotorAlpha.configFactoryDefault();
+		flywheelMotorAlpha.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,30);
+		
+		flywheelMotorAlpha.setSensorPhase(true);
+		flywheelMotorAlpha.configNominalOutputForward(0);
+		flywheelMotorAlpha.configNominalOutputReverse(0);
+		flywheelMotorAlpha.configPeakOutputForward(1);
+		flywheelMotorAlpha.configPeakOutputReverse(0);
+		
+		flywheelMotorAlpha.config_kF(0,KF,30);
+		flywheelMotorAlpha.config_kP(0,KP,30);
+		flywheelMotorAlpha.config_kI(0,KI,30);
+		flywheelMotorAlpha.config_kD(0,KD,30);
+
+		this.shooterSensors = new ShooterSensors(flywheelMotorAlpha);
+
+		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
+		
 		shooterCommand = null;
 		turretCommand = null;
-		flywheelMotorAlpha = new TalonSRX(IO.SHOOTER_FLYWHEEL_1);
-		flywheelMotorBeta = new TalonSRX(IO.SHOOTER_FLYWHEEL_2);
-		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
 	}
 	
 	@Override
 	void execute() {
-		if(shooterCommand != null) {
+		if(shooterCommand != null ) {
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
 			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
- 			flywheelMotorAlpha.set(ControlMode.PercentOutput, -shooterOutput.getOutputValue());
-			flywheelMotorBeta.set(ControlMode.PercentOutput, shooterOutput.getOutputValue());
+			SmartDashboard.putBoolean("Ready to shoot", readyToShoot);
+			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/10.0)*shooterOutput.getOutputValue());
 			turretMotor.set(ControlMode.PercentOutput, turretOutput.getOutputValue());
-		} 
-
+		}
+		SmartDashboard.putBoolean("Ready to shoot", false);
+		SmartDashboard.putNumber("Current Shooter Speed", shooterSensors.getShooterSpeed());
 	} 
-
 
 	@Override
 	public boolean isDone() {
@@ -53,7 +82,8 @@ public class Shooter extends Subsystem{
 	}
 
 	public void startLimelightAiming(){
-		shooterCommand = new LimelightTurret(shooterSensors, driveSensors);
+		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
+		turretCommand = new ScannerTarget(shooterSensors, driveSensors,new ScanForTarget(shooterSensors, driveSensors),new LimelightTurret(shooterSensors,driveSensors));
 	} 
 
 }

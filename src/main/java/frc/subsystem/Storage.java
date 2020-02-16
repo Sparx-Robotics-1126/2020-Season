@@ -41,7 +41,6 @@ public class Storage extends Subsystem{
 	
 	@Override
 	void execute() {
-		motorMaster.set(ControlMode.PercentOutput, -.8);
 		if(storageCommand != null) {
 			StorageOutput output = storageCommand.execute();
 			numOfBallsAquired = output.getNumOfBallsAquired();

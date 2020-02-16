@@ -6,7 +6,6 @@ import frc.robot.IO;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterSensors implements ShooterSensorsInterfeace 
 {
@@ -40,9 +39,7 @@ public class ShooterSensors implements ShooterSensorsInterfeace
 
 	public double getShooterSpeed() 
 	{
-		double speed = flywheelEncoder.getSelectedSensorVelocity()*10/(1024.0);
-		SmartDashboard.putNumber("Shooter speed", speed);
-		return speed;
+		return flywheelEncoder.getSelectedSensorVelocity()*10/(1024.0);
 	}
 
 	public boolean getTargetLock() 

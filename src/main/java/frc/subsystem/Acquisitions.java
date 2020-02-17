@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import frc.acq.AcqCommand;
-import frc.acq.commands.AcqRollers;
+import frc.acq.commands.StopRollers;
 import frc.acq.commands.EjectRollers;
 import frc.acq.commands.IntakeRollers;
 import frc.robot.IO;
@@ -24,7 +24,7 @@ public class Acquisitions extends Subsystem{
 		}
 	}
 	public void stopRollers() {
-		acqCommand = new AcqRollers();
+		acqCommand = new StopRollers();
 	}
 	public void ejectRollers() {
 		acqCommand = new EjectRollers();

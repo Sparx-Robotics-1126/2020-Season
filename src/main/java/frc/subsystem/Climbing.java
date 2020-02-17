@@ -53,11 +53,6 @@ public class Climbing extends Subsystem{
 				winch.set(0);
 			}
 		}
-		winch.set(-.15);
-		SmartDashboard.putBoolean("Limit", c.isTouchingBar());
-		SmartDashboard.putNumber("lead screw distance", c.getLeadScrewDistance());
-		SmartDashboard.putNumber("winch distance", c.getWinchDistance());
-
 	}
 
 	@Override

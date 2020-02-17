@@ -16,27 +16,23 @@ public class Storage extends Subsystem{
 	
 	private short numOfBallsAquired;
 	
-	private TalonSRX motorMaster;
+	private TalonSRX primaryBeltMotor;
+	private TalonSRX secondaryBeltMotor;
 	
 	private static final double STORAGE_MAX_VOLTAGE = 12.0;
 	
 	public Storage() {
 		sensors = null;
-		motorMaster = new TalonSRX(IO.STORAGE_MOTOR_1);
-		TalonSRX motorSlave = new TalonSRX(IO.STORAGE_MOTOR_2);
-		motorSlave.setInverted(true);
-		configureMotor(motorMaster, motorSlave);
-		
-		
-		this.sensors = null;
-		
+		primaryBeltMotor = new TalonSRX(IO.STORAGE_MOTOR_1);
+		primaryBeltMotor.setInverted(true);
+		secondaryBeltMotor = new TalonSRX(IO.STORAGE_MOTOR_2);
+		configureMotor(primaryBeltMotor);
+		configureMotor(secondaryBeltMotor);
 	}
-	private static void configureMotor(TalonSRX master, TalonSRX slave) {
-		int masterId = master.getDeviceID();
-		master.set(ControlMode.PercentOutput, 0);
-		master.configVoltageCompSaturation(STORAGE_MAX_VOLTAGE);
-		master.enableVoltageCompensation(true);
-		slave.set(ControlMode.Follower, masterId);
+	
+	private static void configureMotor(TalonSRX motor) {
+		motor.configVoltageCompSaturation(STORAGE_MAX_VOLTAGE);
+		motor.enableVoltageCompensation(true);
 	}
 	
 	@Override
@@ -44,10 +40,13 @@ public class Storage extends Subsystem{
 		if(storageCommand != null) {
 			StorageOutput output = storageCommand.execute();
 			numOfBallsAquired = output.getNumOfBallsAquired();
-			motorMaster.set(ControlMode.PercentOutput, -output.getOutput());
+			//Set Motor Values
+			primaryBeltMotor.set(ControlMode.PercentOutput, output.getPrimaryOutput());
+			secondaryBeltMotor.set(ControlMode.PercentOutput, output.getSecondaryOutput());
 			if(output.isCommandFinished()) {
 				//TURN OFF MOTORS
-				motorMaster.set(ControlMode.PercentOutput, 0);
+				primaryBeltMotor.set(ControlMode.PercentOutput, 0);
+				secondaryBeltMotor.set(ControlMode.PercentOutput, 0);
 				storageCommand = null;
 			}
 		}

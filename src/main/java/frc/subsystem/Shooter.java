@@ -26,7 +26,11 @@ public class Shooter extends Subsystem{
 	private boolean readyToShoot;
 	private TalonSRX flywheelMotorAlpha;
 	private TalonSRX turretMotor;
-
+	
+	private ShooterCommand flywheelSpeed;
+	private ShooterCommand turretSpeed;
+	
+	
 	private final double KF = .108;
 	private final double KP = 	.2;
 	private final double KI  = 	0;
@@ -85,5 +89,10 @@ public class Shooter extends Subsystem{
 		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
 		turretCommand = new ScannerTarget(shooterSensors, driveSensors,new ScanForTarget(shooterSensors, driveSensors),new LimelightTurret(shooterSensors,driveSensors));
 	} 
-
+	public void StopShootingMotors() {
+		shooterCommand = null;
+		turretCommand = null;
+		flywheelMotorAlpha.set(ControlMode.PercentOutput, 0);
+		turretMotor.set(ControlMode.PercentOutput, 0);
+	}
 }

@@ -10,7 +10,7 @@ public class MathHelpers {
 	}
 	
 	public static double getShootingSpeed(double distanceFromTarget) {
-		return 50.7-.0375*distanceFromTarget+.000403*Math.pow(distanceFromTarget,2); //Using trendline
+		return 79.5-.173*distanceFromTarget+5.4*Math.pow(10,-4)*Math.pow(distanceFromTarget,2); //Using trendline
 		// return Math.sqrt((distanceFromTarget*distanceFromTarget*9.8)/(2*Math.cos(35)*heightOfPort-Math.tan(35))); //Using math
 	}
 

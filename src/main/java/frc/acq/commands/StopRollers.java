@@ -2,7 +2,7 @@ package frc.acq.commands;
 
 import frc.acq.AcqCommand;
 
-public class AcqRollers extends AcqCommand{
+public class StopRollers extends AcqCommand{
 
 	@Override
 	public double execute() {

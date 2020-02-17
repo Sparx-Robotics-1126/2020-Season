@@ -1,4 +1,4 @@
-package frc.shooter.command;
+package frc.shooter.commands;
 
 import frc.drives.DrivesSensorInterface;
 import frc.shooter.ShooterCommand;
@@ -22,3 +22,4 @@ public class CenterTurretCommand extends ShooterCommand {
 		return new ShooterOutput(0, false);
 	}
 }
+

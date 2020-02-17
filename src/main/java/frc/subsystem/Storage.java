@@ -7,6 +7,7 @@ import frc.robot.IO;
 import frc.storage.StorageCommand;
 import frc.storage.StorageOutput;
 import frc.storage.StorageSensorInterface;
+import frc.storage.command.PrepareForShooting;
 
 public class Storage extends Subsystem{
 
@@ -27,11 +28,8 @@ public class Storage extends Subsystem{
 		secondaryBeltMotor = new TalonSRX(IO.STORAGE_MOTOR_2);
 		configureMotor(primaryBeltMotor);
 		configureMotor(secondaryBeltMotor);
-		
-		
-		this.sensors = null;
-		
 	}
+	
 	private static void configureMotor(TalonSRX motor) {
 		motor.configVoltageCompSaturation(STORAGE_MAX_VOLTAGE);
 		motor.enableVoltageCompensation(true);

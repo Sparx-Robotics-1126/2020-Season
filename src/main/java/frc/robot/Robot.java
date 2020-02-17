@@ -67,7 +67,7 @@ public class Robot extends RobotBase{
         // new Thread(climbing).start();
         // new Thread(drives).start();
         new Thread(shooter).start();
-        // new Thread(storage).start();
+        new Thread(storage).start();
     }
 
     private void disabledStarted(){

@@ -9,6 +9,9 @@ public final class IO {
 	//MOTORS
 	public static final int ACQ_MOTOR 				= 10;
 	
+	public static final int CLIMBING_WINCH_MOTOR 	= 27;
+	public static final int CLIMBING_SCISSORLIFT_MOTOR = 5;
+	
 	public static final int DRIVES_RIGHT_MOTOR_1	= 25;
 	public static final int DRIVES_RIGHT_MOTOR_2	= 26; 
 	public static final int DRIVES_LEFT_MOTOR_1		= 21;
@@ -33,9 +36,13 @@ public final class IO {
 	public static final int FLYWHEEL_ENCODER_A 		= 13;
 	public static final int FLYWHEEL_ENCODER_B 		= 12;
 
-	public static final int LEADSCREW_ENCODER_A 	= 14;
-	public static final int LEADSCREW_ENCODER_B 	= 15;
+	public static final int LEADSCREW_ENCODER_A 	= 24;
+	public static final int LEADSCREW_ENCODER_B 	= 25;
 	
-	public static final int CLIMBING_BAR_BUTTON 		= -99;
+	public static final int CLIMBING_BAR_BUTTON 	= 21;
 
+
+	public static final int STORAGE_INTAKE			= 15;
+	public static final int STORAGE_INDEX			= 16;
+	public static final int STORAGE_SHOOTING		= 17;
 }

@@ -64,9 +64,9 @@ public class Robot extends RobotBase{
         
         //Starting Subsystems
         // new Thread(acq).start();
-        // new Thread(climbing).start();
+        new Thread(climbing).start();
         // new Thread(drives).start();
-        new Thread(shooter).start();
+        // new Thread(shooter).start();
         // new Thread(storage).start();
     }
 

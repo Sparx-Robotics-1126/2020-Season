@@ -1,4 +1,4 @@
-package frc.shooter.command;
+package frc.shooter.commands;
 
 import frc.drives.DrivesSensorInterface;
 import frc.shooter.ShooterCommand;
@@ -14,7 +14,8 @@ public class TestFlywheel extends ShooterCommand{
 	
 	@Override
 	public ShooterOutput execute(){
-		return new ShooterOutput(0.4);
+		return new ShooterOutput(20);
 		
 	}
 }
+

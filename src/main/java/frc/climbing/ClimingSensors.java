@@ -11,7 +11,7 @@ public class ClimingSensors implements ClimbingSensorsInterface {
 
     Encoder leadScrew = new Encoder(IO.LEADSCREW_ENCODER_A,IO.LEADSCREW_ENCODER_B);
     CANEncoder winch;
-    DigitalInput bar = new DigitalInput(IO.CLIMBING_BAR_BUTTON); 
+    DigitalInput bar = new DigitalInput(IO.CLIMBING_BAR_BUTTON);  
 
     public ClimingSensors(CANSparkMax c){
         leadScrew.setDistancePerPulse(999);
@@ -30,7 +30,7 @@ public class ClimingSensors implements ClimbingSensorsInterface {
 
     @Override
     public double getWinchDistance() {
-        return winch.getDistance();
+        return winch.getPosition()/(6.87292);
     }
     
 

@@ -12,10 +12,11 @@ public class StartWinch extends ClimbingCommand {
 	}
 
 		public ClimbingOutput execute() {
+			currentDistance = sensors.getWinchDistance();
 			if(currentDistance >= wantedDistance) {
 				return new ClimbingOutput(0.0,true);
 			}
-			return new ClimbingOutput(0.3,false);
+			return new ClimbingOutput(1.0,false);
 		}
 
 }

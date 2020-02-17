@@ -6,8 +6,11 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
+import frc.climbing.ClimbingSensorsInterface;
+import frc.climbing.ClimingSensors;
 import frc.robot.IO;
 
 public class Climbing extends Subsystem{
@@ -16,6 +19,10 @@ public class Climbing extends Subsystem{
 	public TalonSRX scissorlift;
 	private ClimbingCommand extendingCommand;
 	private ClimbingCommand winchingCommand;
+
+	private ClimingSensors c; 
+
+
 	
 	
 	public Climbing() {
@@ -24,6 +31,8 @@ public class Climbing extends Subsystem{
 		scissorlift = new TalonSRX(IO.CLIMBING_SCISSORLIFT_MOTOR);
 		extendingCommand = null;
 		winchingCommand = null;
+		
+		c = new ClimingSensors(winch);
 	}
 	
 	@Override

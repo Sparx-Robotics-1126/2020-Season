@@ -35,10 +35,7 @@ public final class IO {
 
 	public static final int LEADSCREW_ENCODER_A 	= 14;
 	public static final int LEADSCREW_ENCODER_B 	= 15;
-
-	public static final int WINCH_ENCODER_A 	= -99;
-	public static final int WINCH_ENCODER_B 	= -99;
-
+	
 	public static final int CLIMBING_BAR_BUTTON 		= -99;
 
 }

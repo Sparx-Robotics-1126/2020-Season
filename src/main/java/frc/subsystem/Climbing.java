@@ -2,15 +2,23 @@ package frc.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
+import frc.climbing.ClimbingSensorsInterface;
+import frc.climbing.ClimingSensors;
 import frc.robot.IO;
 
 public class Climbing extends Subsystem{
 
 	private ClimbingCommand extendingCommand;
 	private ClimbingCommand winchingCommand;
+
+	private ClimingSensors c = new ClimingSensors(); 
+
+
 	
 	@Override
 	void execute() {
@@ -28,6 +36,10 @@ public class Climbing extends Subsystem{
 				winchingCommand = null;
 			}
 		}
+
+		SmartDashboard.putNumber("lead screw distance", c.getLeadScrewDistance());
+		SmartDashboard.putNumber("winch distance", c.getWinchDistance());
+
 	}
 
 	@Override

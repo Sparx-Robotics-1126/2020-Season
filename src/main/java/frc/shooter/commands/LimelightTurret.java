@@ -2,6 +2,7 @@ package frc.shooter.commands;
 
 import com.fasterxml.jackson.core.StreamReadFeature;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.drives.DrivesSensorInterface;
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
@@ -10,7 +11,7 @@ import frc.shooter.ShooterSensorsInterfeace;
 public class LimelightTurret extends ShooterCommand {    
 	private final double DEADBAND = .25;
 	private final double MAX_ANGLE = 100;   
-    final double p = .05;
+    final double p = .06;
 
     public LimelightTurret(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors){
         super(sensors, driveSensors);
@@ -37,7 +38,8 @@ public class LimelightTurret extends ShooterCommand {
         		speed = 0;
         	}
         }
-        return new ShooterOutput(speed);
+        SmartDashboard.putNumber("Shooter Off By", tx);
+        return new ShooterOutput(speed, Math.abs(tx) < 1);
     }
 
 }

@@ -38,11 +38,11 @@ public class TeleopControls extends Controller {
     @Override
     public void execute() {
     	drives.setJoysticks(axis1.get(), axis2.get());
-    	if(backwardButton.get()) {
-    		drives.moveBackward(5);
+    	if(backwardButton.get() && shooter.isDone()) {//2
+    		storage.shoot();
     	}
-    	if(moveForwardButton.get()) {
-    		drives.moveForward(5); //in feet
+    	if(moveForwardButton.get()) {//1
+    		shooter.startLimelightAiming();
     	}
     	if(moveRight.get()) {
     		drives.turnRight(90);

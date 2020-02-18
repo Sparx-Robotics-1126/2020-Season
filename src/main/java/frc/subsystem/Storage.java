@@ -3,18 +3,21 @@ package frc.subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.IO;
+import frc.shooter.ShooterSensors;
+import frc.storage.ShootBall;
 import frc.storage.StorageCommand;
 import frc.storage.StorageOutput;
 import frc.storage.StorageSensorInterface;
-import frc.storage.command.PrepareForShooting;
+import frc.storage.StorageSensors;
 
 public class Storage extends Subsystem{
 
 	private StorageCommand storageCommand;
 	private StorageSensorInterface sensors;
 	
-	private short numOfBallsAquired;
+	private short numOfBallsAquired = 3;
 	
 	private TalonSRX primaryBeltMotor;
 	private TalonSRX secondaryBeltMotor;
@@ -22,10 +25,11 @@ public class Storage extends Subsystem{
 	private static final double STORAGE_MAX_VOLTAGE = 12.0;
 	
 	public Storage() {
-		sensors = null;
+		sensors = new StorageSensors();
 		primaryBeltMotor = new TalonSRX(IO.STORAGE_MOTOR_1);
-		primaryBeltMotor.setInverted(true);
+		primaryBeltMotor.setInverted(false);
 		secondaryBeltMotor = new TalonSRX(IO.STORAGE_MOTOR_2);
+		secondaryBeltMotor.setInverted(true);
 		configureMotor(primaryBeltMotor);
 		configureMotor(secondaryBeltMotor);
 	}
@@ -50,6 +54,7 @@ public class Storage extends Subsystem{
 				storageCommand = null;
 			}
 		}
+		SmartDashboard.putBoolean("Shooter Sensor", sensors.getShootSensor());
 	}
 
 	@Override
@@ -59,6 +64,10 @@ public class Storage extends Subsystem{
 
 	public short getNumberOfBallsAquired() {
 		return numOfBallsAquired;
+	}
+
+	public void shoot(){
+		storageCommand = new ShootBall(sensors, numOfBallsAquired, 1.0);
 	}
 
 }

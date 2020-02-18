@@ -41,8 +41,7 @@ public final class IO {
 	
 	public static final int CLIMBING_BAR_BUTTON 	= 21;
 
-
-	public static final int STORAGE_INTAKE			= 15;
+	public static final int STORAGE_INTAKE			= 17;
 	public static final int STORAGE_INDEX			= 16;
-	public static final int STORAGE_SHOOTING		= 17;
+	public static final int STORAGE_SHOOTING		= 15;
 }

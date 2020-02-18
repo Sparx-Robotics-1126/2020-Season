@@ -28,7 +28,7 @@ public class Shooter extends Subsystem{
 	private TalonSRX turretMotor;
 
 	private final double KF = .108;
-	private final double KP = 	.2;
+	private final double KP = 	.5;
 	private final double KI  = 	0;
 	private final double KD = 	0;
 
@@ -68,11 +68,12 @@ public class Shooter extends Subsystem{
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
 			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
+			SmartDashboard.putBoolean("Ready to shoot: Shooter", shooterOutput.isReadyToShoot());
+			SmartDashboard.putBoolean("Ready to shoot: Turret", turretOutput.isReadyToShoot());
 			SmartDashboard.putBoolean("Ready to shoot", readyToShoot);
 			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/10.0)*shooterOutput.getOutputValue());
 			turretMotor.set(ControlMode.PercentOutput, turretOutput.getOutputValue());
 		}
-		SmartDashboard.putBoolean("Ready to shoot", false);
 		SmartDashboard.putNumber("Current Shooter Speed", shooterSensors.getShooterSpeed());
 	} 
 

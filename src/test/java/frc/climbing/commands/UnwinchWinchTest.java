@@ -21,7 +21,7 @@ public class UnwinchWinchTest{
 	public void atDistance_ShouldStopWinch() {
 		TestClimbingSensors sensors = new TestClimbingSensors();
 		sensors.winchDistance = 0;
-		ClimbingCommand command = new StartWinch(sensors, 0);
+		ClimbingCommand command = new UnwindWinch(sensors, 0);
 		ClimbingOutput output = command.execute();
 		assertEquals(0, output.getOutput(), 0.0001);
 	}
@@ -30,7 +30,7 @@ public class UnwinchWinchTest{
 	public void overDistance_ShouldStopWinch() {
 		TestClimbingSensors sensors = new TestClimbingSensors();
 		sensors.winchDistance = -11;
-		ClimbingCommand command = new StartWinch(sensors, -10);
+		ClimbingCommand command = new UnwindWinch(sensors, -10);
 		ClimbingOutput output = command.execute();
 		assertEquals(0, output.getOutput(), 0.0001);
 	}

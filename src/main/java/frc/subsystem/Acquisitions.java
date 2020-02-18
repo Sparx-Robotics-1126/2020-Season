@@ -11,7 +11,7 @@ import frc.robot.IO;
 
 public class Acquisitions extends Subsystem{
 
-	private AcqCommand acqCommand;
+	private static AcqCommand acqCommand;
 	
 	TalonSRX motor = new TalonSRX(IO.ACQ_MOTOR);
 	
@@ -23,19 +23,18 @@ public class Acquisitions extends Subsystem{
 			acqCommand = null;
 		}
 	}
-	public void stopRollers() {
+	public static void stopRollers() {
 		acqCommand = new StopRollers();
 	}
-	public void ejectRollers() {
+	public static void ejectRollers() {
 		acqCommand = new EjectRollers();
 	}
-	public void startIntake () {
+	public static void intakeRollers() {
 		acqCommand = new IntakeRollers();
 	}
-
+	
 	@Override
 	public boolean isDone() {
 		return acqCommand == null;
 	}
-	
 }

@@ -59,9 +59,18 @@ public class AutoControl extends Controller{
 			break;
 		default:
 			System.out.println("Unimplemented Feature: " + currentTask);
+		case ACQ_ACQUIRE:
+			Acquisitions.intakeRollers();
+			break;
+		case ACQ_STOP_ACQUIRING:
+			Acquisitions.stopRollers();
+			break;
+		case ACQ_DONE:
+			Acquisitions.ejectRollers();
+			autoStep--;
+			break;
 		}
 		autoStep++;
 	}
-
 }
 

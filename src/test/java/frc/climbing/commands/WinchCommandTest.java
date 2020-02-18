@@ -8,7 +8,6 @@ import org.junit.Test;
 import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
 import frc.climbing.ClimbingSensorsInterface;
-import frc.climbing.StartWinch;
 import frc.climbing.TestClimbingSensors;
 
 

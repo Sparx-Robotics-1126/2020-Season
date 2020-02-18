@@ -11,7 +11,7 @@ import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
 import frc.climbing.ClimbingSensorsInterface;
 import frc.climbing.ClimingSensors;
-import frc.climbing.StartWinch;
+import frc.climbing.commands.StartWinch;
 import frc.robot.IO;
 
 public class Climbing extends Subsystem{
@@ -24,12 +24,11 @@ public class Climbing extends Subsystem{
 	private ClimingSensors c; 	
 	
 	public Climbing() {
-
 		winch  = new CANSparkMax(IO.CLIMBING_WINCH_MOTOR,MotorType.kBrushless);
 		scissorlift = new TalonSRX(IO.CLIMBING_SCISSORLIFT_MOTOR);
-		extendingCommand = null;
 		c = new ClimingSensors(winch);
-		winchingCommand = new StartWinch(c,50);
+		winchingCommand = null;
+		extendingCommand = null;
 	}
 	
 	@Override
@@ -50,8 +49,6 @@ public class Climbing extends Subsystem{
 				winch.set(0);
 			}
 		}
-		SmartDashboard.putNumber("Winch encoder", c.getWinchDistance());
-		// winch.set(-.3);
 	}
 
 	@Override

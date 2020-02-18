@@ -20,7 +20,7 @@ public class WinchCommandTest{
 		sensors.winchDistance = 0;
 		ClimbingCommand command = new StartWinch(sensors, 10);
 		ClimbingOutput output = command.execute();
-		assertEquals(0.3, output.getOutput(), 0.0001);
+		assertEquals(1, output.getOutput(), 0.0001);
 	}
 	
 	@Test

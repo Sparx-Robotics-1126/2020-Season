@@ -15,7 +15,6 @@ public class ClimbingRetractTest {
 		ClimbingOutput output = new ClimbingRetract(sensors).execute();
 		assertEquals(0 , output.getOutput() , 0.00001 );
 	}
-	
 	@Test
 	public void NotAtWantedDistance() {
 		TestClimbingSensors sensors = new TestClimbingSensors();

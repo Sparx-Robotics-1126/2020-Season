@@ -11,6 +11,7 @@ import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
 import frc.climbing.ClimbingSensorsInterface;
 import frc.climbing.ClimingSensors;
+import frc.climbing.commands.ExtendScissorLift;
 import frc.climbing.commands.StartWinch;
 import frc.robot.IO;
 
@@ -26,9 +27,11 @@ public class Climbing extends Subsystem{
 	public Climbing() {
 		winch  = new CANSparkMax(IO.CLIMBING_WINCH_MOTOR,MotorType.kBrushless);
 		scissorlift = new TalonSRX(IO.CLIMBING_SCISSORLIFT_MOTOR);
+		scissorlift.configFactoryDefault();
+		scissorlift.setInverted(true);
 		c = new ClimingSensors(winch);
 		winchingCommand = null;
-		extendingCommand = null;
+		extendingCommand = new ExtendScissorLift(c,6);
 	}
 	
 	@Override

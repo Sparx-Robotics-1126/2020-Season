@@ -20,7 +20,7 @@ public class ExtendScissorLift extends ClimbingCommand {
 		if(sensors.isTouchingBar()) {
 			return new ClimbingOutput(0,true );
 		}else {
-			return new ClimbingOutput(0.5);
+			return new ClimbingOutput(1);
 		}
 	}
 }

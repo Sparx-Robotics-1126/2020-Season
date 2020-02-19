@@ -63,7 +63,7 @@ public class AutoControl extends Controller{
 			shooter.startLimelightAiming();
 			break;
 		case SHOOTER_DEACTIVATE_LIMELIGHT:
-			//
+			shooter.centerTurret();
 			break;
 		case SHOOTER_READY_TO_FIRE:
 			if(!shooter.isReadyToShoot()) {

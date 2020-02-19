@@ -60,7 +60,7 @@ public class AutoControl extends Controller{
 			autoStep--;//This offsets the autostep increment at the bottom causing the step to remain stuck here
 			break;
 		case ACQ_ACQUIRE:
-			acq.intakeRollers();
+			acq.startIntake();
 			break;
 		case ACQ_STOP_ACQUIRING:
 			acq.stopRollers();

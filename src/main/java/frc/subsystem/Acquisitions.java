@@ -11,7 +11,7 @@ import frc.robot.IO;
 
 public class Acquisitions extends Subsystem{
 
-	private static AcqCommand acqCommand;
+	private AcqCommand acqCommand;
 	
 	private TalonSRX motor;
 	

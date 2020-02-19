@@ -68,7 +68,7 @@ public class Shooter extends Subsystem{
 	
 	@Override
 	void execute() {
-		if(shooterCommand != null ) {
+		if(shooterCommand != null && turretCommand != null) {
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
 			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
@@ -104,6 +104,7 @@ public class Shooter extends Subsystem{
 	} 
 
 	public void stopShootingMotors() {
+		shooterCommand = new TestFlywheel(shooterSensors, driveSensors);
 		turretCommand = new StopShooter(shooterSensors, driveSensors);
 	}
 

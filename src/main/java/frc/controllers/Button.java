@@ -6,7 +6,8 @@ public class Button {
 	
 	enum ButtonType{
 		RISING_EDGE, // Initial Click
-		FALLING_EDGE // After Pressed and Released
+		FALLING_EDGE, // After Pressed and Released
+		PRESSED
 	}
 	
 	private Joystick joystick;
@@ -46,8 +47,10 @@ public class Button {
 	protected boolean getTriggered(boolean isCurrentlyPressed, boolean buttonPreviouslyPressed) {
 		if (buttonType == ButtonType.RISING_EDGE) {
 			return isCurrentlyPressed && !buttonPreviouslyPressed;//Pressed now, wasn't pressed before
-		} else {
+		} else if(buttonType == ButtonType.FALLING_EDGE) {
 			return !isCurrentlyPressed && buttonPreviouslyPressed;//Not pressed now, was pressed before
+		}else {
+			return isCurrentlyPressed;
 		}
 	}
  

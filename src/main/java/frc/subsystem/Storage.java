@@ -17,7 +17,7 @@ public class Storage extends Subsystem{
 	private StorageCommand storageCommand;
 	private StorageSensorInterface sensors;
 	
-	private short numOfBallsAquired = 3;
+	private short numOfBallsAquired;
 	
 	private TalonSRX primaryBeltMotor;
 	private TalonSRX secondaryBeltMotor;
@@ -25,6 +25,7 @@ public class Storage extends Subsystem{
 	private static final double STORAGE_MAX_VOLTAGE = 12.0;
 	
 	public Storage() {
+		numOfBallsAquired = 3; //START WITH 3 in AUTO
 		sensors = new StorageSensors();
 		primaryBeltMotor = new TalonSRX(IO.STORAGE_MOTOR_1);
 		primaryBeltMotor.setInverted(false);
@@ -54,7 +55,6 @@ public class Storage extends Subsystem{
 				storageCommand = null;
 			}
 		}
-		SmartDashboard.putBoolean("Shooter Sensor", sensors.getShootSensor());
 	}
 
 	@Override

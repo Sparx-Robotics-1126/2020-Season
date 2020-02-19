@@ -59,13 +59,13 @@ public class Robot extends RobotBase{
         storage = new Storage();
         
         //Controls
-        teleopControls = new TeleopControls(acq, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
-        autoControls = new AutoControl(acq, drives, shooter, storage);
+        teleopControls = new TeleopControls(acq, climbing, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
+        autoControls = new AutoControl(acq, climbing, drives, shooter, storage);
         
         //Starting Subsystems
-        // new Thread(acq).start();
-        // new Thread(climbing).start();
-        // new Thread(drives).start();
+        new Thread(acq).start();
+        new Thread(climbing).start();
+        new Thread(drives).start();
         new Thread(shooter).start();
         new Thread(storage).start();
     }

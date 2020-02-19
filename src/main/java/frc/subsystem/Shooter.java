@@ -14,6 +14,8 @@ import frc.shooter.ShooterSensorsInterfeace;
 import frc.shooter.commands.ScanForTarget;
 import frc.shooter.commands.ScannerTarget;
 import frc.shooter.commands.ShooterSpeed;
+import frc.shooter.commands.TestFlywheel;
+import frc.shooter.commands.CenterTurretCommand;
 import frc.shooter.commands.LimelightTurret;
 
 public class Shooter extends Subsystem{
@@ -73,18 +75,30 @@ public class Shooter extends Subsystem{
 			SmartDashboard.putBoolean("Ready to shoot", readyToShoot);
 			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/10.0)*shooterOutput.getOutputValue());
 			turretMotor.set(ControlMode.PercentOutput, turretOutput.getOutputValue());
+			if(turretOutput.isCommandComplete()) {
+				//Stop Command
+			}
 		}
 		SmartDashboard.putNumber("Current Shooter Speed", shooterSensors.getShooterSpeed());
 	} 
 
 	@Override
 	public boolean isDone() {
-		return readyToShoot || shooterCommand == null;
+		return shooterCommand == null;
+	}
+	
+	public boolean isReadyToShoot() {
+		return readyToShoot;
 	}
 
 	public void startLimelightAiming(){
 		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
 		turretCommand = new ScannerTarget(shooterSensors, driveSensors,new ScanForTarget(shooterSensors, driveSensors),new LimelightTurret(shooterSensors,driveSensors));
 	} 
+	
+	public void centerTurret() {
+		shooterCommand = new TestFlywheel(shooterSensors, driveSensors);
+		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);
+	}
 
 }

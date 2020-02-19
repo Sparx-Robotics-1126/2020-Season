@@ -1,8 +1,5 @@
 package frc.shooter.commands;
 
-import com.fasterxml.jackson.core.StreamReadFeature;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.drives.DrivesSensorInterface;
 import frc.shooter.ShooterCommand;
 import frc.shooter.ShooterOutput;
@@ -25,9 +22,7 @@ public class LimelightTurret extends ShooterCommand {
               speed = tx*p; 
         }
         
-        
         double shooterAngle = sensors.getShooterAngleToRobot();
-
 
         if(speed>0) {
         	if(shooterAngle > MAX_ANGLE) {
@@ -38,7 +33,6 @@ public class LimelightTurret extends ShooterCommand {
         		speed = 0;
         	}
         }
-        SmartDashboard.putNumber("Shooter Off By", tx);
         return new ShooterOutput(speed, Math.abs(tx) < 1);
     }
 

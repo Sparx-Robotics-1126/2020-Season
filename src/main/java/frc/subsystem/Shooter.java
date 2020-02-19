@@ -84,7 +84,7 @@ public class Shooter extends Subsystem{
 
 	@Override
 	public boolean isDone() {
-		return shooterCommand == null;
+		return shooterCommand == null && turretCommand == null;
 	}
 	
 	public boolean isReadyToShoot() {

@@ -19,7 +19,7 @@ public class CenterTurretCommand extends ShooterCommand {
 		if (Math.abs(sensors.getShooterAngleToRobot()) > 1) {
 			return new ShooterOutput(-sensors.getShooterAngleToRobot() * pK, false);
 		}
-		return new ShooterOutput(0, false);
+		return new ShooterOutput(0, false, true);
 	}
 }
 

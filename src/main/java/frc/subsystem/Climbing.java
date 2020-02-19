@@ -21,12 +21,12 @@ public class Climbing extends Subsystem{
 	private ClimbingCommand extendingCommand;
 	private ClimbingCommand winchingCommand;
 
-	private ClimingSensors c; 	
+	private ClimingSensors sensors; 	
 	
 	public Climbing() {
 		winch  = new CANSparkMax(IO.CLIMBING_WINCH_MOTOR,MotorType.kBrushless);
 		scissorlift = new TalonSRX(IO.CLIMBING_SCISSORLIFT_MOTOR);
-		c = new ClimingSensors(winch);
+		sensors = new ClimingSensors(winch);
 		winchingCommand = null;
 		extendingCommand = null;
 	}
@@ -49,6 +49,10 @@ public class Climbing extends Subsystem{
 				winch.set(0);
 			}
 		}
+	}
+	
+	public void startWinch() {
+		winchingCommand = new StartWinch(sensors, 45);
 	}
 
 	@Override

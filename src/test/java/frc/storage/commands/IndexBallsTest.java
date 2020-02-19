@@ -14,7 +14,7 @@ public class IndexBallsTest {
     @Test
     public void testBallEntering(){
         StorageTestSensor tsa = new StorageTestSensor();
-        IndexBalls dexter = new IndexBalls(tsa,(short)0);
+        IndexBalls dexter = new IndexBalls(tsa, (short) 0);
 
         tsa.testShootSensor = false;
         tsa.testIntakeSensor = true; 

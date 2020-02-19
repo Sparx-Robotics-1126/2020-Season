@@ -1,6 +1,8 @@
 
-package frc.storage;
+package frc.storage.command;
 import frc.storage.StorageCommand;
+import frc.storage.StorageOutput;
+import frc.storage.StorageSensorInterface;
 
 
 public class ShootBall extends StorageCommand {

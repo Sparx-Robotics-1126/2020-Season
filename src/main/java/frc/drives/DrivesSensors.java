@@ -1,6 +1,8 @@
 package frc.drives;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -9,39 +11,41 @@ import frc.robot.IO;
 public class DrivesSensors implements DrivesSensorInterface {
 
 	private AHRS gyro;
-	private Encoder rightEncoder;
-	private Encoder leftEncoder;
+	private CANEncoder rightEncoder;
+	private CANEncoder leftEncoder;
 	private double rightJoystick;
 	private double leftJoystick;
 	
 	public DrivesSensors() {
-		//gyro = new AHRS(SerialPort.Port.kUSB);
-		rightEncoder = new Encoder(IO.RIGHT_ENCODER_A, IO.RIGHT_ENCODER_B, true);
-		rightEncoder.setDistancePerPulse(0.02110013);
-		leftEncoder = new Encoder(IO.LEFT_ENCODER_A, IO.LEFT_ENCODER_B);
-		leftEncoder.setDistancePerPulse(0.02110013);
+		gyro = new AHRS(SerialPort.Port.kUSB);
 		rightJoystick = 0;
 		leftJoystick = 0;
 	}
 	
 	@Override
+	public void addEncoders(CANEncoder leftSpark, CANEncoder rightSpark) {
+		this.leftEncoder = leftSpark;
+		this.rightEncoder = rightSpark;
+	}
+	
+	@Override
 	public double getLeftEncoderDistance() {
-		return leftEncoder.getDistance();
+		return leftEncoder.getPosition();
 	}
 
 	@Override
 	public double getLeftEncoderSpeed() {
-		return leftEncoder.getRate();
+		return leftEncoder.getVelocity();
 	}
 
 	@Override
 	public double getRightEncoderDistance() {
-		return rightEncoder.getDistance();
+		return rightEncoder.getPosition();
 	}
 
 	@Override
 	public double getRightEncoderSpeed() {
-		return rightEncoder.getRate();
+		return rightEncoder.getVelocity();
 	}
 
 	@Override

@@ -36,8 +36,8 @@ public final class IO {
 	public static final int FLYWHEEL_ENCODER_A 		= 13;
 	public static final int FLYWHEEL_ENCODER_B 		= 12;
 
-	public static final int LEADSCREW_ENCODER_A 	= 24;
-	public static final int LEADSCREW_ENCODER_B 	= 25;
+	public static final int LEADSCREW_ENCODER_A 	= 25;
+	public static final int LEADSCREW_ENCODER_B 	= 24;
 	
 	public static final int CLIMBING_BAR_BUTTON 	= 21;
 

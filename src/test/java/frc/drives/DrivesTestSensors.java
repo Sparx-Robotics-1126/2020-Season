@@ -1,5 +1,7 @@
 package frc.drives;
 
+import com.revrobotics.CANEncoder;
+
 public class DrivesTestSensors implements DrivesSensorInterface{
 
 	private double rightEncoderDistance;
@@ -67,8 +69,8 @@ public class DrivesTestSensors implements DrivesSensorInterface{
 	public void setRightJoystick(double rightJoystick) {
 		this.rightJoystick = rightJoystick;
 	}
-	
-	
-	
 
+	//NOT USED
+	@Override
+	public void addEncoders(CANEncoder leftSpark, CANEncoder rightSpark) {}
 }

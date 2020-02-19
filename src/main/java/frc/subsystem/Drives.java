@@ -6,6 +6,7 @@ import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
 
 import frc.drives.commands.SpinLeft;
+import frc.drives.commands.DriveBackwards;
 import frc.drives.commands.DriveForward;
 import frc.drives.commands.DriverControlled;
 
@@ -110,7 +111,7 @@ public class Drives extends Subsystem{
     }
     
     public void moveBackward(double distance, double maxSpeed) {
-    	
+    	drivesCommand = new DriveBackwards(drivesSensors, maxSpeed, distance);
     }
     
     public void turnRight(double angle) {

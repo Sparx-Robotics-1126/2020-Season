@@ -6,11 +6,12 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.IO;
 import frc.shooter.ShooterSensors;
-import frc.storage.ShootBall;
 import frc.storage.StorageCommand;
 import frc.storage.StorageOutput;
 import frc.storage.StorageSensorInterface;
 import frc.storage.StorageSensors;
+import frc.storage.command.PrepareForShooting;
+import frc.storage.command.ShootBall;
 
 public class Storage extends Subsystem{
 
@@ -68,6 +69,10 @@ public class Storage extends Subsystem{
 
 	public void shoot(){
 		storageCommand = new ShootBall(sensors, numOfBallsAquired, 1.0);
+	}
+	
+	public void prepareForShooting(){
+		storageCommand = new PrepareForShooting(sensors, numOfBallsAquired);
 	}
 
 }

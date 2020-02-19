@@ -1,6 +1,7 @@
 package frc.controllers;
 
 import frc.subsystem.Acquisitions;
+import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
 import frc.subsystem.Shooter;
 import frc.subsystem.Storage;
@@ -9,12 +10,14 @@ import frc.subsystem.Storage;
 public abstract class Controller {
 
 	protected Acquisitions acq;
+	protected Climbing climbing;
     protected Drives drives;
     protected Shooter shooter;
     protected Storage storage;
 
-    public Controller(Acquisitions acq, Drives drives, Shooter shooter, Storage storage){
+    public Controller(Acquisitions acq, Climbing climbing, Drives drives, Shooter shooter, Storage storage){
         this.acq = acq;
+        this.climbing = climbing;
     	this.drives = drives;
     	this.shooter = shooter;
     	this.storage = storage;

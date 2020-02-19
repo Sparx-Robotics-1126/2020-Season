@@ -72,7 +72,6 @@ public class AutoControl extends Controller{
 			break;
 		default:
 			System.out.println("Unimplemented Feature: " + currentTask);
-			break;
 		}
 		autoStep++;
 	}

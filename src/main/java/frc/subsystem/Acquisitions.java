@@ -34,7 +34,7 @@ public class Acquisitions extends Subsystem{
 	public void ejectRollers() {
 		acqCommand = new EjectRollers();
 	}
-	public void intakeRollers() {
+	public void startIntake() {
 		acqCommand = new IntakeRollers();
 	}
 	

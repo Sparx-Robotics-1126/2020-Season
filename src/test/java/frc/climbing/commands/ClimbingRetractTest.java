@@ -14,7 +14,6 @@ public class ClimbingRetractTest {
 		sensors.leadScrewDistance = 0.25;
 		ClimbingOutput output = new ClimbingRetract(sensors).execute();
 		assertEquals(0 , output.getOutput() , 0.00001 );
-		
 	}
 	@Test
 	public void NotAtWantedDistance() {

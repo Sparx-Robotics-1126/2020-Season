@@ -7,6 +7,7 @@ import frc.auto.AutoRoutine;
 import frc.auto.AutoTask;
 import frc.auto.routine.DoNothing;
 import frc.subsystem.Acquisitions;
+import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
 import frc.subsystem.Shooter;
 import frc.subsystem.Storage;
@@ -21,8 +22,8 @@ public class AutoControl extends Controller{
 	private AutoTask[] currentAuto;
 	private int autoStep = 0;
 
-	public AutoControl(Acquisitions acq, Drives drives, Shooter shooter, Storage storage) {
-		super(acq, drives, shooter, storage);
+	public AutoControl(Acquisitions acq, Climbing climbing, Drives drives, Shooter shooter, Storage storage) {
+		super(acq, climbing, drives, shooter, storage);
 		createDashboard();
 	}
 
@@ -51,24 +52,26 @@ public class AutoControl extends Controller{
 			autoStep = 0;
 			currentAuto = getSelectedAuto();
 		}
-		AutoFeature currentTask = currentAuto[autoStep].getFeature();
-		switch(currentTask) {
+		AutoTask currentTask = currentAuto[autoStep];
+		AutoFeature currentFeature = currentTask.getFeature();
+		switch(currentFeature) {
 		//Commands go here
 		case STOP:
 			autoStep--;//This offsets the autostep increment at the bottom causing the step to remain stuck here
 			break;
-		default:
-			System.out.println("Unimplemented Feature: " + currentTask);
-			break;
 		case ACQ_ACQUIRE:
-			Acquisitions.intakeRollers();
+			acq.intakeRollers();
 			break;
 		case ACQ_STOP_ACQUIRING:
-			Acquisitions.stopRollers();
+			acq.stopRollers();
 			break;
 		case ACQ_DONE:
-			Acquisitions.ejectRollers();
-			autoStep--;
+			if(!acq.isDone()) {
+				autoStep--;
+			}
+			break;
+		default:
+			System.out.println("Unimplemented Feature: " + currentTask);
 			break;
 		}
 		autoStep++;

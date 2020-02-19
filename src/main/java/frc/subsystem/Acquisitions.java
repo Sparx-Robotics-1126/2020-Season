@@ -13,7 +13,11 @@ public class Acquisitions extends Subsystem{
 
 	private static AcqCommand acqCommand;
 	
-	TalonSRX motor = new TalonSRX(IO.ACQ_MOTOR);
+	private TalonSRX motor;
+	
+	public Acquisitions() {
+		motor = new TalonSRX(IO.ACQ_MOTOR);
+	}
 	
 	@Override
 	void execute() {
@@ -23,13 +27,14 @@ public class Acquisitions extends Subsystem{
 			acqCommand = null;
 		}
 	}
-	public static void stopRollers() {
+
+	public void stopRollers() {
 		acqCommand = new StopRollers();
 	}
-	public static void ejectRollers() {
+	public void ejectRollers() {
 		acqCommand = new EjectRollers();
 	}
-	public static void intakeRollers() {
+	public void intakeRollers() {
 		acqCommand = new IntakeRollers();
 	}
 	

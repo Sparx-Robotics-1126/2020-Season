@@ -30,10 +30,6 @@ public class Shooter extends Subsystem{
 	private TalonSRX flywheelMotorAlpha;
 	private TalonSRX turretMotor;
 	
-	private ShooterCommand flywheelSpeed;
-	private ShooterCommand turretSpeed;
-	
-	
 	private final double KF = .108;
 	private final double KP = 	.5;
 	private final double KI  = 	0;
@@ -62,6 +58,7 @@ public class Shooter extends Subsystem{
 		flywheelMotorAlpha.config_kD(0,KD,30);
 
 		this.shooterSensors = new ShooterSensors(flywheelMotorAlpha);
+		shooterSensors.enableLimelight(false);
 
 		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
 		
@@ -85,6 +82,7 @@ public class Shooter extends Subsystem{
 				turretCommand = null;
 				flywheelMotorAlpha.set(ControlMode.PercentOutput, 0);
 				turretMotor.set(ControlMode.PercentOutput, 0);
+				shooterSensors.enableLimelight(false);
 			}
 		}
 		SmartDashboard.putNumber("Current Shooter Speed", shooterSensors.getShooterSpeed());
@@ -100,6 +98,7 @@ public class Shooter extends Subsystem{
 	}
 
 	public void startLimelightAiming(){
+		shooterSensors.enableLimelight(true);
 		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
 		turretCommand = new ScannerTarget(shooterSensors, driveSensors,new ScanForTarget(shooterSensors, driveSensors),new LimelightTurret(shooterSensors,driveSensors));
 	} 

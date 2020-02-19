@@ -35,5 +35,8 @@ public class ShooterTestSensor implements ShooterSensorsInterfeace{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void enableLimelight(boolean enable) {}
 	
 }

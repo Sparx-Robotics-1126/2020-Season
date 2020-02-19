@@ -10,6 +10,7 @@ import frc.storage.StorageCommand;
 import frc.storage.StorageOutput;
 import frc.storage.StorageSensorInterface;
 import frc.storage.StorageSensors;
+import frc.storage.command.IndexBalls;
 import frc.storage.command.PrepareForShooting;
 import frc.storage.command.ShootBall;
 
@@ -73,6 +74,10 @@ public class Storage extends Subsystem{
 	
 	public void prepareForShooting(){
 		storageCommand = new PrepareForShooting(sensors, numOfBallsAquired);
+	}
+	
+	public void indexBalls() {
+		storageCommand = new IndexBalls(sensors, numOfBallsAquired);
 	}
 
 }

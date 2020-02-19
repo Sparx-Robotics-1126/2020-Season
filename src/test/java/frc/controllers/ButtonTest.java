@@ -26,5 +26,14 @@ public class ButtonTest {
 		assertEquals(false, button.getTriggered(true, true));//kept pressed
 		assertEquals(true, button.getTriggered(false, true));//Let go of button
 	}
+	
+	@Test
+	public void pressed_ShouldOnlyReturnTrueWhenPressed() {
+		Button button = new Button(null, 0, ButtonType.PRESSED);
+		assertEquals(false, button.getTriggered(false, false));//No press
+		assertEquals(true, button.getTriggered(true, false));//first press
+		assertEquals(true, button.getTriggered(true, true));//kept pressed
+		assertEquals(false, button.getTriggered(false, true));//Let go of button
+	}
 
 }

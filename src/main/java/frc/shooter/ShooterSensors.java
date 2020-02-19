@@ -47,4 +47,9 @@ public class ShooterSensors implements ShooterSensorsInterfeace
 		return limeSensor.getLock();
 	}
 
+	@Override
+	public void enableLimelight(boolean enable) {
+		limeSensor.enable(enable);
+	}
+
 }

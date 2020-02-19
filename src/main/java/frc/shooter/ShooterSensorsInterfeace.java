@@ -7,5 +7,6 @@ public interface ShooterSensorsInterfeace {
 	public abstract double getShooterAngleToRobot();
 	public abstract double getShooterSpeed();
 	public abstract boolean getTargetLock();
+	public abstract void enableLimelight(boolean enable);
 	
 }

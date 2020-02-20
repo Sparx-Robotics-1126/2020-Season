@@ -11,6 +11,7 @@ import frc.shooter.ShooterSensors;
 import frc.shooter.ShooterSensorsInterfeace;
 import frc.storage.StorageSensorInterface;
 import frc.subsystem.Acquisitions;
+import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
 import frc.subsystem.Shooter;
 import frc.subsystem.Storage;
@@ -33,6 +34,7 @@ public class Robot extends RobotBase{
     
     //Robot Subsystems
     private Acquisitions acq;
+    private Climbing climbing;
     private Drives drives;
     private Shooter shooter;
     private Storage storage;
@@ -51,16 +53,18 @@ public class Robot extends RobotBase{
         
         //Subsystems
         acq = new Acquisitions();
+        climbing = new Climbing();
         drives = new Drives(drivesSensors); // Creates drives instance
         shooter = new Shooter(drivesSensors);
         storage = new Storage();
         
         //Controls
-        teleopControls = new TeleopControls(acq, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
-        autoControls = new AutoControl(acq, drives, shooter, storage);
+        teleopControls = new TeleopControls(acq, climbing, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
+        autoControls = new AutoControl(acq, climbing, drives, shooter, storage);
         
         //Starting Subsystems
         new Thread(acq).start();
+        new Thread(climbing).start();
         new Thread(drives).start();
         new Thread(shooter).start();
         new Thread(storage).start();
@@ -75,16 +79,17 @@ public class Robot extends RobotBase{
      * Called by Robot.java when auto has been started
      */
     private void autoStarted(){
+    	currentController = autoControls;
         state = RobotState.AUTO;
-        currentController = autoControls;
     }
 
     /**
      * Called by Robot.java when teleop has been started
      */
     private void teleopStarted(){
-        state = RobotState.TELE;
-        currentController = teleopControls;
+    	drives.startDriverControlled();
+    	currentController = teleopControls;
+    	state = RobotState.TELE;
     }
 
     //Main Method

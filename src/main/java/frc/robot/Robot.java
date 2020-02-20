@@ -79,16 +79,17 @@ public class Robot extends RobotBase{
      * Called by Robot.java when auto has been started
      */
     private void autoStarted(){
+    	currentController = autoControls;
         state = RobotState.AUTO;
-        currentController = autoControls;
     }
 
     /**
      * Called by Robot.java when teleop has been started
      */
     private void teleopStarted(){
-        state = RobotState.TELE;
-        currentController = teleopControls;
+    	drives.startDriverControlled();
+    	currentController = teleopControls;
+    	state = RobotState.TELE;
     }
 
     //Main Method

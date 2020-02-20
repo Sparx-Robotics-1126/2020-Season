@@ -7,24 +7,15 @@ import frc.storage.StorageSensorInterface;
 public class IndexBalls extends StorageCommand {
 
     short amountOfBalls;
-    int numberOfIndexedBalls;
-
-    boolean intakeRollers;
-    boolean indexRollers;
 
     boolean pastIntakeSensorValue;
     boolean pastShootingSensorValue;
-    
 
     public IndexBalls(StorageSensorInterface sensors, short amountOfBalls) {
         super(sensors);
         this.amountOfBalls = amountOfBalls;
         pastIntakeSensorValue = sensors.getIntakeSensor();
         pastShootingSensorValue = sensors.getShootSensor();
-        if(pastIntakeSensorValue)
-            amountOfBalls++;
-        if(pastShootingSensorValue)
-            amountOfBalls--;
     }
 
     @Override
@@ -36,19 +27,8 @@ public class IndexBalls extends StorageCommand {
             pastIntakeSensorValue = false;
         }
 
-        if(!pastShootingSensorValue && sensors.getShootSensor()) {
-            pastShootingSensorValue = true;
-            amountOfBalls -= 1;
-        }else if(pastShootingSensorValue & !sensors.getShootSensor()){
-            pastShootingSensorValue = false;
-        }
-
         if(sensors.getIndexSensor() && !sensors.getShootSensor()){
-            return new StorageOutput(.2, amountOfBalls);
-        }
-
-        if(amountOfBalls<0){
-            amountOfBalls = 0;
+            return new StorageOutput(1, 0.1, amountOfBalls);
         }
 
         return new StorageOutput(0, amountOfBalls);

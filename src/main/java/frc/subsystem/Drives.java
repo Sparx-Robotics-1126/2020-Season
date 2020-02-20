@@ -14,6 +14,7 @@ import frc.robot.IO;
 import frc.drives.commands.TurnRight;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 /**
@@ -56,6 +57,7 @@ public class Drives extends Subsystem{
         driveSensors.addEncoders(leftMotorMaster.getEncoder(), rightMotorMaster.getEncoder());
         drivesSensors = driveSensors;
 
+        moveBackward(60);
     }
     
     /**
@@ -64,12 +66,13 @@ public class Drives extends Subsystem{
     private static void configureMotor(CANSparkMax master, CANSparkMax...  slaves) {
         master.restoreFactoryDefaults();
         master.set(0);
+        master.setIdleMode(IdleMode.kCoast);
         master.enableVoltageCompensation(12);
     
         for(CANSparkMax slave: slaves) {
             slave.restoreFactoryDefaults();
             slave.follow( master);
-            
+            slave.setIdleMode(IdleMode.kCoast);
         }
     }
 

@@ -27,20 +27,19 @@ public class Acquisitions extends Subsystem{
 			acqCommand = null;
 		}
 	}
-	
+
 	public void stopRollers() {
 		acqCommand = new StopRollers();
 	}
 	public void ejectRollers() {
 		acqCommand = new EjectRollers();
 	}
-	public void startIntake () {
+	public void startIntake() {
 		acqCommand = new IntakeRollers();
 	}
-
+	
 	@Override
 	public boolean isDone() {
 		return acqCommand == null;
 	}
-	
 }

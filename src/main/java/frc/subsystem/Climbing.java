@@ -3,14 +3,13 @@ package frc.subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
-import frc.climbing.ClimbingSensorsInterface;
 import frc.climbing.ClimingSensors;
+import frc.climbing.commands.ClimbingRetract;
+import frc.climbing.commands.ExtendScissorLift;
 import frc.climbing.commands.StartWinch;
 import frc.robot.IO;
 
@@ -26,6 +25,8 @@ public class Climbing extends Subsystem{
 	public Climbing() {
 		winch  = new CANSparkMax(IO.CLIMBING_WINCH_MOTOR,MotorType.kBrushless);
 		scissorlift = new TalonSRX(IO.CLIMBING_SCISSORLIFT_MOTOR);
+		scissorlift.configFactoryDefault();
+		scissorlift.setInverted(true);
 		sensors = new ClimingSensors(winch);
 		winchingCommand = null;
 		extendingCommand = null;
@@ -53,6 +54,13 @@ public class Climbing extends Subsystem{
 	
 	public void startWinch() {
 		winchingCommand = new StartWinch(sensors, 45);
+	}
+	
+	public void extendScissorLift() {
+		extendingCommand = new ExtendScissorLift(sensors, 6);
+	}
+	public void retractScissorLift() {
+		extendingCommand = new ClimbingRetract(sensors);
 	}
 
 	@Override

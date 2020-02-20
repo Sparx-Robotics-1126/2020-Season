@@ -59,6 +59,17 @@ public class AutoControl extends Controller{
 		case STOP:
 			autoStep--;//This offsets the autostep increment at the bottom causing the step to remain stuck here
 			break;
+		case ACQ_ACQUIRE:
+			acq.startIntake();
+			break;
+		case ACQ_STOP_ACQUIRING:
+			acq.stopRollers();
+			break;
+		case ACQ_DONE:
+			if(!acq.isDone()) {
+				autoStep--;
+			}
+			break;
 		case SHOOTER_ACTIVATE_LIMELIGHT:
 			shooter.startLimelightAiming();
 			break;
@@ -69,6 +80,7 @@ public class AutoControl extends Controller{
 			if(!shooter.isReadyToShoot()) {
 				autoStep--;
 			}
+			break;
 		case SHOOTER_DONE:
 			if(!shooter.isDone()) {
 				autoStep--;
@@ -79,6 +91,5 @@ public class AutoControl extends Controller{
 		}
 		autoStep++;
 	}
-
 }
 

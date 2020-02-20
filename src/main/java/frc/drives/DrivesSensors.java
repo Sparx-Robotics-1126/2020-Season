@@ -15,6 +15,7 @@ public class DrivesSensors implements DrivesSensorInterface {
 	private CANEncoder leftEncoder;
 	private double rightJoystick;
 	private double leftJoystick;
+	private final double multiplier = 1.2;
 	
 	public DrivesSensors() {
 		gyro = new AHRS(SerialPort.Port.kUSB);
@@ -30,7 +31,7 @@ public class DrivesSensors implements DrivesSensorInterface {
 	
 	@Override
 	public double getLeftEncoderDistance() {
-		return leftEncoder.getPosition();
+		return leftEncoder.getPosition() * -multiplier;
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class DrivesSensors implements DrivesSensorInterface {
 
 	@Override
 	public double getRightEncoderDistance() {
-		return rightEncoder.getPosition();
+		return rightEncoder.getPosition() * multiplier;
 	}
 
 	@Override

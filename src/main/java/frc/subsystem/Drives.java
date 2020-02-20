@@ -110,8 +110,8 @@ public class Drives extends Subsystem{
     	drivesCommand = new DriveForward(drivesSensors, maxSpeed, distance);
     }
     
-    public void moveBackward(double distance, double maxSpeed) {
-    	drivesCommand = new DriveBackwards(drivesSensors, maxSpeed, distance);
+    public void moveBackward(double distance) {
+    	drivesCommand = new DriveBackwards(drivesSensors, distance);
     }
     
     public void turnRight(double angle) {

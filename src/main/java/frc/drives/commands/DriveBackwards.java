@@ -6,54 +6,41 @@ import frc.drives.DrivesSensorInterface;
 
 public class DriveBackwards extends DrivesCommand {
 
-	private double startRightPosition;
-	private double speedReductionRatio;
-	private double leftSpeed = 0;
-	private double rightSpeed = 0; 
-	private double p = -0.00075;
-	private double adjustmentSpeed = sensors.getGyroAngle() * p;
-	private double speed;
-	private double distance;
-	private double startLeftPosition;
-	private double startAngle;
+	private final double DISTANCE_kP;
+	private final double GYRO_kP;
+	private final double DISTANCE_DEADBAND;
 
-	public DriveBackwards(DrivesSensorInterface sensors, double speed, double distance) {
+	private final double TARGET_DISTANCE;
+	private final double TARGET_ANGLE;
+
+	public DriveBackwards(DrivesSensorInterface sensors, double distance) {
 		super(sensors);
-		this.speed = speed; 
-		this.distance = distance;
-		this.speedReductionRatio = -0.975;
-		this.startRightPosition = sensors.getRightEncoderDistance();
-		this.startLeftPosition = sensors.getLeftEncoderDistance();
-		this.startAngle = sensors.getGyroAngle();
-		leftSpeed = speed;
-		rightSpeed = speed;
+		
+		DISTANCE_kP = 0.1;
+		GYRO_kP = 0.1;
+		DISTANCE_DEADBAND = 2;//2 inches
+
+		TARGET_DISTANCE = sensors.getAverageEncoderDistance() - distance;
+		TARGET_ANGLE = sensors.getGyroAngle();
 	}
+
 	public DrivesOutput execute() {
-		double currentLeftDistance  = sensors.getLeftEncoderDistance() - this.startLeftPosition;
-		double currentRightDistance  = sensors.getRightEncoderDistance() - this.startRightPosition;
+		double distanceError = TARGET_DISTANCE - sensors.getAverageEncoderDistance();
+		double angleError = TARGET_ANGLE - sensors.getGyroAngle();//Negative means too far right
 
-		if (currentLeftDistance >= distance || currentRightDistance >= distance) {
+		double leftSpeed, rightSpeed;
+		leftSpeed = rightSpeed = distanceError * DISTANCE_kP;
+		double gyroOffset = angleError * GYRO_kP;
 
-			return new DrivesOutput(0, 0, true);	
-
-		}
-		else {
-			if (sensors.getGyroAngle() > startAngle) {
-
-				leftSpeed = leftSpeed + adjustmentSpeed; 
-				rightSpeed = speed;
-			}
-			else if (sensors.getGyroAngle() < startAngle) {
-
-				rightSpeed = rightSpeed + adjustmentSpeed;
-				leftSpeed = speed;
-			}
-			else {
-				rightSpeed = speed;
-				leftSpeed = speed;
-			}
+		if(gyroOffset > 0){//Too Far Left
+			rightSpeed += gyroOffset;
+		}else{
+			leftSpeed += gyroOffset;
 		}
 
-		return new DrivesOutput(leftSpeed, rightSpeed);				
+		if(sensors.getAverageEncoderDistance() < TARGET_DISTANCE + DISTANCE_DEADBAND){
+			return new DrivesOutput(0, 0, true);
+		}
+		return new DrivesOutput(leftSpeed, rightSpeed);
 	}
 }

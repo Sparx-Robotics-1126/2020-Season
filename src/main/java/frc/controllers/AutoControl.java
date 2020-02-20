@@ -59,6 +59,8 @@ public class AutoControl extends Controller{
 		case STOP:
 			autoStep--;//This offsets the autostep increment at the bottom causing the step to remain stuck here
 			break;
+		
+		//ACQ
 		case ACQ_ACQUIRE:
 			acq.startIntake();
 			break;
@@ -70,6 +72,8 @@ public class AutoControl extends Controller{
 				autoStep--;
 			}
 			break;
+		
+		//SHOOTER
 		case SHOOTER_ACTIVATE_LIMELIGHT:
 			shooter.startLimelightAiming();
 			break;
@@ -86,6 +90,20 @@ public class AutoControl extends Controller{
 				autoStep--;
 			}
 			break;
+
+		//STORAGE
+		case STORAGE_PREPARE_FOR_SHOOTING:
+			storage.prepareForShooting();
+			break;
+		case STORAGE_SHOOT:
+			storage.shoot();
+			break;
+		case STORAGE_DONE:
+			if(!storage.isDone()) {
+				autoStep--;
+			}
+			break;
+			
 		default:
 			System.out.println("Unimplemented Feature: " + currentTask);
 		}

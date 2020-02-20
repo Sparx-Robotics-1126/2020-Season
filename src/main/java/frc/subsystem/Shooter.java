@@ -14,6 +14,7 @@ import frc.shooter.ShooterSensorsInterfeace;
 import frc.shooter.commands.ScanForTarget;
 import frc.shooter.commands.ScannerTarget;
 import frc.shooter.commands.ShooterSpeed;
+import frc.shooter.commands.StopShooter;
 import frc.shooter.commands.TestFlywheel;
 import frc.shooter.commands.CenterTurretCommand;
 import frc.shooter.commands.LimelightTurret;
@@ -28,7 +29,7 @@ public class Shooter extends Subsystem{
 	private boolean readyToShoot;
 	private TalonSRX flywheelMotorAlpha;
 	private TalonSRX turretMotor;
-
+	
 	private final double KF = .108;
 	private final double KP = 	.5;
 	private final double KI  = 	0;
@@ -57,6 +58,7 @@ public class Shooter extends Subsystem{
 		flywheelMotorAlpha.config_kD(0,KD,30);
 
 		this.shooterSensors = new ShooterSensors(flywheelMotorAlpha);
+		shooterSensors.enableLimelight(false);
 
 		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
 		
@@ -66,7 +68,7 @@ public class Shooter extends Subsystem{
 	
 	@Override
 	void execute() {
-		if(shooterCommand != null ) {
+		if(shooterCommand != null && turretCommand != null) {
 			ShooterOutput shooterOutput = shooterCommand.execute();
 			ShooterOutput turretOutput = turretCommand.execute();
 			readyToShoot = shooterOutput.isReadyToShoot() && turretOutput.isReadyToShoot();
@@ -76,7 +78,11 @@ public class Shooter extends Subsystem{
 			flywheelMotorAlpha.set(ControlMode.Velocity, (1024/10.0)*shooterOutput.getOutputValue());
 			turretMotor.set(ControlMode.PercentOutput, turretOutput.getOutputValue());
 			if(turretOutput.isCommandComplete()) {
-				//Stop Command
+				shooterCommand = null;
+				turretCommand = null;
+				flywheelMotorAlpha.set(ControlMode.PercentOutput, 0);
+				turretMotor.set(ControlMode.PercentOutput, 0);
+				shooterSensors.enableLimelight(false);
 			}
 		}
 		SmartDashboard.putNumber("Current Shooter Speed", shooterSensors.getShooterSpeed());
@@ -92,10 +98,16 @@ public class Shooter extends Subsystem{
 	}
 
 	public void startLimelightAiming(){
+		shooterSensors.enableLimelight(true);
 		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
 		turretCommand = new ScannerTarget(shooterSensors, driveSensors,new ScanForTarget(shooterSensors, driveSensors),new LimelightTurret(shooterSensors,driveSensors));
 	} 
-	
+
+	public void stopShootingMotors() {
+		shooterCommand = new TestFlywheel(shooterSensors, driveSensors);
+		turretCommand = new StopShooter(shooterSensors, driveSensors);
+	}
+
 	public void centerTurret() {
 		shooterCommand = new TestFlywheel(shooterSensors, driveSensors);
 		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);

@@ -6,11 +6,9 @@ import frc.auto.AutoFeature;
 import frc.auto.AutoRoutine;
 import frc.auto.AutoTask;
 import frc.auto.routine.DoNothing;
-<<<<<<< HEAD
 import frc.auto.routine.SixBallsFromTrench;
-=======
+import frc.auto.routine.DriveBackwards;
 import frc.auto.routine.ShootBallsOnly;
->>>>>>> 6e951cf2d68b307b874eaccb7966e8a086afbcda
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
@@ -23,6 +21,7 @@ public class AutoControl extends Controller{
 	private AutoRoutine[] possibleAutos = {
 			new DoNothing(),
 			new SixBallsFromTrench(),
+			new DriveBackwards(),
 			new ShootBallsOnly()
 			//Add new Auto Routines here
 	};

@@ -72,6 +72,26 @@ public class AutoControl extends Controller{
 				autoStep--;
 			}
 			break;
+
+		//DRIVES
+		case DRIVE_FORWARD:
+			// drives.
+			break;
+		case DRIVE_BACKWARDS:
+			// drives.
+			break;
+		case DRIVE_TURN_LEFT:
+			drives.turnLeft(currentTask.value1);
+			break;
+		case DRIVE_TURN_RIGHT:
+			drives.turnRight(currentTask.value1);
+			break;
+		case DRIVE_DONE:
+			if(!drives.isDone()){
+				autoStep--;
+			}
+			break;
+			
 		
 		//SHOOTER
 		case SHOOTER_ACTIVATE_LIMELIGHT:

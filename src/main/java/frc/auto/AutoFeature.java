@@ -51,6 +51,11 @@ public enum AutoFeature {
 	SHOOTER_DONE("Shooter: Waiting for Complete..."),
 	
 	/**
+	 * Wait for the shooter to be ready to fire
+	 */
+	SHOOTER_READY_TO_FIRE("Shooter: Ready to Fire"),
+	
+	/**
 	 * Active Limelight targeting system
 	 * Will enable both active turreting and flywheel control
 	 */

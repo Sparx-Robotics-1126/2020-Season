@@ -42,8 +42,6 @@ public class DriveBackwards extends DrivesCommand {
 		if(sensors.getAverageEncoderDistance() < TARGET_DISTANCE + DISTANCE_DEADBAND){
 			return new DrivesOutput(0, 0, true);
 		}
-		SmartDashboard.putNumber("current", sensors.getAverageEncoderDistance());
-		SmartDashboard.putNumber("target", TARGET_DISTANCE);
 		return new DrivesOutput(leftSpeed, rightSpeed);
 	}
 }

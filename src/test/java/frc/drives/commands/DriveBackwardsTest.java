@@ -27,25 +27,25 @@ public class DriveBackwardsTest {
 	}
 
 	@Test
-	public void pointedRight_ShouldSlowRight() {
+	public void pointedRight_ShouldSlowLeft() {
 		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
 		sensors.setLeftEncoderDistance(20);
 		sensors.setRightEncoderDistance(20);
 		sensors.setGyroAngle(5);
 		DrivesOutput output = backwardC.execute();
 
-		assertTrue("Front pointed right should slow down right", output.getRightMotor() > output.getLeftMotor());//Negative Numbers
+		assertTrue("Front pointed right should slow down right", output.getRightMotor() < output.getLeftMotor());//Negative Numbers
 	}
 
 	@Test
-	public void pointedLeft_ShouldSlowLeft() {
+	public void pointedLeft_ShouldSlowRight() {
 		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
 		sensors.setLeftEncoderDistance(20);
 		sensors.setRightEncoderDistance(20);
 		sensors.setGyroAngle(-5);
 		DrivesOutput output = backwardC.execute();
 
-		assertTrue("Front pointed right should slow down right", output.getRightMotor() > output.getLeftMotor());//Negative Numbers
+		assertTrue("Front pointed right should slow down right", output.getRightMotor() < output.getLeftMotor());//Negative Numbers
 	}
 
 	@Test

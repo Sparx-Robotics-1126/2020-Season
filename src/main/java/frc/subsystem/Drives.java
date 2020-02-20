@@ -56,8 +56,6 @@ public class Drives extends Subsystem{
         
         driveSensors.addEncoders(leftMotorMaster.getEncoder(), rightMotorMaster.getEncoder());
         drivesSensors = driveSensors;
-
-        moveBackward(60);
     }
     
     /**

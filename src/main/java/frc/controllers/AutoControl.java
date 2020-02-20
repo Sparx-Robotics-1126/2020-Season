@@ -6,7 +6,11 @@ import frc.auto.AutoFeature;
 import frc.auto.AutoRoutine;
 import frc.auto.AutoTask;
 import frc.auto.routine.DoNothing;
+<<<<<<< HEAD
 import frc.auto.routine.DriveBackwards;
+=======
+import frc.auto.routine.ShootBallsOnly;
+>>>>>>> 6e951cf2d68b307b874eaccb7966e8a086afbcda
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
@@ -18,7 +22,8 @@ public class AutoControl extends Controller{
 	private SendableChooser<AutoRoutine> autoSelector;
 	private AutoRoutine[] possibleAutos = {
 			new DoNothing(),
-			new DriveBackwards()
+			new DriveBackwards(),
+			new ShootBallsOnly()
 			//Add new Auto Routines here
 	};
 	private AutoTask[] currentAuto;
@@ -81,7 +86,7 @@ public class AutoControl extends Controller{
 			// drives.
 			break;
 		case DRIVE_BACKWARDS:
-			// drives.
+			drives.moveBackward(currentTask.value1);
 			break;
 		case DRIVE_TURN_LEFT:
 			drives.turnLeft(currentTask.value1);

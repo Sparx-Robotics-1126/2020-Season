@@ -51,8 +51,8 @@ public class TeleopControls extends Controller {
         operatorPrepareToFirePressed = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.PRESSED);
         operatorPrepareToFireEnd = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.FALLING_EDGE);
         operatorFire = new AxisButton(operatorJoystick, ControllerMappings.XBOX_R2, ButtonType.PRESSED);
-        operatorAcqAcquire = new Button(driverJoystick, ControllerMappings.XBOX_B);
-        operatorAcqStopAcquire = new Button(driverJoystick, ControllerMappings.XBOX_B);
+        operatorAcqAcquire = new Button(operatorJoystick, ControllerMappings.XBOX_A);
+        operatorAcqStopAcquire = new Button(operatorJoystick, ControllerMappings.XBOX_B);
     }
 
     @Override

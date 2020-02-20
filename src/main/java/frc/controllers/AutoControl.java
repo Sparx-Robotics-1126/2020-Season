@@ -70,6 +70,22 @@ public class AutoControl extends Controller{
 				autoStep--;
 			}
 			break;
+		case SHOOTER_ACTIVATE_LIMELIGHT:
+			shooter.startLimelightAiming();
+			break;
+		case SHOOTER_DEACTIVATE_LIMELIGHT:
+			shooter.centerTurret();
+			break;
+		case SHOOTER_READY_TO_FIRE:
+			if(!shooter.isReadyToShoot()) {
+				autoStep--;
+			}
+			break;
+		case SHOOTER_DONE:
+			if(!shooter.isDone()) {
+				autoStep--;
+			}
+			break;
 		default:
 			System.out.println("Unimplemented Feature: " + currentTask);
 		}

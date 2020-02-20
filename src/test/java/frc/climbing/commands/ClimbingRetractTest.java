@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import frc.climbing.ClimbingOutput;
 import frc.climbing.TestClimbingSensors;
-import frc.climbing.command.ClimbingRetract;
+import frc.climbing.commands.ClimbingRetract;
 
 public class ClimbingRetractTest {
 	
 	@Test
 	public void AtWantedDistance() {
 		TestClimbingSensors sensors = new TestClimbingSensors();
-		sensors.leadScrewDistance = 0.25;
+		sensors.leadScrewDistance = 0;
 		ClimbingOutput output = new ClimbingRetract(sensors).execute();
 		assertEquals(0 , output.getOutput() , 0.00001 );
 	}

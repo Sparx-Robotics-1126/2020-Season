@@ -1,4 +1,6 @@
-package frc.acq;
+package frc.acq.commands;
+
+import frc.acq.AcqCommand;
 
 public class EjectRollers extends AcqCommand{
 

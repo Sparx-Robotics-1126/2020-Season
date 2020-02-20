@@ -4,15 +4,16 @@ import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
+
+import frc.drives.commands.SpinLeft;
+import frc.drives.commands.DriveForward;
 import frc.drives.commands.DriverControlled;
+
 import frc.robot.IO;
 import frc.drives.commands.TurnRight;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 
 /**
  * Used to control ALL drives behavior
@@ -43,16 +44,17 @@ public class Drives extends Subsystem{
     
     //Main Constructor called in SubsystemManager.java
     public Drives(DrivesSensorInterface driveSensors){
-        drivesSensors = driveSensors;
-        rightMotorMaster = new CANSparkMax(IO.RIGHT_MOTOR_1,MotorType.kBrushless);
-        CANSparkMax rightMotorSlave = new CANSparkMax(IO.RIGHT_MOTOR_2,MotorType.kBrushless);
+        rightMotorMaster = new CANSparkMax(IO.DRIVES_RIGHT_MOTOR_1,MotorType.kBrushless);
+        CANSparkMax rightMotorSlave = new CANSparkMax(IO.DRIVES_RIGHT_MOTOR_2,MotorType.kBrushless);
         configureMotor(rightMotorMaster, rightMotorSlave);
         
-        leftMotorMaster = new CANSparkMax(IO.LEFT_MOTOR_1,MotorType.kBrushless);
-        CANSparkMax leftMotorSlave = new CANSparkMax(IO.LEFT_MOTOR_2,MotorType.kBrushless);
+        leftMotorMaster = new CANSparkMax(IO.DRIVES_LEFT_MOTOR_1,MotorType.kBrushless);
+        CANSparkMax leftMotorSlave = new CANSparkMax(IO.DRIVES_LEFT_MOTOR_2,MotorType.kBrushless);
         configureMotor(leftMotorMaster, leftMotorSlave);
+        
+        driveSensors.addEncoders(leftMotorMaster.getEncoder(), rightMotorMaster.getEncoder());
+        drivesSensors = driveSensors;
 
-        drivesCommand = new DriverControlled(driveSensors);
     }
     
     /**
@@ -94,7 +96,7 @@ public class Drives extends Subsystem{
     @Override
     public boolean isDone() {
         //How can we tell if the subsystem is ready to accept a new command?
-    	return false;
+    	return drivesCommand == null;
     }
     
     public void setJoysticks(double left, double right) {
@@ -103,11 +105,11 @@ public class Drives extends Subsystem{
 
     }
     
-    public void moveForward(double distance) {
-    	
+    public void moveForward(double distance, double maxSpeed) {
+    	drivesCommand = new DriveForward(drivesSensors, maxSpeed, distance);
     }
     
-    public void moveBackward(double distance) {
+    public void moveBackward(double distance, double maxSpeed) {
     	
     }
     
@@ -116,7 +118,11 @@ public class Drives extends Subsystem{
     }
     
     public void turnLeft(double angle) {
-
+        drivesCommand = new SpinLeft(drivesSensors, 1, angle);
+    }
+    
+    public void startDriverControlled() {
+    	drivesCommand = new DriverControlled(drivesSensors);
     }
     
 }

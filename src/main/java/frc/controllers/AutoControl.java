@@ -31,10 +31,11 @@ public class AutoControl extends Controller{
 
 	private void createDashboard() {
 		autoSelector = new SendableChooser<AutoRoutine>();
-		for(AutoRoutine autos: possibleAutos) {
-			autoSelector.addOption(autos.getAutoName(), autos);
+		for(int i = 0; i < possibleAutos.length; i++) {
+			AutoRoutine auto = possibleAutos[i];
+			autoSelector.addOption(auto.getAutoName(), auto);
 		}
-		SmartDashboard.putData(autoSelector);
+		SmartDashboard.putData("Auto Selector", autoSelector);
 	}
 
 	private AutoTask[] getSelectedAuto() {

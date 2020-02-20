@@ -6,6 +6,7 @@ import frc.auto.AutoFeature;
 import frc.auto.AutoRoutine;
 import frc.auto.AutoTask;
 import frc.auto.routine.DoNothing;
+import frc.auto.routine.DriveBackwards;
 import frc.auto.routine.ShootBallsOnly;
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Climbing;
@@ -18,6 +19,7 @@ public class AutoControl extends Controller{
 	private SendableChooser<AutoRoutine> autoSelector;
 	private AutoRoutine[] possibleAutos = {
 			new DoNothing(),
+			new DriveBackwards(),
 			new ShootBallsOnly()
 			//Add new Auto Routines here
 	};

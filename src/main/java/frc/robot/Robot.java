@@ -2,6 +2,8 @@ package frc.robot;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.controllers.AutoControl;
 import frc.controllers.Controller;
 import frc.controllers.TeleopControls;
@@ -109,8 +111,8 @@ public class Robot extends RobotBase{
     @Override
     public void startCompetition() {
         System.out.println("********ROBOT INIT********");
-        HAL.observeUserProgramStarting();
         robotInit();
+        HAL.observeUserProgramStarting();
         System.out.println("************STARING Main Loop************");
         while(true){
             if(!isDisabled()){
@@ -119,8 +121,8 @@ public class Robot extends RobotBase{
                     autoStarted();
                     HAL.observeUserProgramAutonomous();
                 }else if(isOperatorControl() && state != RobotState.TELE){
-                    teleopStarted();
                     System.out.println("**********TELEOP STARTED************");
+                    teleopStarted();
                     HAL.observeUserProgramTeleop();
                 }
             }else if(state != RobotState.STANDBY){
@@ -128,6 +130,7 @@ public class Robot extends RobotBase{
                 disabledStarted();
                 HAL.observeUserProgramDisabled();
             }
+            SmartDashboard.updateValues();
             mainLoop();
         }
 

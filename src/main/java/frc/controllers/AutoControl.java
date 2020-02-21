@@ -20,9 +20,9 @@ public class AutoControl extends Controller{
 	private SendableChooser<AutoRoutine> autoSelector;
 	private AutoRoutine[] possibleAutos = {
 			new DoNothing(),
-			new SixBallsFromTrench(),
 			new DriveBackwards(),
-			new ShootBallsOnly()
+			new ShootBallsOnly(),
+			new SixBallsFromTrench()
 			//Add new Auto Routines here
 	};
 	private AutoTask[] currentAuto;
@@ -35,10 +35,10 @@ public class AutoControl extends Controller{
 
 	private void createDashboard() {
 		autoSelector = new SendableChooser<AutoRoutine>();
-		for(int i = 0; i < possibleAutos.length; i++) {
-			AutoRoutine auto = possibleAutos[i];
+		for(AutoRoutine auto: possibleAutos) {
 			autoSelector.addOption(auto.getAutoName(), auto);
 		}
+		autoSelector.setDefaultOption("Default: Shoot 3", new ShootBallsOnly());
 		SmartDashboard.putData("Auto Selector", autoSelector);
 	}
 

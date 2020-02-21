@@ -36,7 +36,7 @@ public class DriveBackwards extends DrivesCommand {
 		if(gyroOffset > 0){//Too Far Left
 			leftSpeed += gyroOffset;
 		}else{
-			rightSpeed += gyroOffset;
+			rightSpeed -= gyroOffset;
 		}
 
 		if(sensors.getAverageEncoderDistance() < TARGET_DISTANCE + DISTANCE_DEADBAND){

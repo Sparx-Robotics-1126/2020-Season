@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.controllers.AutoControl;
 import frc.controllers.Controller;
 import frc.controllers.TeleopControls;
@@ -128,6 +129,7 @@ public class Robot extends RobotBase{
                 disabledStarted();
                 HAL.observeUserProgramDisabled();
             }
+            SmartDashboard.updateValues();
             mainLoop();
         }
 

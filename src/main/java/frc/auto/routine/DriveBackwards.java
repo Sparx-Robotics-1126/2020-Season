@@ -12,8 +12,8 @@ public class DriveBackwards extends AutoRoutine {
 	}
 
 	public static final AutoTask[] auto = {
-			AutoTask.createTask(AutoFeature.DRIVE_BACKWARDS, 1 , 24),
+			AutoTask.createTask(AutoFeature.DRIVE_BACKWARDS, 24),
 			AutoTask.createTask(AutoFeature.DRIVE_DONE),
-			AutoTask.createTask(AutoFeature.STOP),
+			AutoTask.createTask(AutoFeature.STOP)
 	};
 }

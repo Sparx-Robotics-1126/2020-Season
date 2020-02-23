@@ -31,7 +31,7 @@ public class Shooter extends Subsystem{
 	private TalonSRX turretMotor;
 	
 	private final double KF = .108;
-	private final double KP = 	.5;
+	private final double KP = 	.9;
 	private final double KI  = 	0;
 	private final double KD = 	0;
 

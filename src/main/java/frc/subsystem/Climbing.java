@@ -54,7 +54,7 @@ public class Climbing extends Subsystem{
 	}
 	
 	public void startWinch() {
-		winchingCommand = new StartWinch(sensors, 45);
+		winchingCommand = new StartWinch(sensors, 37);
 	}
 	
 	public void extendScissorLift() {

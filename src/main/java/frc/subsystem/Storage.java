@@ -3,6 +3,7 @@ package frc.subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.IO;
 import frc.storage.StorageCommand;
 import frc.storage.StorageOutput;
@@ -55,6 +56,7 @@ public class Storage extends Subsystem{
 				storageCommand = null;
 			}
 		}
+		SmartDashboard.putNumber("Balls Aquired", numOfBallsAquired);
 	}
 
 	@Override

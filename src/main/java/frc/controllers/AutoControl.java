@@ -6,6 +6,7 @@ import frc.auto.AutoFeature;
 import frc.auto.AutoRoutine;
 import frc.auto.AutoTask;
 import frc.auto.routine.DoNothing;
+import frc.auto.routine.SixBallsFromTrench;
 import frc.auto.routine.DriveBackwards;
 import frc.auto.routine.ShootBallsOnly;
 import frc.subsystem.Acquisitions;
@@ -20,7 +21,8 @@ public class AutoControl extends Controller{
 	private AutoRoutine[] possibleAutos = {
 			new DoNothing(),
 			new DriveBackwards(),
-			new ShootBallsOnly()
+			new ShootBallsOnly(),
+			new SixBallsFromTrench()
 			//Add new Auto Routines here
 	};
 	private AutoTask[] currentAuto;
@@ -33,10 +35,10 @@ public class AutoControl extends Controller{
 
 	private void createDashboard() {
 		autoSelector = new SendableChooser<AutoRoutine>();
-		for(int i = 0; i < possibleAutos.length; i++) {
-			AutoRoutine auto = possibleAutos[i];
+		for(AutoRoutine auto: possibleAutos) {
 			autoSelector.addOption(auto.getAutoName(), auto);
 		}
+		autoSelector.setDefaultOption("Default: Shoot 3", new ShootBallsOnly());
 		SmartDashboard.putData("Auto Selector", autoSelector);
 	}
 

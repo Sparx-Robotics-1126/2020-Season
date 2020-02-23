@@ -19,7 +19,9 @@ public class TeleopControls extends Controller {
     private Button driverClimbingExtend;
     private Button driverClimbingRetract;
     private Button driverClimbingWinch;
+	private Button driverClimbingWinchStop;
     
+	
     private Joystick operatorJoystick;
     private AxisButton operatorPrepareToFireStart;
     private AxisButton operatorPrepareToFirePressed;
@@ -44,7 +46,7 @@ public class TeleopControls extends Controller {
         driverClimbingExtend = new Button(driverJoystick, ControllerMappings.XBOX_Y);
         driverClimbingRetract = new Button(driverJoystick, ControllerMappings.XBOX_A);
         driverClimbingWinch = new Button(driverJoystick, ControllerMappings.XBOX_B);
-        
+        driverClimbingWinchStop = new Button(driverJoystick,ControllerMappings.XBOX_X);
         
         //OPERATOR
         operatorPrepareToFireStart = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.RISING_EDGE);
@@ -67,7 +69,10 @@ public class TeleopControls extends Controller {
     	}
     	if(driverClimbingWinch.get()) {
     		climbing.startWinch();
-    	}
+		}
+		if(driverClimbingWinchStop.get()){
+			climbing.StopWinch();
+		}  
     	
     	//Operator
     	if(operatorPrepareToFireStart.get()) {

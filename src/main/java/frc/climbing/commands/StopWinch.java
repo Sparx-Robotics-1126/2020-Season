@@ -11,7 +11,7 @@ public class StopWinch extends ClimbingCommand {
 	}
 
 		public ClimbingOutput execute() {
-            return new ClimbingOutput(0);
+            return new ClimbingOutput(0,true);
         }
 
 }

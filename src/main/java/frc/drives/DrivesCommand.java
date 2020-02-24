@@ -1,6 +1,8 @@
 package frc.drives;
 
-public abstract class DrivesCommand {
+import frc.health.HealthCheck;
+
+public abstract class DrivesCommand extends HealthCheck{
 
     /**
      * Class containing getters for all sensors needed for this subsystem

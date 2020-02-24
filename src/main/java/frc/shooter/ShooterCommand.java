@@ -1,8 +1,9 @@
 package frc.shooter;
 
 import frc.drives.DrivesSensorInterface;
+import frc.health.HealthCheck;
 
-public abstract class ShooterCommand {
+public abstract class ShooterCommand extends HealthCheck{
 	/**
      * Class containing getters for all sensors needed for this subsystem
      */

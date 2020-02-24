@@ -71,7 +71,7 @@ public class TeleopControls extends Controller {
     		climbing.startWinch();
 		}
 		if(driverClimbingWinchStop.get()){
-			climbing.StopWinch();
+			climbing.stopWinch();
 		}  
     	
     	//Operator

@@ -64,7 +64,7 @@ public class Climbing extends Subsystem{
 		extendingCommand = new ClimbingRetract(sensors);
 	}
 
-	public void StopWinch(){
+	public void stopWinch(){
 		winchingCommand = new StopWinch(sensors);
 	}
 

@@ -11,6 +11,7 @@ import frc.climbing.ClimingSensors;
 import frc.climbing.commands.ClimbingRetract;
 import frc.climbing.commands.ExtendScissorLift;
 import frc.climbing.commands.StartWinch;
+import frc.climbing.commands.StopWinch;
 import frc.robot.IO;
 
 public class Climbing extends Subsystem{
@@ -61,6 +62,10 @@ public class Climbing extends Subsystem{
 	}
 	public void retractScissorLift() {
 		extendingCommand = new ClimbingRetract(sensors);
+	}
+
+	public void stopWinch(){
+		winchingCommand = new StopWinch(sensors);
 	}
 
 	@Override

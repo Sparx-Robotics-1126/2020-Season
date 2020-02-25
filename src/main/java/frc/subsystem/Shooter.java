@@ -113,4 +113,9 @@ public class Shooter extends Subsystem{
 		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);
 	}
 
+	public void testShooter(){
+		shooterCommand = new TestFlywheel(shooterSensors, driveSensors);
+		turretCommand = new ScanForTarget(shooterSensors, driveSensors);
+	}
+
 }

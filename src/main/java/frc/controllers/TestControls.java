@@ -18,12 +18,35 @@ import frc.subsystem.Storage;
  */
 public class TestControls extends Controller {
 
+    private long startTimeStamp;
+    private final long RUNTIME;
+
     public TestControls(Acquisitions acq, Climbing climbing, Drives drives, Shooter shooter, Storage storage) {
         super(acq, climbing, drives, shooter, storage);
+        RUNTIME = 10000;//10 seconds
+        reset();
+    }
+
+    public void reset(){
+        startTimeStamp = 0;
     }
 
     @Override
     public void execute() {
-        // TODO Auto-generated method stub
+        if(startTimeStamp == 0){
+            startTimeStamp = System.currentTimeMillis();
+            drives.moveBackward(120);
+            acq.startIntake();
+            storage.indexBalls();
+            shooter.testShooter();
+            climbing.extendScissorLift();
+        }else if(startTimeStamp != Long.MAX_VALUE && System.currentTimeMillis() > startTimeStamp + RUNTIME){
+            startTimeStamp = Long.MAX_VALUE;
+            drives.setJoysticks(0, 0);
+            drives.startDriverControlled();
+            acq.stopRollers();
+            shooter.centerTurret();
+            climbing.retractScissorLift();
+        }
     }
 }

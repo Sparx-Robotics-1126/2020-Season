@@ -28,6 +28,12 @@ public class FlyWheelTest {
 		
 		HealthReport report = flywheel.checkHealth();
 		
+		assertEquals(true, report.isError());
+		
+		sensors.shooterSpeed = 10;
+		
+		report = flywheel.checkHealth();
+		
 		assertEquals(false, report.isError());
 	}
 }

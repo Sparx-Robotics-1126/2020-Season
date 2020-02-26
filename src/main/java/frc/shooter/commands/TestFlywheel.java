@@ -20,13 +20,14 @@ public class TestFlywheel extends ShooterCommand{
 	
 	@Override
 	public ShooterOutput execute(){
-		previousSpeed = currentSpeed;
-		currentSpeed = sensors.getShooterSpeed();
 		return new ShooterOutput(20);
 		
 	}
 	@Override 
 	public HealthReport checkHealth() {
+		
+		previousSpeed = currentSpeed;
+		currentSpeed = sensors.getShooterSpeed();
 		
 		boolean isChanging = false;
 		boolean correctDirection = false;

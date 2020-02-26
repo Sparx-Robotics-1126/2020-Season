@@ -38,11 +38,11 @@ public class TestFlywheel extends ShooterCommand{
 			correctDirection = true;
 		}
 		
-		if(isChanging = false) {
+		if(isChanging == false) {
 			return new HealthReport(true, "Speed is not changing!");
 		}
 
-		if(correctDirection = false) {
+		if(correctDirection == false) {
 			return new HealthReport(true, "The direection is wrong!");
 		}
 		

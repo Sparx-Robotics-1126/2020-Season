@@ -13,8 +13,6 @@ public class TestFlywheel extends ShooterCommand{
 	
 	public TestFlywheel(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors) {
 		super(sensors, driveSensors);
-		currentSpeed = 0;
-		previousSpeed = sensors.getShooterSpeed();
 		// TODO Auto-generated constructor stub
 	}
 	

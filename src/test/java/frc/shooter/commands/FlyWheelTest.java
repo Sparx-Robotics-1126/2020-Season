@@ -17,13 +17,16 @@ public class FlyWheelTest {
 	
 	@Test
 	public void TestFlyWheelReturns45() {
-		ShooterCommand command = new TestFlywheel(null, null);
+		ShooterCommand command = new TestFlywheel(sensors, driveSensors);
 		ShooterOutput output = command.execute();
 		assertEquals(20, output.getOutputValue(), 0.0001);
 	}
 	
 	@Test
 	public void IfSpeedChangingReturnsNoError() {
+		
+		sensors.shooterSpeed = 0;
+		
 		TestFlywheel flywheel = new TestFlywheel(sensors, driveSensors);
 		
 		HealthReport report = flywheel.checkHealth();

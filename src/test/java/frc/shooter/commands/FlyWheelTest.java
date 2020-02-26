@@ -33,6 +33,12 @@ public class FlyWheelTest {
 		
 		assertEquals(true, report.isError());
 		
+		sensors.shooterSpeed = -10;
+		
+		report = flywheel.checkHealth();
+		
+		assertEquals(true, report.isError());
+		
 		sensors.shooterSpeed = 10;
 		
 		report = flywheel.checkHealth();

@@ -50,25 +50,25 @@ public class Robot extends RobotBase{
         state = RobotState.STANDBY; //When robot turns on, we don't want anything running in the background
         
         //Sensors
-        DrivesSensorInterface drivesSensors = new DrivesSensors();
+       // DrivesSensorInterface drivesSensors = new DrivesSensors();
         
         //Subsystems
-        acq = new Acquisitions();
-        climbing = new Climbing();
-        drives = new Drives(drivesSensors); // Creates drives instance
-        shooter = new Shooter(drivesSensors);
-        storage = new Storage();
+        // acq = new Acquisitions();
+        // climbing = new Climbing();
+        // drives = new Drives(drivesSensors); // Creates drives instance
+        // shooter = new Shooter(drivesSensors);
+        // storage = new Storage();
         
         //Controls
         teleopControls = new TeleopControls(acq, climbing, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
         autoControls = new AutoControl(acq, climbing, drives, shooter, storage);
         
         //Starting Subsystems
-        new Thread(acq).start();
-        new Thread(climbing).start();
-        new Thread(drives).start();
-        new Thread(shooter).start();
-        new Thread(storage).start();
+        // new Thread(acq).start();
+        // new Thread(climbing).start();
+        // new Thread(drives).start();
+        // new Thread(shooter).start();
+        // new Thread(storage).start();
     }
 
     private void disabledStarted(){
@@ -88,7 +88,7 @@ public class Robot extends RobotBase{
      * Called by Robot.java when teleop has been started
      */
     private void teleopStarted(){
-    	drives.startDriverControlled();
+    //	drives.startDriverControlled();
     	currentController = teleopControls;
     	state = RobotState.TELE;
     }

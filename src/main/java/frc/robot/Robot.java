@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.controllers.AutoControl;
 import frc.controllers.Controller;
 import frc.controllers.TeleopControls;
@@ -59,8 +60,8 @@ public class Robot extends RobotBase{
         storage = new Storage();
         
         //Controls
-        teleopControls = new TeleopControls(acq, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
-        autoControls = new AutoControl(acq, drives, shooter, storage);
+        teleopControls = new TeleopControls(acq, climbing, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
+        autoControls = new AutoControl(acq, climbing, drives, shooter, storage);
         
         //Starting Subsystems
         new Thread(acq).start();
@@ -79,16 +80,17 @@ public class Robot extends RobotBase{
      * Called by Robot.java when auto has been started
      */
     private void autoStarted(){
+    	currentController = autoControls;
         state = RobotState.AUTO;
-        currentController = autoControls;
     }
 
     /**
      * Called by Robot.java when teleop has been started
      */
     private void teleopStarted(){
-        state = RobotState.TELE;
-        currentController = teleopControls;
+    	drives.startDriverControlled();
+    	currentController = teleopControls;
+    	state = RobotState.TELE;
     }
 
     //Main Method
@@ -127,6 +129,7 @@ public class Robot extends RobotBase{
                 disabledStarted();
                 HAL.observeUserProgramDisabled();
             }
+            SmartDashboard.updateValues();
             mainLoop();
         }
 

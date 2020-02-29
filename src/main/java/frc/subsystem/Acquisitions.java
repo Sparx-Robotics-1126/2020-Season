@@ -13,7 +13,11 @@ public class Acquisitions extends Subsystem{
 
 	private AcqCommand acqCommand;
 	
-	TalonSRX motor = new TalonSRX(IO.ACQ_MOTOR);
+	private TalonSRX motor;
+	
+	public Acquisitions() {
+		motor = new TalonSRX(IO.ACQ_MOTOR);
+	}
 	
 	@Override
 	void execute() {
@@ -23,19 +27,19 @@ public class Acquisitions extends Subsystem{
 			acqCommand = null;
 		}
 	}
+
 	public void stopRollers() {
 		acqCommand = new StopRollers();
 	}
 	public void ejectRollers() {
 		acqCommand = new EjectRollers();
 	}
-	public void startIntake () {
+	public void startIntake() {
 		acqCommand = new IntakeRollers();
 	}
-
+	
 	@Override
 	public boolean isDone() {
 		return acqCommand == null;
 	}
-	
 }

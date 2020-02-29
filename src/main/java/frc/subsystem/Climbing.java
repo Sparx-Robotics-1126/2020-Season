@@ -3,14 +3,15 @@ package frc.subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
-import frc.climbing.ClimbingSensorsInterface;
 import frc.climbing.ClimingSensors;
+import frc.climbing.commands.ClimbingRetract;
+import frc.climbing.commands.ExtendScissorLift;
+import frc.climbing.commands.StartWinch;
+import frc.climbing.commands.StopWinch;
 import frc.robot.IO;
 
 public class Climbing extends Subsystem{
@@ -20,19 +21,16 @@ public class Climbing extends Subsystem{
 	private ClimbingCommand extendingCommand;
 	private ClimbingCommand winchingCommand;
 
-	private ClimingSensors c; 
-
-
-	
+	private ClimingSensors sensors; 	
 	
 	public Climbing() {
-
 		winch  = new CANSparkMax(IO.CLIMBING_WINCH_MOTOR,MotorType.kBrushless);
 		scissorlift = new TalonSRX(IO.CLIMBING_SCISSORLIFT_MOTOR);
-		extendingCommand = null;
+		scissorlift.configFactoryDefault();
+		scissorlift.setInverted(true);
+		sensors = new ClimingSensors(winch);
 		winchingCommand = null;
-		
-		c = new ClimingSensors(winch);
+		extendingCommand = null;
 	}
 	
 	@Override
@@ -53,6 +51,21 @@ public class Climbing extends Subsystem{
 				winch.set(0);
 			}
 		}
+	}
+	
+	public void startWinch() {
+		winchingCommand = new StartWinch(sensors, 37);
+	}
+	
+	public void extendScissorLift() {
+		extendingCommand = new ExtendScissorLift(sensors, 6);
+	}
+	public void retractScissorLift() {
+		extendingCommand = new ClimbingRetract(sensors);
+	}
+
+	public void stopWinch(){
+		winchingCommand = new StopWinch(sensors);
 	}
 
 	@Override

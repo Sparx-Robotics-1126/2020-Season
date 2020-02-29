@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Axis {
 	
 private Joystick joystick;
-	private final double DEADBAND = 0.05; //Was .01
+	private final double DEADBAND = 0.05;
 	private int  axis;
 	private boolean invert;
 	

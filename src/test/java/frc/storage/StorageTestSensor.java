@@ -1,5 +1,7 @@
 package frc.storage;
 
+import frc.storage.StorageSensorInterface;
+
 public class StorageTestSensor implements StorageSensorInterface {
 
 	

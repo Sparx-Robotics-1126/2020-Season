@@ -9,13 +9,15 @@ import frc.robot.IO;
 
 public class ClimingSensors implements ClimbingSensorsInterface {
 
-    Encoder leadScrew = new Encoder(IO.LEADSCREW_ENCODER_A,IO.LEADSCREW_ENCODER_B);
-    CANEncoder winch;
-    DigitalInput bar = new DigitalInput(IO.CLIMBING_BAR_BUTTON);  
+    private Encoder leadScrew;
+    private CANEncoder winch;
+    private DigitalInput bar;
 
     public ClimingSensors(CANSparkMax c){
-        leadScrew.setDistancePerPulse(999);
+        leadScrew = new Encoder(IO.LEADSCREW_ENCODER_A,IO.LEADSCREW_ENCODER_B);
+        bar = new DigitalInput(IO.CLIMBING_BAR_BUTTON);  
         winch = c.getEncoder();
+        leadScrew.setDistancePerPulse(0.00411523 / 3);//Changed from 10:1 to 30:1   
     }
 
     @Override

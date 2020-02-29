@@ -17,8 +17,8 @@ public class DriveBackwards extends DrivesCommand {
 	public DriveBackwards(DrivesSensorInterface sensors, double distance) {
 		super(sensors);
 		
-		DISTANCE_kP = 0.02;
-		GYRO_kP = 0.005;
+		DISTANCE_kP = 0.03;
+		GYRO_kP = 0.06;
 		DISTANCE_DEADBAND = 1;//2 inches
 
 		TARGET_DISTANCE = sensors.getAverageEncoderDistance() - distance;
@@ -31,13 +31,21 @@ public class DriveBackwards extends DrivesCommand {
 
 		double leftSpeed, rightSpeed;
 		leftSpeed = rightSpeed = distanceError * DISTANCE_kP;
+		if(leftSpeed < -1){
+			leftSpeed = -1;
+			rightSpeed = -1;
+		}
 		double gyroOffset = angleError * GYRO_kP;
 
 		if(gyroOffset > 0){//Too Far Left
-			leftSpeed += gyroOffset;
+			rightSpeed += gyroOffset;
 		}else{
-			rightSpeed -= gyroOffset;
+			leftSpeed -= gyroOffset;
 		}
+
+		SmartDashboard.putNumber("Left speed", leftSpeed);
+		SmartDashboard.putNumber("Right speed", rightSpeed);
+		
 
 		if(sensors.getAverageEncoderDistance() < TARGET_DISTANCE + DISTANCE_DEADBAND){
 			return new DrivesOutput(0, 0, true);

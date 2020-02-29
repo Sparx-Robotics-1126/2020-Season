@@ -63,11 +63,11 @@ public class Robot extends RobotBase{
         autoControls = new AutoControl(acq, drives, shooter, storage);
         
         //Starting Subsystems
-        // new Thread(acq).start();
+        new Thread(acq).start();
         new Thread(climbing).start();
-        // new Thread(drives).start();
-        // new Thread(shooter).start();
-        // new Thread(storage).start();
+        new Thread(drives).start();
+        new Thread(shooter).start();
+        new Thread(storage).start();
     }
 
     private void disabledStarted(){

@@ -43,10 +43,6 @@ public class DriveBackwards extends DrivesCommand {
 			leftSpeed -= gyroOffset;
 		}
 
-		SmartDashboard.putNumber("Left speed", leftSpeed);
-		SmartDashboard.putNumber("Right speed", rightSpeed);
-		
-
 		if(sensors.getAverageEncoderDistance() < TARGET_DISTANCE + DISTANCE_DEADBAND){
 			return new DrivesOutput(0, 0, true);
 		}

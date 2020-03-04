@@ -46,7 +46,7 @@ public class Shooter extends Subsystem{
 		flywheelMotorAlpha.configFactoryDefault();
 		flywheelMotorAlpha.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,30);
 		
-		flywheelMotorAlpha.setSensorPhase(true);
+		flywheelMotorAlpha.setSensorPhase(false);
 		flywheelMotorAlpha.configNominalOutputForward(0);
 		flywheelMotorAlpha.configNominalOutputReverse(0);
 		flywheelMotorAlpha.configPeakOutputForward(1);

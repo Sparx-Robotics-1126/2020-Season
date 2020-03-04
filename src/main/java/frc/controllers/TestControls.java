@@ -7,6 +7,8 @@
 
 package frc.controllers;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.health.HealthReport;
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
@@ -47,9 +49,19 @@ public class TestControls extends Controller {
             drives.setJoysticks(0, 0);
             drives.startDriverControlled();
             acq.stopRollers();
-            storage.shoot();
             shooter.centerTurret();
             climbing.retractScissorLift();
+        }else{
+            displaySmartDashboard("Acq", acq.getHealthCheck());
+            displaySmartDashboard("Climbing", climbing.getHealthCheck());
+            displaySmartDashboard("Drives", drives.getHealthCheck());
+            displaySmartDashboard("Shooter", shooter.getHealthCheck());
+            displaySmartDashboard("Storage", storage.getHealthCheck());
         }
+    }
+
+    private void displaySmartDashboard(String name, HealthReport report){
+        SmartDashboard.putBoolean(name + " Status", !report.isError());
+        SmartDashboard.putString(name + " Message", report.getMessage());
     }
 }

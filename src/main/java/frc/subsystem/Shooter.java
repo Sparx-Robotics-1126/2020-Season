@@ -44,9 +44,9 @@ public class Shooter extends Subsystem {
 		flywheelMotorBeta.setInverted(true);
 
 		flywheelMotorAlpha.configFactoryDefault();
-		flywheelMotorAlpha.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 30);
-
-		flywheelMotorAlpha.setSensorPhase(true);
+		flywheelMotorAlpha.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,30);
+		
+		flywheelMotorAlpha.setSensorPhase(false);
 		flywheelMotorAlpha.configNominalOutputForward(0);
 		flywheelMotorAlpha.configNominalOutputReverse(0);
 		flywheelMotorAlpha.configPeakOutputForward(1);

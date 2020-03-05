@@ -23,15 +23,15 @@ public class TestFlywheel extends ShooterCommand{
 	}
 	@Override 
 	public HealthReport checkHealth() {
-		
-		previousSpeed = currentSpeed;
 		currentSpeed = sensors.getShooterSpeed();
 		
 		boolean isChanging = false;
 		boolean correctDirection = false;
 		
-		if(currentSpeed != previousSpeed) {
+		if(currentSpeed > 0) {
 			isChanging = true; 
+		}else if(currentSpeed < 0){
+			isChanging = true;
 		}
 		
 		if(sensors.getShooterSpeed() >= 0) {
@@ -43,7 +43,7 @@ public class TestFlywheel extends ShooterCommand{
 		}
 
 		if(correctDirection == false) {
-			return new HealthReport(true, "The direection is wrong!");
+			return new HealthReport(true, "The direction is wrong!");
 		}
 		
 		return new HealthReport();

@@ -30,9 +30,9 @@ public class ExtendScissorLift extends ClimbingCommand {
 		if(sensors.getLeadScrewDistance()<0){
 			return new HealthReport(true,"Sensor going backward");
 		}
-		if(sensors.getLeadScrewDistance()>10){
+		else if(sensors.getLeadScrewDistance()>.2){
 			return new HealthReport(false,"Lead screw encoder went "+sensors.getLeadScrewDistance());
 		}
-		return new HealthReport();	
+		return new HealthReport(true,"Lead screw went nowhere");	
 	}
 }

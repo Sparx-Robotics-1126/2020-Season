@@ -17,9 +17,11 @@ public class ScanForTargetHealthTest {
 	@Test
 	public void ReturnTrueIfTurretSpinsRightWhenItShould() {
 		healthScanner = new ScanForTarget(shooterSensor, drivesSensor);
-		shooterSensor.shooterAngle = 108;
+		shooterSensor.shooterAngle = -150;
+		healthScanner.execute();
+		shooterSensor.shooterAngle = -140;
 		healthScanner.checkHealth();
-		shooterSensor.shooterAngle = 109;
+		shooterSensor.shooterAngle = -130;
 		
 		report = healthScanner.checkHealth();
 		
@@ -30,10 +32,10 @@ public class ScanForTargetHealthTest {
 	//Shooter is turning left, and it should be; should not error
 		@Test
 		public void ReturnTrueIfTurretSpinsLeftWhenItShould() {
-			shooterSensor.shooterAngle = 150;
+			shooterSensor.shooterAngle = 0;
 			healthScanner = new ScanForTarget(shooterSensor, drivesSensor);
 			healthScanner.execute();
-			shooterSensor.shooterAngle = 140;
+			shooterSensor.shooterAngle = -10;
 			
 			report = healthScanner.checkHealth();
 			
@@ -45,10 +47,9 @@ public class ScanForTargetHealthTest {
 	@Test
 	public void returnsCorrectFailReportIfTestForSpinnningCorrectDirectionFails() {
 		healthScanner = new ScanForTarget(shooterSensor, drivesSensor);
-		
-		shooterSensor.shooterAngle = 60;
+		shooterSensor.shooterAngle = 0;
 		healthScanner.checkHealth();
-		shooterSensor.shooterAngle = 50;
+		shooterSensor.shooterAngle = 10;
 		
 		report = healthScanner.checkHealth();
 		

@@ -8,13 +8,14 @@ import frc.shooter.ShooterSensorsInterfeace;
 
 public class ScanForTarget extends ShooterCommand {
 
-	private boolean movingRight = true;
+	private boolean movingRight;
 	private final int maxAngleOnEitherSide = 110;
 	private final int howCloseToEdge = 3;
     private double previousAngle;
 
     public ScanForTarget(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors){
         super(sensors , driveSensors);
+        movingRight = false;
     }
 
     @Override 

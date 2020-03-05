@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.controllers.AutoControl;
 import frc.controllers.Controller;
 import frc.controllers.TeleopControls;
+import frc.controllers.TestControls;
 import frc.drives.DrivesSensorInterface;
 import frc.drives.DrivesSensors;
 import frc.shooter.ShooterSensors;
@@ -26,12 +27,14 @@ public class Robot extends RobotBase{
     public enum RobotState{
 		STANDBY,
 		AUTO,
-		TELE;
+        TELE,
+        TEST;
 	}
 
     //Controllers
     private TeleopControls teleopControls;
     private AutoControl autoControls;
+    private TestControls testControls;
     
     //Robot Subsystems
     private Acquisitions acq;
@@ -62,7 +65,8 @@ public class Robot extends RobotBase{
         //Controls
         teleopControls = new TeleopControls(acq, climbing, drives, shooter, storage); //Creates controller instance, passes in drives subsystem
         autoControls = new AutoControl(acq, climbing, drives, shooter, storage);
-        
+        testControls = new TestControls(acq, climbing, drives, shooter, storage);
+
         //Starting Subsystems
         new Thread(acq).start();
         new Thread(climbing).start();
@@ -93,6 +97,12 @@ public class Robot extends RobotBase{
     	state = RobotState.TELE;
     }
 
+    private void testStarted(){
+        testControls.reset();
+        currentController = testControls;
+        state = RobotState.TEST;
+    }
+
     //Main Method
     private void mainLoop() {
         switch (state){
@@ -103,6 +113,7 @@ public class Robot extends RobotBase{
             	//Also used if semi-auto things are happening
             	//NOTICE THERE IS NO BREAK HERE
             case TELE:
+            case TEST:
                 currentController.execute(); //Calls the current controller (auto/teleop/test)
         }
     }
@@ -123,6 +134,10 @@ public class Robot extends RobotBase{
                     teleopStarted();
                     System.out.println("**********TELEOP STARTED************");
                     HAL.observeUserProgramTeleop();
+                }else if(isTest() && state != RobotState.TEST){
+                    System.out.println("**********TEST STARTED************");
+                    testStarted();
+                    HAL.observeUserProgramTest();
                 }
             }else if(state != RobotState.STANDBY){
                 System.out.println("**********ROBOT DISABLED************");

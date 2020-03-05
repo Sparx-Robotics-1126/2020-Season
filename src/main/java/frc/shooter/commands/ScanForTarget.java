@@ -1,5 +1,6 @@
 package frc.shooter.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.drives.DrivesSensorInterface;
 import frc.health.HealthReport;
 import frc.shooter.ShooterCommand;
@@ -40,10 +41,10 @@ public class ScanForTarget extends ShooterCommand {
     	if(currentAngle == 0) {//Haven't MOVED
     		report = new HealthReport(true, "Turret is not spinning");
     	}
-    	if((movingRight && previousAngle > currentAngle) || (!movingRight && previousAngle > currentAngle)) {
+    	if((movingRight && previousAngle > currentAngle) || (!movingRight && previousAngle < currentAngle)) {
     		report = new HealthReport(true, "Turret is not turning in correct direction");
-    	}
-    	previousAngle = currentAngle;
+        }
+        previousAngle = currentAngle;
     	return report;
     }
 }

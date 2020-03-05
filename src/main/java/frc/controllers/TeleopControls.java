@@ -12,7 +12,16 @@ import frc.subsystem.Shooter;
 import frc.subsystem.Storage;
 
 public class TeleopControls extends Controller {
-
+	
+	public enum TeleopShooterState {
+		MANUALSHOOT,
+		AUTOSHOOT;
+	}
+	
+	private TeleopShooterState shootState;
+	
+	
+	
 	private Joystick driverJoystick;
 	private Axis driverLeftAxis;
     private Axis driverRightAxis;
@@ -39,6 +48,7 @@ public class TeleopControls extends Controller {
         
         driverJoystick = new Joystick(0);
         operatorJoystick = new Joystick(1);
+        shootState = TeleopShooterState.AUTOSHOOT;
 
         //DRIVER
         driverLeftAxis = new Axis(driverJoystick, ControllerMappings.XBOX_LEFT_Y, true);
@@ -73,15 +83,23 @@ public class TeleopControls extends Controller {
 		if(driverClimbingWinchStop.get()){
 			climbing.stopWinch();
 		}  
+    	setTeleopShooterState();
     	
     	//Operator
-    	if(operatorPrepareToFireStart.get()) {
-    		shooter.startLimelightAiming();
-    		storage.prepareForShooting();
+    	
+    	if (shootState == TeleopShooterState.AUTOSHOOT) {
+    		if(operatorPrepareToFireStart.get()) {
+    			shooter.startLimelightAiming();
+    			storage.prepareForShooting();
+    		}
+    		if(operatorFire.get() && shooter.isReadyToShoot() && storage.isDone()) {
+        		storage.shoot();
+        	}
     	}
-    	if(operatorFire.get() && shooter.isReadyToShoot() && storage.isDone()) {
-    		storage.shoot();
+    	else if (shootState == TeleopShooterState.MANUALSHOOT) {
+    		shooter.startManualShooting();
     	}
+    	
     	if(operatorPrepareToFireEnd.get()) {
     		storage.indexBalls();
     		shooter.centerTurret();
@@ -114,6 +132,10 @@ public class TeleopControls extends Controller {
     private void setRumble(Joystick joy, double value) {
     	joy.setRumble(RumbleType.kLeftRumble, value);
 		joy.setRumble(RumbleType.kRightRumble, value);
+    }
+    
+    private void setTeleopShooterState() {
+    	//TODO: Will set shooter state based off of input
     }
 
 }

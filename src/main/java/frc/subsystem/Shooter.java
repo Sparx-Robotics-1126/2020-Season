@@ -26,6 +26,7 @@ public class Shooter extends Subsystem{
 	private ShooterCommand turretCommand;
 	private DrivesSensorInterface driveSensors;
 	private ShooterSensorsInterfeace shooterSensors;
+	private ShooterSensorsInterfeace manualShootSensor;
 	private boolean readyToShoot;
 	private TalonSRX flywheelMotorAlpha;
 	private TalonSRX turretMotor;
@@ -34,6 +35,8 @@ public class Shooter extends Subsystem{
 	private final double KP = 	.9;
 	private final double KI  = 	0;
 	private final double KD = 	0;
+	
+	private double manualDistanceVar = 10;
 
 	public Shooter(DrivesSensorInterface driveSensors) {		
 		this.driveSensors = driveSensors;
@@ -58,6 +61,7 @@ public class Shooter extends Subsystem{
 		flywheelMotorAlpha.config_kD(0,KD,30);
 
 		this.shooterSensors = new ShooterSensors(flywheelMotorAlpha);
+		this.manualShootSensor = new ManualShootSensor(flywheelMotorAlpha);
 		shooterSensors.enableLimelight(false);
 
 		turretMotor = new TalonSRX(IO.SHOOTER_TURRET_MOTOR);
@@ -97,6 +101,10 @@ public class Shooter extends Subsystem{
 		return readyToShoot;
 	}
 
+	public void startManualShooting() {
+		shooterCommand = new ShooterSpeed(manualShootSensor, driveSensors);
+	}
+	
 	public void startLimelightAiming(){
 		shooterSensors.enableLimelight(true);
 		shooterCommand = new ShooterSpeed(shooterSensors,driveSensors);
@@ -112,5 +120,51 @@ public class Shooter extends Subsystem{
 		shooterCommand = new TestFlywheel(shooterSensors, driveSensors);
 		turretCommand = new CenterTurretCommand(shooterSensors, driveSensors);
 	}
+	
+	
+	private class ManualShootSensor implements ShooterSensorsInterfeace
+	{
+		
+		
+		private TalonSRX flywheelEncoder;
+		
+		public ManualShootSensor(TalonSRX shooterFlywheel) {
+			this.flywheelEncoder = shooterFlywheel;
+		}
+		
+		
+		@Override
+		public double getDistanceToTarget() {
+			return manualDistanceVar;
+		}
 
+		@Override
+		public double getAngleToTarget() {
+			return 0; //should always return that it is aimed at target to allow for shooting without limelight
+		}
+
+		@Override
+		public double getShooterAngleToRobot() {
+			//TODO
+			return 0; 
+		}
+
+		@Override
+		public double getShooterSpeed() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public boolean getTargetLock() {
+			return true;
+		}
+
+		@Override
+		public void enableLimelight(boolean enable) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 }

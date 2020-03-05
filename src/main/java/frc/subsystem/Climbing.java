@@ -77,8 +77,18 @@ public class Climbing extends Subsystem {
 
 	@Override
 	public HealthReport getHealthCheck() {
-		HealthReport scissor = extendingCommand.checkHealth();
-		HealthReport winch = winchingCommand.checkHealth();
+		HealthReport winch;
+		HealthReport scissor;
+		if(extendingCommand!=null){
+			scissor = extendingCommand.checkHealth();	
+		}else{
+			scissor = new HealthReport();
+		}
+		if(winchingCommand != null){
+			winch = winchingCommand.checkHealth();
+		}else{
+			winch = new HealthReport();
+		}
 		if(scissor.isError()){
 			return scissor;
 		}

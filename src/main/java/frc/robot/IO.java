@@ -10,7 +10,7 @@ public final class IO {
 	public static final int ACQ_MOTOR 				= 10;
 	
 	public static final int CLIMBING_WINCH_MOTOR 	= 27;
-	public static final int CLIMBING_SCISSORLIFT_MOTOR = 5;
+	public static final int CLIMBING_SCISSORLIFT_MOTOR = 12;
 	
 	public static final int DRIVES_RIGHT_MOTOR_1	= 25;
 	public static final int DRIVES_RIGHT_MOTOR_2	= 26; 

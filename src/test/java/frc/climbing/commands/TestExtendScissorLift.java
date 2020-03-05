@@ -7,6 +7,8 @@ import frc.climbing.ClimbingOutput;
 import frc.climbing.ClimbingSensorsInterface;
 import frc.climbing.TestClimbingSensors;
 import frc.climbing.commands.ExtendScissorLift;
+import frc.health.HealthCheck;
+import frc.health.HealthReport;
 
 public class TestExtendScissorLift {
 	
@@ -43,5 +45,19 @@ public class TestExtendScissorLift {
 		assertEquals(0, output.getOutput(), 0.00001);
 
 	}
+
+	@Test
+	public void health(){
+		TestClimbingSensors sensors = new TestClimbingSensors();
+		sensors.leadScrewDistance = 15;
+		sensors.isTouchingBar = false;
+		ExtendScissorLift extending = new ExtendScissorLift(sensors, 20);
+
+		HealthReport hc = extending.checkHealth();
+		assertEquals(false, hc.isError());
+		assertEquals(hc.getMessage(),"Lead screw encoder went 15.0");
+	}  
+	 
+
 	
 }

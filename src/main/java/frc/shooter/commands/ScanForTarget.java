@@ -9,25 +9,17 @@ import frc.shooter.ShooterSensorsInterfeace;
 public class ScanForTarget extends ShooterCommand {
 
 	private boolean movingRight = true;
-    final private int maxAngleOnEitherSide = 110;
-    final private int howCloseToEdge = 3;
-    private double previousAngleToRobot;
-    private double currentAngleToRobot;
-    private int counter;
-    private HealthReport prevHealthReport = new HealthReport();
-    private double checkAngle;
+	private final int maxAngleOnEitherSide = 110;
+	private final int howCloseToEdge = 3;
+    private double previousAngle;
 
     public ScanForTarget(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors){
         super(sensors , driveSensors);
-        this.currentAngleToRobot = sensors.getShooterAngleToRobot();
-        this.previousAngleToRobot = sensors.getShooterAngleToRobot();
     }
 
     @Override 
     public ShooterOutput execute() {
         double angle = sensors.getShooterAngleToRobot();
-        this.previousAngleToRobot = this.currentAngleToRobot;
-        this.currentAngleToRobot = angle;
         
         if(angle > maxAngleOnEitherSide - howCloseToEdge) {
         	movingRight = false;
@@ -42,40 +34,16 @@ public class ScanForTarget extends ShooterCommand {
     
     @Override
     public HealthReport checkHealth() {
-        if(counter==0){
-            checkAngle = this.currentAngleToRobot;
-        }
-        if(counter!=10){
-            counter++;
-            return prevHealthReport;
-        }else{
-            counter = 0;
-        }
-
-        boolean turningCorrectly = false;
-        boolean isTurning = false;
-        
-    	if (checkAngle != this.currentAngleToRobot) { //if the previous and current angles are different, the turret must be spinning.
-    		isTurning = true;
+    	double currentAngle = sensors.getShooterAngleToRobot();
+    	HealthReport report = new HealthReport();
+    	if(currentAngle == 0) {//Haven't MOVED
+    		report = new HealthReport(true, "Turret is not spinning");
     	}
-    	
-    	if (!isTurning) {
-            prevHealthReport =  new HealthReport(true, "Turret is not spinning"); 
-            return prevHealthReport;
+    	if((movingRight && previousAngle > currentAngle) || (!movingRight && previousAngle > currentAngle)) {
+    		report = new HealthReport(true, "Turret is not turning in correct direction");
     	}
-    	
-    	//Else because will fail second check automatically if it fails the first
-    	else if ((checkAngle < this.currentAngleToRobot && movingRight) || //if the turret should be spinning right and is spinning right, return true
-    	   (checkAngle > this.currentAngleToRobot && !movingRight)) { //if the turret should be spinning left and is spinning left, return true
-    		turningCorrectly = true;
-    	}
-    	
-    	if (!turningCorrectly) { 
-            prevHealthReport = new HealthReport(true, "Turret is not turning in correct direction"); 
-            return prevHealthReport; 
-    	}
-    	prevHealthReport = new HealthReport(false,"Turning correctly");
-    	return prevHealthReport;
+    	previousAngle = currentAngle;
+    	return report;
     }
 }
 

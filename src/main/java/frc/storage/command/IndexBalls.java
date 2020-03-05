@@ -36,14 +36,12 @@ public class IndexBalls extends StorageCommand {
     
     @Override
     public HealthReport checkHealth() {
-    	if (pastIntakeSensorValue && pastShootingSensorValue)
-    		return new HealthReport();
-    	else if(!pastIntakeSensorValue && !pastShootingSensorValue) {
-    		return new HealthReport(true, "Both Intake Sensor and Shooting Sensor have returned false!");
+    	if(!pastIntakeSensorValue) {
+    		return new HealthReport(true, "Waiting for Intake Sensor");
+    	}else if(!pastShootingSensorValue) {
+    		return new HealthReport(true, "Waiting for Shooting Sensor");
     	}
-    	else if(!pastIntakeSensorValue)
-    		return new HealthReport(true, "Intake Sensor has returned false!");
-    	return new HealthReport(true, "Shooting Sensor has returned false!");
+    	return new HealthReport();
     }
 
 }

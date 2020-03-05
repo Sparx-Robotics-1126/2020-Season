@@ -121,8 +121,20 @@ public class Shooter extends Subsystem {
 
 	@Override
 	public HealthReport getHealthCheck() {
-		HealthReport turret = turretCommand.checkHealth();
-		HealthReport flywheel = shooterCommand.checkHealth();
+		HealthReport turret;
+		HealthReport flywheel;
+		
+		if(turretCommand!=null){
+			turret = turretCommand.checkHealth();
+		}else{
+			turret = new HealthReport();
+		}
+		if(shooterCommand!=null){
+			flywheel = shooterCommand.checkHealth();
+		}else{
+			flywheel = new HealthReport();
+		}
+		
 		if(turret.isError()){
 			return turret;
 		}

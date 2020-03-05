@@ -13,6 +13,9 @@ public class ScanForTarget extends ShooterCommand {
     final private int howCloseToEdge = 3;
     private double previousAngleToRobot;
     private double currentAngleToRobot;
+    private int counter;
+    private HealthReport prevHealthReport = new HealthReport();
+    private double checkAngle;
 
     public ScanForTarget(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors){
         super(sensors , driveSensors);
@@ -39,29 +42,40 @@ public class ScanForTarget extends ShooterCommand {
     
     @Override
     public HealthReport checkHealth() {
-    	
+        if(counter==0){
+            checkAngle = this.currentAngleToRobot;
+        }
+        if(counter!=10){
+            counter++;
+            return prevHealthReport;
+        }else{
+            counter = 0;
+        }
+
         boolean turningCorrectly = false;
         boolean isTurning = false;
         
-    	if (this.currentAngleToRobot != this.previousAngleToRobot) { //if the previous and current angles are different, the turret must be spinning.
+    	if (checkAngle != this.currentAngleToRobot) { //if the previous and current angles are different, the turret must be spinning.
     		isTurning = true;
     	}
     	
     	if (!isTurning) {
-    		return new HealthReport(true, "Turret is not spinning");
+            prevHealthReport =  new HealthReport(true, "Turret is not spinning"); 
+            return prevHealthReport;
     	}
     	
     	//Else because will fail second check automatically if it fails the first
-    	else if ((this.previousAngleToRobot < this.currentAngleToRobot && movingRight) || //if the turret should be spinning right and is spinning right, return true
-    	   (this.previousAngleToRobot > this.currentAngleToRobot && !movingRight)) { //if the turret should be spinning left and is spinning left, return true
+    	else if ((checkAngle < this.currentAngleToRobot && movingRight) || //if the turret should be spinning right and is spinning right, return true
+    	   (checkAngle > this.currentAngleToRobot && !movingRight)) { //if the turret should be spinning left and is spinning left, return true
     		turningCorrectly = true;
     	}
     	
     	if (!turningCorrectly) { 
-    		return new HealthReport(true, "Turret is not turning in correct direction");
+            prevHealthReport = new HealthReport(true, "Turret is not turning in correct direction"); 
+            return prevHealthReport; 
     	}
-    	
-    	return new HealthReport();
+    	prevHealthReport = new HealthReport(false,"Turning correctly");
+    	return prevHealthReport;
     }
 }
 

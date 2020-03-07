@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesTestSensors;
+import frc.health.HealthReport;
 
 public class DriveBackwardsTest {
 
@@ -70,6 +71,89 @@ public class DriveBackwardsTest {
 		DrivesOutput lastOutput = backwardC.execute();
 		assertEquals(0, lastOutput.getLeftMotor(), 0);
 		assertEquals(0, lastOutput.getRightMotor(), 0);
+	}
+	
+	@Test
+	public void isLeftEncoderMovingInWrongDirection() {
+		sensors.setLeftEncoderDistance(10);
+		sensors.setRightEncoderDistance(10);
+		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
+		sensors.setLeftEncoderDistance(11);
+		sensors.setRightEncoderDistance(9);
+		backwardC.execute();
+		HealthReport report = backwardC.checkHealth();
+		assertEquals(true, report.isError());
+		assertEquals("Left encoder is moving in the wrong direction!", report.getMessage());
+	}
+	
+	@Test
+	public void isRightEncoderMovingInWrongDirection() {
+		sensors.setLeftEncoderDistance(10);
+		sensors.setRightEncoderDistance(10);
+		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
+		sensors.setLeftEncoderDistance(9);
+		sensors.setRightEncoderDistance(11);
+		backwardC.execute();
+		HealthReport report = backwardC.checkHealth();
+		assertEquals(true, report.isError());
+		assertEquals("Right encoder is moving in the wrong direction!", report.getMessage());
+	}
+	
+	@Test
+	public void isEncodersMovingInRightDirection() {
+		sensors.setLeftEncoderDistance(10);
+		sensors.setRightEncoderDistance(10);
+		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
+		sensors.setLeftEncoderDistance(9);
+		sensors.setRightEncoderDistance(9);
+		backwardC.execute();
+		HealthReport report = backwardC.checkHealth();
+		assertEquals(false, report.isError());
+		assertEquals("Good", report.getMessage());
+	}
+	
+	@Test
+	public void isRobotBelowExpectedAngleRange() {
+		sensors.setGyroAngle(10);
+		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
+		sensors.setGyroAngle(7);
+		backwardC.execute();
+		HealthReport report = backwardC.checkHealth();
+		assertEquals(true, report.isError());
+		assertEquals("Robot is below the expected angle range!", report.getMessage());
+	}
+	
+	@Test
+	public void isRobotAboveExpectedAngleRange() {
+		sensors.setGyroAngle(10);
+		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
+		sensors.setGyroAngle(13);
+		backwardC.execute();
+		HealthReport report = backwardC.checkHealth();
+		assertEquals(true, report.isError());
+		assertEquals("Robot is above the expected angle range!", report.getMessage());
+	}
+	
+	@Test
+	public void isRobotInsideLowExpectedAngleRange() {
+		sensors.setGyroAngle(10);
+		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
+		sensors.setGyroAngle(8);
+		backwardC.execute();
+		HealthReport report = backwardC.checkHealth();
+		assertEquals(false, report.isError());
+		assertEquals("Good", report.getMessage());
+	}
+	
+	@Test
+	public void isRobotInsideHighExpectedAngleRange() {
+		sensors.setGyroAngle(10);
+		DriveBackwards backwardC = new DriveBackwards(sensors, 10);
+		sensors.setGyroAngle(12);
+		backwardC.execute();
+		HealthReport report = backwardC.checkHealth();
+		assertEquals(false, report.isError());
+		assertEquals("Good", report.getMessage());
 	}
 
 } 

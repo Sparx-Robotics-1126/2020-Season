@@ -3,6 +3,7 @@ package frc.climbing.commands;
 import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
 import frc.climbing.ClimbingSensorsInterface;
+import frc.health.HealthReport;
 
 public class ExtendScissorLift extends ClimbingCommand {
 	
@@ -22,5 +23,16 @@ public class ExtendScissorLift extends ClimbingCommand {
 		}else {
 			return new ClimbingOutput(1);
 		}
+	}
+
+	@Override
+	public HealthReport checkHealth(){		
+		if(sensors.getLeadScrewDistance()<0){
+			return new HealthReport(true,"Sensor going backward");
+		}
+		else if(sensors.getLeadScrewDistance()>.2){
+			return new HealthReport(false,"Lead screw encoder went "+sensors.getLeadScrewDistance());
+		}
+		return new HealthReport(true,"Lead screw went nowhere");	
 	}
 }

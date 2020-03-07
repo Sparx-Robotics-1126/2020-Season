@@ -55,11 +55,11 @@ public class Storage extends Subsystem {
 			secondaryBeltMotor.set(ControlMode.PercentOutput, output.getSecondaryOutput());
 			agitatorMotor.set(ControlMode.PercentOutput,.25);
 			if (output.isCommandFinished()) {
-				// TURN OFF MOTORS
+				// TURN OFF All MOTORS 
 				primaryBeltMotor.set(ControlMode.PercentOutput, 0);
 				secondaryBeltMotor.set(ControlMode.PercentOutput, 0);
-				storageCommand = null;
 				agitatorMotor.set(ControlMode.PercentOutput, 0);
+				storageCommand = null;
 			}
 		}
 		SmartDashboard.putNumber("Balls Aquired", numOfBallsAquired);

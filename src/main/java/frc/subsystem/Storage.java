@@ -24,6 +24,8 @@ public class Storage extends Subsystem {
 	private TalonSRX primaryBeltMotor;
 	private TalonSRX secondaryBeltMotor;
 
+	private TalonSRX agitatorMotor;
+
 	private static final double STORAGE_MAX_VOLTAGE = 12.0;
 
 	public Storage() {
@@ -35,6 +37,7 @@ public class Storage extends Subsystem {
 		secondaryBeltMotor.setInverted(true);
 		configureMotor(primaryBeltMotor);
 		configureMotor(secondaryBeltMotor);
+		agitatorMotor = new TalonSRX(IO.STORAGE_AGITATOR);
 	}
 
 	private static void configureMotor(TalonSRX motor) {
@@ -50,11 +53,13 @@ public class Storage extends Subsystem {
 			// Set Motor Values
 			primaryBeltMotor.set(ControlMode.PercentOutput, output.getPrimaryOutput());
 			secondaryBeltMotor.set(ControlMode.PercentOutput, output.getSecondaryOutput());
+			agitatorMotor.set(ControlMode.PercentOutput,.25);
 			if (output.isCommandFinished()) {
 				// TURN OFF MOTORS
 				primaryBeltMotor.set(ControlMode.PercentOutput, 0);
 				secondaryBeltMotor.set(ControlMode.PercentOutput, 0);
 				storageCommand = null;
+				agitatorMotor.set(ControlMode.PercentOutput, 0);
 			}
 		}
 		SmartDashboard.putNumber("Balls Aquired", numOfBallsAquired);

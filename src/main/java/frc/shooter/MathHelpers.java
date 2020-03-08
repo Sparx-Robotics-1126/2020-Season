@@ -19,6 +19,8 @@ public class MathHelpers {
 			speed = 239.24833-2.0422343*distanceFromTarget+0.0060037235*Math.pow(distanceFromTarget,2); 
 		} 
 
+		speed = (speed>topSpeedOfFlywheel) ? speed : topSpeedOfFlywheel; 
+
 		if(speed>topSpeedOfFlywheel){
 			speed = topSpeedOfFlywheel;
 		}

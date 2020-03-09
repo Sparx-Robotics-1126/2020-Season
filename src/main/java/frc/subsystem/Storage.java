@@ -38,6 +38,7 @@ public class Storage extends Subsystem {
 		configureMotor(primaryBeltMotor);
 		configureMotor(secondaryBeltMotor);
 		agitatorMotor = new TalonSRX(IO.STORAGE_AGITATOR);
+		agitatorMotor.setInverted(true);
 	}
 
 	private static void configureMotor(TalonSRX motor) {

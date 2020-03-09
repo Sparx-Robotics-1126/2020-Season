@@ -11,7 +11,6 @@ public class StartWinch extends ClimbingCommand {
 
 	public StartWinch(ClimbingSensorsInterface sensors, double distance) {
 		super(sensors);
-		this.currentDistance = sensors.getWinchDistance();
 		this.wantedDistance = distance;
 	}
 

@@ -6,6 +6,9 @@ import frc.auto.AutoFeature;
 import frc.auto.AutoRoutine;
 import frc.auto.AutoTask;
 import frc.auto.routine.DoNothing;
+import frc.auto.routine.SixBallsFromTrench;
+import frc.auto.routine.DriveBackwards;
+import frc.auto.routine.ShootBallsOnly;
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
@@ -16,7 +19,10 @@ public class AutoControl extends Controller{
 
 	private SendableChooser<AutoRoutine> autoSelector;
 	private AutoRoutine[] possibleAutos = {
-			new DoNothing()
+			new DoNothing(),
+			new DriveBackwards(),
+			new ShootBallsOnly(),
+			new SixBallsFromTrench()
 			//Add new Auto Routines here
 	};
 	private AutoTask[] currentAuto;
@@ -29,10 +35,11 @@ public class AutoControl extends Controller{
 
 	private void createDashboard() {
 		autoSelector = new SendableChooser<AutoRoutine>();
-		for(AutoRoutine autos: possibleAutos) {
-			autoSelector.addOption(autos.getAutoName(), autos);
+		for(AutoRoutine auto: possibleAutos) {
+			autoSelector.addOption(auto.getAutoName(), auto);
 		}
-		SmartDashboard.putData(autoSelector);
+		autoSelector.setDefaultOption("Default: Shoot 3", new ShootBallsOnly());
+		SmartDashboard.putData("Auto Selector", autoSelector);
 	}
 
 	private AutoTask[] getSelectedAuto() {
@@ -59,11 +66,75 @@ public class AutoControl extends Controller{
 		case STOP:
 			autoStep--;//This offsets the autostep increment at the bottom causing the step to remain stuck here
 			break;
+		
+		//ACQ
+		case ACQ_ACQUIRE:
+			acq.startIntake();
+			break;
+		case ACQ_STOP_ACQUIRING:
+			acq.stopRollers();
+			break;
+		case ACQ_DONE:
+			if(!acq.isDone()) {
+				autoStep--;
+			}
+			break;
+
+		//DRIVES
+		case DRIVE_FORWARD:
+			// drives.
+			break;
+		case DRIVE_BACKWARDS:
+			drives.moveBackward(currentTask.value1);
+			break;
+		case DRIVE_TURN_LEFT:
+			drives.turnLeft(currentTask.value1);
+			break;
+		case DRIVE_TURN_RIGHT:
+			drives.turnRight(currentTask.value1);
+			break;
+		case DRIVE_DONE:
+			if(!drives.isDone()){
+				autoStep--;
+			}
+			break;
+			
+		
+		//SHOOTER
+		case SHOOTER_ACTIVATE_LIMELIGHT:
+			shooter.startLimelightAiming();
+			break;
+		case SHOOTER_DEACTIVATE_LIMELIGHT:
+			shooter.centerTurret();
+			break;
+		case SHOOTER_READY_TO_FIRE:
+			if(!shooter.isReadyToShoot()) {
+				autoStep--;
+			}
+			break;
+		case SHOOTER_DONE:
+			if(!shooter.isDone()) {
+				autoStep--;
+			}
+			break;
+
+		//STORAGE
+		case STORAGE_PREPARE_FOR_SHOOTING:
+			storage.prepareForShooting();
+			break;
+		case STORAGE_SHOOT:
+			storage.shoot();
+			break;
+		case STORAGE_DONE:
+			if(!storage.isDone()) {
+				autoStep--;
+			}
+			break;
+			
 		default:
 			System.out.println("Unimplemented Feature: " + currentTask);
 		}
 		autoStep++;
 	}
-
 }
 

@@ -1,4 +1,4 @@
-package frc.storage.commands;
+package frc.storage;
 
 import frc.storage.StorageSensorInterface;
 

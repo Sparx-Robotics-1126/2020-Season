@@ -18,7 +18,7 @@ public class PrepareForShooting extends StorageCommand {
     @Override
     public StorageOutput execute () {
         if(!sensors.getShootSensor()){
-            return new StorageOutput(.6,amountOfBalls);
+            return new StorageOutput(0.30,amountOfBalls);
         }
         return new StorageOutput(0,amountOfBalls,true);
     }

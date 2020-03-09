@@ -6,6 +6,8 @@ public class ShooterTestSensor implements ShooterSensorsInterfeace{
 
 	public double shooterSpeed;
 	public double distanceToTarget; 
+	public double angleToTarget;
+	public double shooterAngle;
 
 	@Override
 	public double getDistanceToTarget() {
@@ -15,13 +17,13 @@ public class ShooterTestSensor implements ShooterSensorsInterfeace{
 	@Override
 	public double getAngleToTarget() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.angleToTarget;
 	}
 
 	@Override
 	public double getShooterAngleToRobot() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.shooterAngle;
 	}
 
 	@Override
@@ -35,5 +37,8 @@ public class ShooterTestSensor implements ShooterSensorsInterfeace{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void enableLimelight(boolean enable) {}
 	
 }

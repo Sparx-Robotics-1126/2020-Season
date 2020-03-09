@@ -3,29 +3,29 @@ package frc.subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.climbing.ClimbingCommand;
 import frc.climbing.ClimbingOutput;
-import frc.climbing.ClimbingSensorsInterface;
 import frc.climbing.ClimingSensors;
+import frc.climbing.commands.ClimbingRetract;
 import frc.climbing.commands.ExtendScissorLift;
 import frc.climbing.commands.StartWinch;
+import frc.climbing.commands.StopWinch;
+import frc.health.HealthReport;
 import frc.robot.IO;
 
-public class Climbing extends Subsystem{
-	
+public class Climbing extends Subsystem {
+
 	public CANSparkMax winch;
 	public TalonSRX scissorlift;
 	private ClimbingCommand extendingCommand;
 	private ClimbingCommand winchingCommand;
 
-	private ClimingSensors sensors; 	
-	
+	private ClimingSensors sensors;
+
 	public Climbing() {
-		winch  = new CANSparkMax(IO.CLIMBING_WINCH_MOTOR,MotorType.kBrushless);
+		winch = new CANSparkMax(IO.CLIMBING_WINCH_MOTOR, MotorType.kBrushless);
 		scissorlift = new TalonSRX(IO.CLIMBING_SCISSORLIFT_MOTOR);
 		scissorlift.configFactoryDefault();
 		scissorlift.setInverted(true);
@@ -33,38 +33,66 @@ public class Climbing extends Subsystem{
 		winchingCommand = null;
 		extendingCommand = null;
 	}
-	
+
 	@Override
 	void execute() {
-		if(extendingCommand != null) {
+		if (extendingCommand != null) {
 			ClimbingOutput output = extendingCommand.execute();
 			scissorlift.set(ControlMode.PercentOutput, output.getOutput());
-			if(output.isFinished()) {
+			if (output.isFinished()) {
 				extendingCommand = null;
 				scissorlift.set(ControlMode.PercentOutput, 0);
 			}
 		}
-		if(winchingCommand != null) {
+		if (winchingCommand != null) {
 			ClimbingOutput output = winchingCommand.execute();
 			winch.set(output.getOutput());
-			if(output.isFinished()) {
+			if (output.isFinished()) {
 				winchingCommand = null;
 				winch.set(0);
 			}
 		}
 	}
-	
+
 	public void startWinch() {
-		winchingCommand = new StartWinch(sensors, 45);
+		winchingCommand = new StartWinch(sensors, 37);
 	}
-	
+
 	public void extendScissorLift() {
 		extendingCommand = new ExtendScissorLift(sensors, 6);
+	}
+
+	public void retractScissorLift() {
+		extendingCommand = new ClimbingRetract(sensors);
+	}
+
+	public void stopWinch() {
+		winchingCommand = new StopWinch(sensors);
 	}
 
 	@Override
 	public boolean isDone() {
 		return extendingCommand == null && winchingCommand == null;
+	}
+
+	@Override
+	public HealthReport getHealthCheck() {
+		HealthReport winch;
+		HealthReport scissor;
+		if(extendingCommand!=null){
+			scissor = extendingCommand.checkHealth();	
+		}else{
+			scissor = new HealthReport();
+		}
+		if(winchingCommand != null){
+			winch = winchingCommand.checkHealth();
+		}else{
+			winch = new HealthReport();
+		}
+		if(scissor.isError()){
+			return scissor;
+		}
+		return winch;
 	}
 	
 }

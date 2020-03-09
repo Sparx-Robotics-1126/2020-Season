@@ -1,5 +1,7 @@
 package frc.subsystem;
 
+import frc.health.HealthReport;
+
 public abstract class Subsystem implements Runnable {
 
     //This is called continuously by Thread
@@ -19,5 +21,7 @@ public abstract class Subsystem implements Runnable {
      * Used during autonomous to see what a task ( such as drives a certain distance forward ) is completed.
      */
     public abstract boolean isDone();
+
+    public abstract HealthReport getHealthCheck();
 
 }

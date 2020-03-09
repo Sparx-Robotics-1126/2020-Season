@@ -1,6 +1,8 @@
 package frc.storage;
 
-public abstract class StorageCommand {
+import frc.health.HealthCheck;
+
+public abstract class StorageCommand extends HealthCheck{
 	 /**
      * Class containing getters for all sensors needed for this subsystem
      */

@@ -1,6 +1,8 @@
 package frc.climbing;
 
-public abstract class ClimbingCommand {
+import frc.health.HealthCheck;
+
+public abstract class ClimbingCommand extends HealthCheck{
 	
 	protected ClimbingSensorsInterface sensors;
 	

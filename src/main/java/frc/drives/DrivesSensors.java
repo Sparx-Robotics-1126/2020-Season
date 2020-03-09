@@ -36,7 +36,7 @@ public class DrivesSensors implements DrivesSensorInterface {
 
 	@Override
 	public double getLeftEncoderSpeed() {
-		return leftEncoder.getVelocity();
+		return leftEncoder.getVelocity() * -1;
 	}
 
 	@Override

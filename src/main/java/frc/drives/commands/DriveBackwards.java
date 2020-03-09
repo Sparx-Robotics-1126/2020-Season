@@ -14,6 +14,9 @@ public class DriveBackwards extends DrivesCommand {
 
 	private final double TARGET_DISTANCE;
 	private final double TARGET_ANGLE;
+	private final double STARTING_LEFT;
+	private final double STARTING_RIGHT;
+	
 	private double prevLeftDistance;
 	private double currentLeftDistance;
 	private double prevRightDistance;
@@ -33,6 +36,9 @@ public class DriveBackwards extends DrivesCommand {
 		currentLeftDistance = sensors.getLeftEncoderDistance();
 		prevRightDistance = sensors.getRightEncoderDistance();
 		currentRightDistance = sensors.getRightEncoderDistance();
+		STARTING_LEFT  = currentLeftDistance;
+		STARTING_RIGHT = currentRightDistance;
+		
 	}
 
 	public DrivesOutput execute() {
@@ -67,15 +73,22 @@ public class DriveBackwards extends DrivesCommand {
 	
 	@Override
 	public HealthReport checkHealth() {
-		if (currentRightDistance > prevRightDistance) {
-			return new HealthReport(true, "Right encoder is moving in the wrong direction!");
-		} else if (currentLeftDistance > prevLeftDistance) {
-			return new HealthReport(true, "Left encoder is moving in the wrong direction!");
-		} else if (sensors.getGyroAngle() > TARGET_ANGLE + (TARGET_ANGLE * 0.2)) {
-			return new HealthReport(true, "Robot is above the expected angle range!");
-		} else if (sensors.getGyroAngle() < TARGET_ANGLE - (TARGET_ANGLE * 0.2)) {
-			return new HealthReport(true, "Robot is below the expected angle range!");
+		if(sensors.getLeftEncoderSpeed()>0 && sensors.getRightEncoderSpeed()>0){
+			return new HealthReport(true,"Both L/R not moving!");
 		}
-		return new HealthReport();
+
+		else if(sensors.getLeftEncoderSpeed()>=0){
+			return new HealthReport(true,"RIO side not moving!");
+		}else if(sensors.getRightEncoderSpeed()>=0){
+			return new HealthReport(true,"Scissor Lift side not moving!");
+		}
+		
+		else if (sensors.getLeftEncoderDistance() > STARTING_LEFT-1) {
+			return new HealthReport(true, "RIO Side encoder is moving in the wrong direction!");
+		} else if (sensors.getRightEncoderDistance() > STARTING_RIGHT-1) {
+			return new HealthReport(true, "Scissor Side encoder is moving in the wrong direction!");
+		}
+
+		return new HealthReport(false,"All good");
 	}
 }

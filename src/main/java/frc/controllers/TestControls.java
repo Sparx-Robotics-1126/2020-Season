@@ -37,7 +37,7 @@ public class TestControls extends Controller {
     public void execute() {
         if(startTimeStamp == 0){
             startTimeStamp = System.currentTimeMillis();
-            drives.moveBackward(120);
+            drives.moveBackward(100);
             acq.startIntake();
             storage.indexBalls();
             shooter.testShooter();

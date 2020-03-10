@@ -24,6 +24,8 @@ public final class IO {
 	
 	public static final int STORAGE_MOTOR_1 		= 1;
 	public static final int STORAGE_MOTOR_2 		= 6;
+
+	public static final int STORAGE_AGITATOR		= 5;
 	
 	//SENSORS
 	public static final int TURRET_ENCODER_A 		= 10;

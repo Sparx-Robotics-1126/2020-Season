@@ -15,14 +15,15 @@ public class TeleopControls extends Controller {
 
 	private Joystick driverJoystick;
 	private Axis driverLeftAxis;
-    private Axis driverRightAxis;
+	private Axis driverRightAxis;
     private Button driverClimbingExtend;
     private Button driverClimbingRetract;
-    private Button driverClimbingWinch;
+	private Button driverClimbingWinch;
+	private Button driverClimbingUnwindWinch;
 	private Button driverClimbingWinchStop;
     
 	
-    private Joystick operatorJoystick;
+	private Joystick operatorJoystick;
     private AxisButton operatorPrepareToFireStart;
     private AxisButton operatorPrepareToFirePressed;
     private AxisButton operatorPrepareToFireEnd;
@@ -43,11 +44,12 @@ public class TeleopControls extends Controller {
         //DRIVER
         driverLeftAxis = new Axis(driverJoystick, ControllerMappings.XBOX_LEFT_Y, true);
         driverRightAxis = new Axis(driverJoystick, ControllerMappings.XBOX_RIGHT_Y, true);
-        driverClimbingExtend = new Button(driverJoystick, ControllerMappings.XBOX_Y);
+		driverClimbingExtend = new Button(driverJoystick, ControllerMappings.XBOX_Y);
         driverClimbingRetract = new Button(driverJoystick, ControllerMappings.XBOX_A);
         driverClimbingWinch = new Button(driverJoystick, ControllerMappings.XBOX_B);
         driverClimbingWinchStop = new Button(driverJoystick,ControllerMappings.XBOX_X);
-        
+		driverClimbingUnwindWinch = new Button(driverJoystick,ControllerMappings.XBOX_START,ButtonType.PRESSED);
+		
         //OPERATOR
         operatorPrepareToFireStart = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.RISING_EDGE);
         operatorPrepareToFirePressed = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.PRESSED);
@@ -72,6 +74,9 @@ public class TeleopControls extends Controller {
 		}
 		if(driverClimbingWinchStop.get()){
 			climbing.stopWinch();
+		}
+		if(driverClimbingUnwindWinch.get()){
+			climbing.unwindWinch();
 		}  
     	
     	//Operator

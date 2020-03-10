@@ -12,6 +12,7 @@ import frc.climbing.commands.ClimbingRetract;
 import frc.climbing.commands.ExtendScissorLift;
 import frc.climbing.commands.StartWinch;
 import frc.climbing.commands.StopWinch;
+import frc.climbing.commands.UnwindWinch;
 import frc.health.HealthReport;
 import frc.robot.IO;
 
@@ -55,7 +56,7 @@ public class Climbing extends Subsystem {
 	}
 
 	public void startWinch() {
-		winchingCommand = new StartWinch(sensors, 37);
+		winchingCommand = new StartWinch(sensors, 60);
 	}
 
 	public void extendScissorLift() {
@@ -68,6 +69,10 @@ public class Climbing extends Subsystem {
 
 	public void stopWinch() {
 		winchingCommand = new StopWinch(sensors);
+	}
+
+	public void unwindWinch() {
+		winchingCommand = new UnwindWinch(sensors, 0.5);
 	}
 
 	@Override

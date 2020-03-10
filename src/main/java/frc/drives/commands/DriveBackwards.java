@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
+import frc.health.HealthReport;
 
 public class DriveBackwards extends DrivesCommand {
 
@@ -13,6 +14,8 @@ public class DriveBackwards extends DrivesCommand {
 
 	private final double TARGET_DISTANCE;
 	private final double TARGET_ANGLE;
+	private final double STARTING_LEFT;
+	private final double STARTING_RIGHT;
 
 	public DriveBackwards(DrivesSensorInterface sensors, double distance) {
 		super(sensors);
@@ -23,6 +26,9 @@ public class DriveBackwards extends DrivesCommand {
 
 		TARGET_DISTANCE = sensors.getAverageEncoderDistance() - distance;
 		TARGET_ANGLE = sensors.getGyroAngle();
+
+		STARTING_LEFT = sensors.getLeftEncoderDistance();
+		STARTING_RIGHT = sensors.getRightEncoderDistance();
 	}
 
 	public DrivesOutput execute() {
@@ -47,5 +53,26 @@ public class DriveBackwards extends DrivesCommand {
 			return new DrivesOutput(0, 0, true);
 		}
 		return new DrivesOutput(leftSpeed, rightSpeed);
+	}
+	
+	@Override
+	public HealthReport checkHealth() {
+		if(sensors.getLeftEncoderSpeed() == 0 && sensors.getRightEncoderSpeed() == 0){
+			return new HealthReport(true,"Both L/R not moving!");
+		}
+
+		else if(sensors.getLeftEncoderSpeed() == 0){
+			return new HealthReport(true,"RIO side not moving!");
+		}else if(sensors.getRightEncoderSpeed() == 0){
+			return new HealthReport(true,"Scissor Lift side not moving!");
+		}
+		
+		else if (sensors.getLeftEncoderDistance() > STARTING_LEFT-1) {
+			return new HealthReport(true, "RIO Side encoder is moving in the wrong direction!");
+		} else if (sensors.getRightEncoderDistance() > STARTING_RIGHT-1) {
+			return new HealthReport(true, "Scissor Side encoder is moving in the wrong direction!");
+		}
+
+		return new HealthReport(false,"All good");
 	}
 }

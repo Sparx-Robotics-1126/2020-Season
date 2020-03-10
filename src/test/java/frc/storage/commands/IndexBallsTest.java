@@ -58,4 +58,5 @@ public class IndexBallsTest {
         output = dexter.execute();
         assertEquals(2, output.getNumOfBallsAquired(), 0);
     }
+    
 }

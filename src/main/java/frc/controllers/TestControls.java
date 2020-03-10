@@ -39,7 +39,7 @@ public class TestControls extends Controller {
             startTimeStamp = System.currentTimeMillis();
             drives.moveBackward(100);
             acq.startIntake();
-            storage.indexBalls();
+            storage.prepareForShooting();
             shooter.testShooter();
             climbing.extendScissorLift();
         }else if(startTimeStamp != Long.MAX_VALUE && System.currentTimeMillis() > startTimeStamp + RUNTIME){

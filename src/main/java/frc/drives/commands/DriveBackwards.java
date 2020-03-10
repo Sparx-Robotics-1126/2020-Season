@@ -16,11 +16,6 @@ public class DriveBackwards extends DrivesCommand {
 	private final double TARGET_ANGLE;
 	private final double STARTING_LEFT;
 	private final double STARTING_RIGHT;
-	
-	private double prevLeftDistance;
-	private double currentLeftDistance;
-	private double prevRightDistance;
-	private double currentRightDistance;
 
 	public DriveBackwards(DrivesSensorInterface sensors, double distance) {
 		super(sensors);
@@ -32,24 +27,13 @@ public class DriveBackwards extends DrivesCommand {
 		TARGET_DISTANCE = sensors.getAverageEncoderDistance() - distance;
 		TARGET_ANGLE = sensors.getGyroAngle();
 
-		prevLeftDistance = sensors.getLeftEncoderDistance();
-		currentLeftDistance = sensors.getLeftEncoderDistance();
-		prevRightDistance = sensors.getRightEncoderDistance();
-		currentRightDistance = sensors.getRightEncoderDistance();
-		STARTING_LEFT  = currentLeftDistance;
-		STARTING_RIGHT = currentRightDistance;
-		
+		STARTING_LEFT = sensors.getLeftEncoderDistance();
+		STARTING_RIGHT = sensors.getRightEncoderDistance();
 	}
 
 	public DrivesOutput execute() {
-		prevLeftDistance = currentLeftDistance;
-		prevRightDistance = currentRightDistance;
-				
 		double distanceError = TARGET_DISTANCE - sensors.getAverageEncoderDistance();
 		double angleError = TARGET_ANGLE - sensors.getGyroAngle();//Negative means too far right
-		
-		currentRightDistance = sensors.getRightEncoderDistance();
-		currentLeftDistance = sensors.getLeftEncoderDistance();
 
 		double leftSpeed, rightSpeed;
 		leftSpeed = rightSpeed = distanceError * DISTANCE_kP;
@@ -73,13 +57,13 @@ public class DriveBackwards extends DrivesCommand {
 	
 	@Override
 	public HealthReport checkHealth() {
-		if(sensors.getLeftEncoderSpeed()>0 && sensors.getRightEncoderSpeed()>0){
+		if(sensors.getLeftEncoderSpeed() == 0 && sensors.getRightEncoderSpeed() == 0){
 			return new HealthReport(true,"Both L/R not moving!");
 		}
 
-		else if(sensors.getLeftEncoderSpeed()>=0){
+		else if(sensors.getLeftEncoderSpeed() == 0){
 			return new HealthReport(true,"RIO side not moving!");
-		}else if(sensors.getRightEncoderSpeed()>=0){
+		}else if(sensors.getRightEncoderSpeed() == 0){
 			return new HealthReport(true,"Scissor Lift side not moving!");
 		}
 		

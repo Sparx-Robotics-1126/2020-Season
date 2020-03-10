@@ -7,7 +7,7 @@ public class HealthReport {
 
     public HealthReport(){
         this.error = false;
-        this.message = "No message";
+        this.message = "Good";
     }
 
     public HealthReport(boolean error, String message){

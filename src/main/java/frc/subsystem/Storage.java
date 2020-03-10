@@ -89,7 +89,11 @@ public class Storage extends Subsystem {
 
 	@Override
 	public HealthReport getHealthCheck() {
-		return storageCommand.checkHealth();
+		if(storageCommand != null) {
+			return storageCommand.checkHealth();
+		}else {
+			return new HealthReport();
+		}
 	}
 
 }

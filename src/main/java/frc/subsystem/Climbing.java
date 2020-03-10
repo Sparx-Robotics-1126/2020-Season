@@ -72,7 +72,7 @@ public class Climbing extends Subsystem {
 	}
 
 	public void unwindWinch() {
-		winchingCommand = new UnwindWinch(sensors,1);
+		winchingCommand = new UnwindWinch(sensors, 0.5);
 	}
 
 	@Override

@@ -17,14 +17,12 @@ public class UnwindWinch extends ClimbingCommand {
 
 		public ClimbingOutput execute() {
 			currentDistance = sensors.getWinchDistance();
-			System.out.println("Current"+currentDistance);
-			System.out.println("Wanted"+wantedDistance);
 			
 			if(currentDistance <= wantedDistance) {
 				System.out.println("Got here 2");
 				return new ClimbingOutput(0.0,true);
 			}
-			return new ClimbingOutput(-1.0,false);
+			return new ClimbingOutput(-0.5, false);
 		}
 
 }

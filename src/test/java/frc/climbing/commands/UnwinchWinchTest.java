@@ -12,9 +12,9 @@ public class UnwinchWinchTest{
 	public void underDistance_ShouldContinueToWinch() {
 		TestClimbingSensors sensors = new TestClimbingSensors();
 		sensors.winchDistance = 10;
-		ClimbingCommand command = new UnwindWinch(sensors, 0);
+		ClimbingCommand command = new UnwindWinch(sensors, 1);
 		ClimbingOutput output = command.execute();
-		assertEquals(-1, output.getOutput(), 0.0001);
+		assertEquals(-0.5, output.getOutput(), 0.0001);
 	}
 	
 	@Test

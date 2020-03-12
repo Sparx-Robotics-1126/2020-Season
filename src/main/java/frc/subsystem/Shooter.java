@@ -18,6 +18,7 @@ import frc.shooter.commands.ShooterSpeed;
 import frc.shooter.commands.StopShooter;
 import frc.shooter.commands.TestFlywheel;
 import frc.shooter.commands.CenterTurretCommand;
+import frc.shooter.commands.DoNothing;
 import frc.shooter.commands.LimelightTurret;
 
 public class Shooter extends Subsystem {
@@ -117,6 +118,12 @@ public class Shooter extends Subsystem {
 	public void testShooter() {
 		shooterCommand = new TestFlywheel(shooterSensors, driveSensors);
 		turretCommand = new ScanForTarget(shooterSensors, driveSensors);
+	}
+
+	public void pittShooter(){
+		shooterSensors.enableLimelight(true);
+		shooterCommand = new TestFlywheel(shooterSensors, driveSensors);
+		turretCommand = new DoNothing(shooterSensors, driveSensors);
 	}
 
 	@Override

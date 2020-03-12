@@ -82,7 +82,7 @@ public class AutoControl extends Controller{
 
 		//DRIVES
 		case DRIVE_FORWARD:
-			// drives.
+			drives.moveForward(currentTask.value1);
 			break;
 		case DRIVE_BACKWARDS:
 			drives.moveBackward(currentTask.value1);

@@ -27,6 +27,7 @@ public class Drives extends Subsystem {
      * This is the used to scale the motor output with battery performance
      */
     private static final double DRIVES_MAX_VOLTAGE = 12.0;
+    private static final double MAX_CURRENT = 40;
 
     /**
      * Current drives action being run Example: DrivesForward, Turn Right,
@@ -56,6 +57,11 @@ public class Drives extends Subsystem {
 
         driveSensors.addEncoders(leftMotorMaster.getEncoder(), rightMotorMaster.getEncoder());
         drivesSensors = driveSensors;
+
+        rightMotorMaster.setSmartCurrentLimit(40);
+        leftMotorSlave.setSmartCurrentLimit(40);
+        rightMotorSlave.setSmartCurrentLimit(40);
+        leftMotorSlave.setSmartCurrentLimit(40);
     }
 
     /**
@@ -106,8 +112,8 @@ public class Drives extends Subsystem {
 
     }
 
-    public void moveForward(double distance, double maxSpeed) {
-        drivesCommand = new DriveForward(drivesSensors, maxSpeed, distance);
+    public void moveForward(double distance) {
+        drivesCommand = new DriveForward(drivesSensors, distance);
     }
 
     public void moveBackward(double distance) {

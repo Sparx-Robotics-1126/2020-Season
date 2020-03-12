@@ -61,7 +61,7 @@ public class DrivesSensors implements DrivesSensorInterface {
 
 	@Override
 	public double getGyroAngle() {
-		return gyro.getAngle();
+		return -gyro.getAngle();
 	}
 
 	@Override

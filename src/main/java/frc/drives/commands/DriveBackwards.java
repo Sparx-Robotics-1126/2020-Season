@@ -1,6 +1,5 @@
 package frc.drives.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.drives.DrivesCommand;
 import frc.drives.DrivesOutput;
 import frc.drives.DrivesSensorInterface;
@@ -44,9 +43,9 @@ public class DriveBackwards extends DrivesCommand {
 		double gyroOffset = angleError * GYRO_kP;
 
 		if(gyroOffset > 0){//Too Far Left
-			rightSpeed += gyroOffset;
-		}else{
 			leftSpeed -= gyroOffset;
+		}else{
+			rightSpeed += gyroOffset;
 		}
 
 		if(sensors.getAverageEncoderDistance() < TARGET_DISTANCE + DISTANCE_DEADBAND){

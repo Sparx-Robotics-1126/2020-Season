@@ -9,7 +9,6 @@ import frc.shooter.ShooterSensorsInterfeace;
 public class TestFlywheel extends ShooterCommand{
 
 	private double currentSpeed;
-	private double previousSpeed;
 	
 	public TestFlywheel(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors) {
 		super(sensors, driveSensors);
@@ -17,7 +16,7 @@ public class TestFlywheel extends ShooterCommand{
 	
 	@Override
 	public ShooterOutput execute(){
-		return new ShooterOutput(20);
+		return new ShooterOutput(20, true);
 		
 	}
 	@Override 

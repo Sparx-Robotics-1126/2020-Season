@@ -13,7 +13,6 @@ public class TestFlywheel extends ShooterCommand{
 	
 	public TestFlywheel(ShooterSensorsInterfeace sensors, DrivesSensorInterface driveSensors) {
 		super(sensors, driveSensors);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

@@ -2,9 +2,7 @@ package frc.controllers;
 
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.controllers.Button.ButtonType;
-import frc.sensors.Limelight;
 import frc.subsystem.Acquisitions;
 import frc.subsystem.Climbing;
 import frc.subsystem.Drives;
@@ -29,7 +27,9 @@ public class TeleopControls extends Controller {
     private AxisButton operatorPrepareToFireEnd;
     private AxisButton operatorFire;
     private Button operatorAcqAcquire;
-    private Button operatorAcqStopAcquire;
+	private Button operatorAcqStopAcquire;
+	private Button operatorPrepareToFireStartInPitts;
+	private Button operatorPrepareToFireStartInPittsEnded;
 	
 	/**
 	 * Constructor - created by SubsystemManager.java
@@ -51,8 +51,10 @@ public class TeleopControls extends Controller {
 		driverClimbingUnwindWinch = new Button(driverJoystick,ControllerMappings.XBOX_START,ButtonType.PRESSED);
 		
         //OPERATOR
-        operatorPrepareToFireStart = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.RISING_EDGE);
-        operatorPrepareToFirePressed = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.PRESSED);
+		operatorPrepareToFireStart = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.RISING_EDGE);
+		operatorPrepareToFirePressed = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.PRESSED);
+		operatorPrepareToFireStartInPitts = new Button(operatorJoystick, ControllerMappings.XBOX_L1, ButtonType.RISING_EDGE);
+		operatorPrepareToFireStartInPittsEnded = new Button(operatorJoystick, ControllerMappings.XBOX_L1, ButtonType.FALLING_EDGE);
         operatorPrepareToFireEnd = new AxisButton(operatorJoystick, ControllerMappings.XBOX_L2, ButtonType.FALLING_EDGE);
         operatorFire = new AxisButton(operatorJoystick, ControllerMappings.XBOX_R2, ButtonType.PRESSED);
         operatorAcqAcquire = new Button(operatorJoystick, ControllerMappings.XBOX_A);
@@ -83,12 +85,15 @@ public class TeleopControls extends Controller {
     	if(operatorPrepareToFireStart.get()) {
     		shooter.startLimelightAiming();
     		storage.prepareForShooting();
+		}
+		if(operatorPrepareToFireStartInPitts.get()) {
+    		shooter.pittShooter();
+    		storage.prepareForShooting();
     	}
     	if(operatorFire.get() && shooter.isReadyToShoot() && storage.isDone()) {
     		storage.shoot();
     	}
-    	if(operatorPrepareToFireEnd.get()) {
-    		storage.indexBalls();
+    	if(operatorPrepareToFireEnd.get() || operatorPrepareToFireStartInPittsEnded.get()) {
     		shooter.centerTurret();
     		setRumble(driverJoystick, 0);
     		setRumble(operatorJoystick, 0);
@@ -96,7 +101,7 @@ public class TeleopControls extends Controller {
     	if(operatorAcqAcquire.get()) {
     		storage.indexBalls();
     		acq.startIntake();
-    		setRumble(operatorJoystick, 0.1);
+    		setRumble(operatorJoystick, 0.3);
     	}
     	if(operatorAcqStopAcquire.get()) {
     		acq.stopRollers();
@@ -107,9 +112,9 @@ public class TeleopControls extends Controller {
     	if(operatorPrepareToFirePressed.get()) {
     		double rumbleValue = 0;
     		if(operatorFire.get()) {
-    			rumbleValue = 0.75;
+    			rumbleValue = 1;
     		}else if(shooter.isReadyToShoot()) {
-    			rumbleValue = 0.25;
+    			rumbleValue = 0.5;
     		}
     		setRumble(driverJoystick, rumbleValue);
     		setRumble(operatorJoystick, rumbleValue);
